@@ -1,15 +1,11 @@
 import {isString, isNil} from 'lodash';
-import * as verifyGit from '@semantic-release/git/lib/verify';
-import {resolveConfig} from './resolve-config';
-import {getError} from './get-error';
+import {resolveConfig} from './helpers/resolve-config';
+import {getError} from './helpers/get-error';
 
 const AggregateError = require('aggregate-error');
 const isNonEmptyString = (value) => isString(value) && value.trim();
 
 export function verify(pluginConfig) {
-    // Verify Git plugin settings
-    verifyGit(pluginConfig);
-
     const VALIDATORS = {
         branchName: isNonEmptyString,
     };

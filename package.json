@@ -1,7 +1,7 @@
 {
   "name": "@saithodev/semantic-release-backmerge",
   "description": "NPM template package",
-  "version": "1.0.0-dev",
+  "version": "0.0.0-development",
   "author": "Mario Lubenka",
   "license": "MIT",
   "keywords": [
@@ -24,24 +24,26 @@
     "commit": "git-cz"
   },
   "dependencies": {
-    "@semantic-release/error": "^2.1.0",
-    "@semantic-release/git": "^8.0.0",
-    "aggregate-error": "^3.0.0",
-    "lodash": "^4.17.15"
+    "@semantic-release/error": "^2.2.0",
+    "aggregate-error": "^3.0.1",
+    "lodash": "^4.17.15",
+    "execa": "^4.0.0",
+    "debug": "^4.0.0"
   },
   "devDependencies": {
     "@saithodev/semantic-release-sharedconf-npm": "^2.0.2",
     "@types/aggregate-error": "^1.0.1",
-    "@types/jest": "^24.0.23",
+    "@types/jest": "^24.9.1",
     "@types/node": "^13.5.0",
+    "@types/semantic-release": "^15.13.1",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
     "jest": "^24.9.0",
-    "semantic-release": "^16.0.1",
-    "ts-jest": "^24.2.0",
+    "semantic-release": "^16.0.3",
+    "ts-jest": "^24.3.0",
     "ts-mockito": "^2.5.0",
     "typedoc": "^0.15.8",
-    "typescript": "^3.7.3"
+    "typescript": "^3.7.5"
   },
   "config": {
     "commitizen": {

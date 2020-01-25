@@ -7,7 +7,9 @@ dependencies:
 devDependencies:
   '@saithodev/semantic-release-sharedconf-npm': 2.0.2_semantic-release@16.0.3
   '@types/jest': 24.9.1
+  '@types/lodash': 4.14.149
   '@types/node': 13.5.0
+  '@types/semantic-release': 15.13.1
   commitizen: 4.0.3
   cz-conventional-changelog: 3.0.2
   jest: 24.9.0
@@ -668,6 +670,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Fb38HkXSVA4L8fGKEZ6le5bB8r6MRWlOCZbVuWZcmOMSCd2wCYOwN1ibj8daIoV9naq7aaOZjrLCoCMptKU/4Q==
+  /@types/lodash/4.14.149:
+    dev: true
+    resolution:
+      integrity: sha512-ijGqzZt/b7BfzcK9vTrS6MFljQRPn5BFWOx8oE0GYxribu6uV+aA9zZuXI1zc/etK9E8nrgdoF2+LgUw7+9tJQ==
   /@types/minimatch/3.0.3:
     dev: true
     resolution:
@@ -700,6 +706,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-wWKOClTTiizcZhXnPY4wikVAwmdYHp8q6DmC+EJUzAMsycb7HB32Kh9RN4+0gExjmPmZSAQjgURXIGATPegAvA==
+  /@types/semantic-release/15.13.1:
+    dependencies:
+      '@types/node': 13.5.0
+    dev: true
+    resolution:
+      integrity: sha512-oWWJ8f3ChRxmw9G0aXCkq9BEE8dA97XbftWZXeg1x4NN6SckE7zXqbv5urO+Ekenb6VwF9X8aAh06EE6qPUkFA==
   /@types/stack-utils/1.0.1:
     dev: true
     resolution:
@@ -3262,6 +3274,9 @@ packages:
       node: '>=6'
     peerDependencies:
       jest-resolve: '*'
+    peerDependenciesMeta:
+      jest-resolve:
+        optional: true
     resolution:
       integrity: sha512-pgFw2tm54fzgYvc/OHrnysABEObZCUNFnhjoRjaVOCN8NYc032/gVjPaHD4Aq6ApkSieWtfKAFQtmDKAmhupnQ==
   /jest-regex-util/24.9.0:
@@ -6259,7 +6274,9 @@ specifiers:
   '@saithodev/semantic-release-sharedconf-npm': ^2.0.2
   '@semantic-release/error': ^2.2.0
   '@types/jest': ^24.9.1
+  '@types/lodash': ^4.14.149
   '@types/node': ^13.5.0
+  '@types/semantic-release': ^15.13.1
   aggregate-error: ^3.0.1
   commitizen: ^4.0.3
   cz-conventional-changelog: ^3.0.2

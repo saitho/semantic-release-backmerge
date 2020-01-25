@@ -1,0 +1,10 @@
+.idea
+*.iml
+node_modules
+dist
+*.js
+!jest.config.js
+coverage
+docs
+.scannerwork/
+saitho-npm-test-*.tgz

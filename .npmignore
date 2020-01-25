@@ -1,0 +1,10 @@
+src/*
+test/*
+*.ts
+tsconfig.json
+*.iml
+.idea
+jest.config.js
+.travis.yml
+coverage
+sonar-project.properties

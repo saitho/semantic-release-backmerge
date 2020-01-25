@@ -1,0 +1,6 @@
+{
+  "extends": "@saithodev/semantic-release-sharedconf-npm",
+  "branches": [
+    "master"
+  ]
+}

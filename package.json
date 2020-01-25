@@ -1,0 +1,40 @@
+{
+  "name": "@saithodev/semantic-release-backmerge",
+  "description": "NPM template package",
+  "version": "1.0.0-dev",
+  "author": "Mario Lubenka",
+  "license": "MIT",
+  "keywords": ["semantic-release", "git", "backmerge", "Git Flow"],
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/saitho/semantic-release-backmerge.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "docs:build": "typedoc --out ./docs --mode modules --tsconfig ./tsconfig.json ./src/",
+    "test": "jest --detectOpenHandles --coverage --verbose",
+    "semantic-release": "semantic-release",
+    "commit": "git-cz"
+  },
+  "dependencies": {
+    "@semantic-release/error": "^2.1.0"
+  },
+  "devDependencies": {
+    "@saithodev/semantic-release-sharedconf-npm": "^2.0.2",
+    "@types/jest": "^24.0.23",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.0.2",
+    "jest": "^24.9.0",
+    "semantic-release": "^16.0.1",
+    "ts-jest": "^24.2.0",
+    "ts-mockito": "^2.5.0",
+    "typedoc": "^0.15.8",
+    "typescript": "^3.7.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

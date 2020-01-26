@@ -1,6 +1,5 @@
 import {resolveConfig} from "./helpers/resolve-config";
 import Git from "./helpers/git";
-import * as srPlugins from "semantic-release/lib/plugins";
 import {template} from 'lodash';
 
 export async function performBackmerge(git: Git, pluginConfig, context) {
@@ -56,11 +55,25 @@ export async function performBackmerge(git: Git, pluginConfig, context) {
 }
 
 async function triggerPluginHooks(pluginConfig, context) {
-    const subcontext: any = {...context};
-    subcontext.options.plugins = pluginConfig.plugins || [];
-    if (!subcontext.options.plugins.length) {
-        return;
+    for(const plugin of pluginConfig.plugins) {
+        let packageName;
+        let subpluginConfig = {};
+        if (Array.isArray(plugin)) {
+            packageName = plugin[0];
+            subpluginConfig = plugin[1];
+        } else if(typeof plugin === 'string') {
+            packageName = plugin;
+        } else {
+            context.logger.log('Invalid plugin provided. Expected string or array, got ' + (typeof plugin));
+            continue;
+        }
+
+        const pluginPackage = require(packageName);
+        if (typeof pluginPackage.success !== 'function') {
+            context.logger.log('Method "success" not found in package ' + packageName + '.');
+            continue;
+        }
+        context.logger.log('Executing "success" step of package ' + packageName);
+        pluginPackage.success(subpluginConfig, context);
     }
-    const plugins: any = await srPlugins(subcontext, {});
-    await plugins.success(context);
 }

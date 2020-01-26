@@ -1,6 +1,6 @@
 {
   "name": "@saithodev/semantic-release-backmerge",
-  "description": "NPM template package",
+  "description": "semantic-release plugin to back-merge a release into a develop branch",
   "version": "1.0.0",
   "author": "Mario Lubenka",
   "license": "MIT",

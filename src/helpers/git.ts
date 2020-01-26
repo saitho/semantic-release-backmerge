@@ -88,7 +88,7 @@ export default class Git {
 
     getStagedFiles(): Promise<string[]> {
         return new Promise<string[]>(async (resolve, reject) => {
-            execa('git', ['status', '-s', '-uno', '|', 'grep', '-v', '^ ', '|', 'awk', '{print $2}'])
+            execa('git', ['status', '-s', '-uno'])
                 .then((result) => {
                     if (result.stderr) {
                         reject(result.stderr);

@@ -1,7 +1,7 @@
 {
   "name": "@saithodev/semantic-release-backmerge",
   "description": "NPM template package",
-  "version": "0.0.0-development",
+  "version": "1.0.0",
   "author": "Mario Lubenka",
   "license": "MIT",
   "keywords": [

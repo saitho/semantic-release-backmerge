@@ -41,8 +41,6 @@ export async function performBackmerge(git: Git, pluginConfig, context) {
     await triggerPluginHooks(pluginConfig, context);
     const stagedFiles = await git.getStagedFiles();
     context.logger.log('Found ' + stagedFiles.length + ' staged files for back-merge commit');
-    const logger: any = context.logger;
-
     if (stagedFiles.length) {
         for (const file of stagedFiles) {
             context.logger.log(file);
@@ -59,8 +57,10 @@ export async function performBackmerge(git: Git, pluginConfig, context) {
 
 async function triggerPluginHooks(pluginConfig, context) {
     const subcontext: any = {...context};
-    subcontext.options.plugins = pluginConfig.plugins;
+    subcontext.options.plugins = pluginConfig.plugins || [];
+    if (!subcontext.options.plugins.length) {
+        return;
+    }
     const plugins: any = await srPlugins(subcontext, {});
-
-    return plugins.success(context);
+    await plugins.success(context);
 }

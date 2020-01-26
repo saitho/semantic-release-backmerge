@@ -13,11 +13,12 @@ describe("perform-backmerge", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
+        when(mockedGit.getStagedFiles()).thenResolve([]);
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo', plugins: []}};
         performBackmerge(instance(mockedGit), {branchName: 'develop'}, context)
             .then(() => {
                 verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();

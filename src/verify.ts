@@ -1,4 +1,4 @@
-import {isString, isNil} from 'lodash';
+import {isString, isNil, isArray} from 'lodash';
 import {resolveConfig} from './helpers/resolve-config';
 import {getError} from './helpers/get-error';
 
@@ -8,6 +8,8 @@ const isNonEmptyString = (value) => isString(value) && value.trim();
 export function verify(pluginConfig) {
     const VALIDATORS = {
         branchName: isNonEmptyString,
+        message: isNonEmptyString,
+        plugins: isArray,
     };
 
     const options = resolveConfig(pluginConfig);

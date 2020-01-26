@@ -1,11 +1,18 @@
 import {resolveConfig} from "./helpers/resolve-config";
 import Git from "./helpers/git";
+import * as srPlugins from "semantic-release/lib/plugins";
+import {template} from 'lodash';
 
 export async function performBackmerge(git: Git, pluginConfig, context) {
+    const {
+        branch,
+        lastRelease,
+        nextRelease
+    }: any = context;
     const options = resolveConfig(pluginConfig);
-
-    const masterBranchName = context.branch.name;
+    const masterBranchName = branch.name;
     const developBranchName: string = options.branchName;
+    const message = options.message;
 
     if (developBranchName === masterBranchName) {
         context.logger.error(
@@ -30,5 +37,30 @@ export async function performBackmerge(git: Git, pluginConfig, context) {
 
     await git.checkout(developBranchName);
     await git.rebase(masterBranchName);
+
+    await triggerPluginHooks(pluginConfig, context);
+    const stagedFiles = await git.getStagedFiles();
+    context.logger.log('Found ' + stagedFiles.length + ' staged files for back-merge commit');
+    const logger: any = context.logger;
+
+    if (stagedFiles.length) {
+        for (const file of stagedFiles) {
+            context.logger.log(file);
+        }
+        await git.commit(
+            message
+                ? template(message)({branch: branch.name, lastRelease, nextRelease})
+                : `chore(release): Preparations for next release [skip ci]`
+        );
+    }
+
     await git.push(context.options.repositoryUrl, developBranchName);
+}
+
+async function triggerPluginHooks(pluginConfig, context) {
+    const subcontext: any = {...context};
+    subcontext.options.plugins = pluginConfig.plugins;
+    const plugins: any = await srPlugins(subcontext, {});
+
+    return plugins.success(context);
 }

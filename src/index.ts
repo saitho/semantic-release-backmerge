@@ -12,12 +12,14 @@ let verified = false;
  * @param pluginConfig
  * @param context
  */
-export function verifyConditions(pluginConfig, context: Context) {
+export async function verifyConditions(pluginConfig, context: Context) {
     const {options} = context;
     if (options.prepare) {
         const preparePlugin = castArray(options.prepare)
                 .find(config => config.path && config.path === '@saithodev/semantic-release-backmerge') || {};
         pluginConfig.branchName = defaultTo(pluginConfig.branchName, preparePlugin.branchName);
+        pluginConfig.message = defaultTo(pluginConfig.message, preparePlugin.message);
+        pluginConfig.plugins = defaultTo(pluginConfig.plugins, preparePlugin.plugins);
     }
 
     verify(pluginConfig);

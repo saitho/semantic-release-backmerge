@@ -10,4 +10,16 @@ export const ERROR_DEFINITIONS = {
             'README.md#branchName'
         )}) option must be a \`String\`. Your configuration for the \`branchName\` option is \`${branchName}\`.`,
     }),
+    EINVALIDMESSAGE: ({message}) => ({
+        message: 'Invalid `message` option.',
+        details: `The [message option](${linkify('README.md#message')}) option, if defined, must be a non empty \`String\`.
+
+Your configuration for the \`successComment\` option is \`${message}\`.`,
+    }),
+    EINVALIDPLUGINS: () => ({
+        message: 'Invalid `plugins` option.',
+        details: `The [plugins option](${linkify(
+            'README.md#plugins'
+        )}) option must be an \`Array\`.`,
+    }),
 };

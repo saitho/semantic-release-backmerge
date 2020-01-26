@@ -1,5 +1,4 @@
 import * as execa from 'execa';
-import {ExecaReturnValue} from 'execa';
 const debug = require('debug')('semantic-release:backmerge');
 
 export default class Git {
@@ -22,7 +21,7 @@ export default class Git {
             'git',
             ['add', '--force', '--ignore-errors', ...files],
             {...this.execaOpts, reject: false}
-            );
+        );
         debug('add file to git index', shell);
     }
 
@@ -33,8 +32,8 @@ export default class Git {
      *
      * @throws {Error} if the commit failed.
      */
-    commit(message: string) {
-        return execa('git', ['commit', '-m', message], this.execaOpts);
+    async commit(message: string) {
+        await execa('git', ['commit', '-m', message], this.execaOpts);
     }
 
     /**
@@ -87,6 +86,19 @@ export default class Git {
         await execa('git', ['checkout', branch], this.execaOpts);
     }
 
+    getStagedFiles(): Promise<string[]> {
+        return new Promise<string[]>(async (resolve, reject) => {
+            execa('git', ['status', '-s', '-uno', '|', 'grep', '-v', '^ ', '|', 'awk', '{print $2}'])
+                .then((result) => {
+                    if (result.stderr) {
+                        reject(result.stderr);
+                    }
+                    const lines = result.stdout.split('\n');
+                    resolve( lines.filter((item) => item.length) );
+                })
+                .catch((error) => reject(error));
+        })
+    }
 
     /**
      * Rebases the currently checked out branch onto another branch.

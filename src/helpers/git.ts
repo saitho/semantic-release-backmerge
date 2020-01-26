@@ -45,31 +45,57 @@ export default class Git {
      *
      * @throws {Error} if the push failed.
      */
-    push(origin: string, branch: string) {
-        return execa('git', ['push', origin, `HEAD:${branch}`], this.execaOpts);
+    async push(origin: string, branch: string) {
+        await execa('git', ['push', origin, `HEAD:${branch}`], this.execaOpts);
     }
 
-    fetch() {
-        return execa('git', ['fetch', '-p'], this.execaOpts);
+
+    /**
+     * Fetch commits from the remote repository.
+     *
+     * @throws {Error} if the fetch failed.
+     */
+    async fetch() {
+        await execa('git', ['fetch', '-p'], this.execaOpts);
     }
 
-    configFetchAllRemotes() {
-        return execa(
+    /**
+     * Configures Git to fetch all references
+     *
+     * @throws {Error} if the config failed.
+     */
+    async configFetchAllRemotes() {
+        await execa(
             'git',
             ['config', 'remote.origin.fetch', '+refs/heads/*:refs/remotes/origin/*'],
             this.execaOpts
         );
     }
 
-    async checkout(branch: string): Promise<ExecaReturnValue> {
+    /**
+     * Checks out a branch from the remote repository.
+     *
+     * @param {String} branch The branch to check out.
+     *
+     * @throws {Error} if the checkout failed.
+     */
+    async checkout(branch: string) {
         try {
             await execa('git', ['branch', branch, 'origin/' + branch]);
         } catch (e) {
         }
-        return execa('git', ['checkout', branch], this.execaOpts);
+        await execa('git', ['checkout', branch], this.execaOpts);
     }
 
-    rebase(baseBranch: string) {
-        return execa('git', ['rebase', `origin/${baseBranch}`], this.execaOpts);
+
+    /**
+     * Rebases the currently checked out branch onto another branch.
+     *
+     * @param {String} branch The branch to rebase onto.
+     *
+     * @throws {Error} if the rebase failed.
+     */
+    async rebase(branch: string) {
+        await execa('git', ['rebase', `origin/${branch}`], this.execaOpts);
     }
 }

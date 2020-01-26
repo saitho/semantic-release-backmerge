@@ -2,6 +2,7 @@ import {defaultTo, castArray} from 'lodash';
 import {verify} from "./verify";
 import {performBackmerge} from "./perform-backmerge";
 import {Context} from "semantic-release";
+import Git from "./helpers/git";
 
 let verified = false;
 
@@ -13,7 +14,6 @@ let verified = false;
  */
 export function verifyConditions(pluginConfig, context: Context) {
     const {options} = context;
-    // If the Git prepare plugin is used and has `assets` or `message` configured, validate them now in order to prevent any release if the configuration is wrong
     if (options.prepare) {
         const preparePlugin = castArray(options.prepare)
                 .find(config => config.path && config.path === '@saithodev/semantic-release-backmerge') || {};
@@ -35,5 +35,7 @@ export async function success(pluginConfig, context: Context) {
         verified = true;
     }
 
-    await performBackmerge(pluginConfig, context);
+    const {env, cwd}: any = context;
+    const git = new Git({env, cwd});
+    await performBackmerge(git, pluginConfig, context);
 }

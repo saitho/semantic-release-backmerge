@@ -86,6 +86,10 @@ export default class Git {
         await execa('git', ['checkout', branch], this.execaOpts);
     }
 
+    /**
+     * Get list of files that are included in next commit
+     * Each entry consists of the status and the file path.
+     */
     getStagedFiles(): Promise<string[]> {
         return new Promise<string[]>(async (resolve, reject) => {
             execa('git', ['status', '-s', '-uno'])

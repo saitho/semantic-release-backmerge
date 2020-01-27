@@ -58,11 +58,6 @@ export async function performBackmerge(git: Git, pluginConfig, context) {
 async function triggerPluginHooks(pluginConfig, context) {
     context.logger.log('Loading plugins');
     const plugins = loadPlugins(pluginConfig, context);
+    context.logger.log('Executing "done" step of plugins');
     await plugins.success(context);
-    return;
-
-    for(const packageName in pluginConfig.plugins) {
-        context.logger.log('Executing "success" step of package ' + packageName);
-        await pluginConfig.plugins[packageName].success(context);
-    }
 }

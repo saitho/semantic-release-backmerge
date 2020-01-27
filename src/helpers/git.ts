@@ -92,15 +92,6 @@ export default class Git {
     }
 
     /**
-     * Pulls commits for the current branch from the remote repository.
-     *
-     * @throws {Error} if the checkout failed.
-     */
-    async pull() {
-        await execa('git', ['pull'], this.execaOpts);
-    }
-
-    /**
      * Get list of files that are included in next commit
      * Each entry consists of the status and the file path.
      */

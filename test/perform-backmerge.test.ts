@@ -58,8 +58,7 @@ describe("perform-backmerge", () => {
             .catch((error) => done(error));
     });
 
-
-    it("plugin adding files to Git cause commit", (done) => {
+    it("if files were changed a commit will be created", async () => {
         const mockedGit = mock(Git);
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
@@ -73,48 +72,23 @@ describe("perform-backmerge", () => {
 
         const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
 
-        let success1Called = false;
-        let success2Called = false;
-
-        // Mocked packages must exist in package.json. So we use package that are not used in the file itself
-        jest.mock('typedoc', () => {
-            return {
-                success: function (pluginConfig, context) {
-                    success1Called = true;
-                }
-            }
-        });
-        jest.mock('typescript', () => {
-            return {
-                success: function (pluginConfig, context) {
-                    success2Called = pluginConfig.someConfig;
-                }
-            }
-        });
-
-        performBackmerge(
+        await performBackmerge(
             instance(mockedGit),
             {
                 branchName: 'develop',
                 message: 'my-commit-message',
-                plugins: ['typedoc', ['typescript', { someConfig: true }]]
+                plugins: [] // plugin interactions are tested in helpers/plugins test
             },
             context
-        )
-            .then(() => {
-                verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
-                verify(mockedGit.checkout('master')).once();
-                verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch()).once();
-                verify(mockedGit.checkout('develop')).once();
-                verify(mockedGit.rebase('master')).once();
-                verify(mockedGit.commit('my-commit-message')).once();
-                verify(mockedGit.push('my-repo', 'develop', false)).once();
-                expect(success1Called).toBe(true);
-                expect(success2Called).toBe(true);
-                done();
-            })
-            .catch((error) => done(error));
+        );
+        verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
+        verify(mockedGit.checkout('master')).once();
+        verify(mockedGit.configFetchAllRemotes()).once();
+        verify(mockedGit.fetch()).once();
+        verify(mockedGit.checkout('develop')).once();
+        verify(mockedGit.rebase('master')).once();
+        verify(mockedGit.commit('my-commit-message')).once();
+        verify(mockedGit.push('my-repo', 'develop', false)).once();
     });
 
     it("logs error if master branch is the same as develop branch", async () => {

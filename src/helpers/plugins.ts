@@ -43,6 +43,7 @@ export function loadPlugins(pluginConfig: any, context): PluginGroup {
             context.logger.log('Method "success" not found in package ' + packageName + '.');
             continue;
         }
+        context.logger.log('Plugin ' + packageName + ' loaded successfully.');
         plugins.push({packageName, pluginConfig, pluginPackage});
     }
 

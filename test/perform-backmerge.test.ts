@@ -15,7 +15,6 @@ describe("perform-backmerge", () => {
         when(mockedGit.configFetchAllRemotes()).thenResolve();
         when(mockedGit.getStagedFiles()).thenResolve([]);
         when(mockedGit.fetch()).thenResolve();
-        when(mockedGit.pull()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
@@ -26,7 +25,6 @@ describe("perform-backmerge", () => {
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
                 verify(mockedGit.fetch()).once();
-                verify(mockedGit.pull()).twice();
                 verify(mockedGit.checkout('develop')).once();
                 verify(mockedGit.rebase('master')).once();
                 verify(mockedGit.push('my-repo', 'develop', false)).once();
@@ -55,6 +53,65 @@ describe("perform-backmerge", () => {
                 verify(mockedGit.checkout('develop')).once();
                 verify(mockedGit.rebase('master')).once();
                 verify(mockedGit.push('my-repo', 'develop', true)).once();
+                done();
+            })
+            .catch((error) => done(error));
+    });
+
+
+    it("plugin adding files to Git cause commit", (done) => {
+        const mockedGit = mock(Git);
+        const mockedLogger = mock(NullLogger);
+        when(mockedGit.checkout(anyString())).thenResolve();
+        when(mockedGit.configFetchAllRemotes()).thenResolve();
+        when(mockedGit.getStagedFiles())
+            .thenReturn(new Promise<string[]>(resolve => resolve(['A    file-changed-by-plugin.md'])));
+        when(mockedGit.fetch()).thenResolve();
+        when(mockedGit.commit(anyString())).thenResolve();
+        when(mockedGit.rebase(anyString())).thenResolve();
+        when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
+
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+
+        let success1Called = false;
+        let success2Called = false;
+
+        // Mocked packages must exist in package.json. So we use package that are not used in the file itself
+        jest.mock('typedoc', () => {
+            return {
+                success: function (pluginConfig, context) {
+                    success1Called = true;
+                }
+            }
+        });
+        jest.mock('typescript', () => {
+            return {
+                success: function (pluginConfig, context) {
+                    success2Called = pluginConfig.someConfig;
+                }
+            }
+        });
+
+        performBackmerge(
+            instance(mockedGit),
+            {
+                branchName: 'develop',
+                message: 'my-commit-message',
+                plugins: ['typedoc', ['typescript', { someConfig: true }]]
+            },
+            context
+        )
+            .then(() => {
+                verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
+                verify(mockedGit.checkout('master')).once();
+                verify(mockedGit.configFetchAllRemotes()).once();
+                verify(mockedGit.fetch()).once();
+                verify(mockedGit.checkout('develop')).once();
+                verify(mockedGit.rebase('master')).once();
+                verify(mockedGit.commit('my-commit-message')).once();
+                verify(mockedGit.push('my-repo', 'develop', false)).once();
+                expect(success1Called).toBe(true);
+                expect(success2Called).toBe(true);
                 done();
             })
             .catch((error) => done(error));

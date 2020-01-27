@@ -60,7 +60,7 @@ export default class Git {
      * @throws {Error} if the fetch failed.
      */
     async fetch() {
-        await execa('git', ['fetch', '-p'], this.execaOpts);
+        await execa('git', ['fetch'], this.execaOpts);
     }
 
     /**
@@ -84,10 +84,10 @@ export default class Git {
      * @throws {Error} if the checkout failed.
      */
     async checkout(branch: string) {
-        try {
-            await execa('git', ['branch', branch, 'origin/' + branch]);
-        } catch (e) {
-        }
+        // try {
+        //     await execa('git', ['branch', branch, 'origin/' + branch]);
+        // } catch (e) {
+        // }
         await execa('git', ['checkout', branch], this.execaOpts);
     }
 
@@ -97,11 +97,8 @@ export default class Git {
      */
     getStagedFiles(): Promise<string[]> {
         return new Promise<string[]>(async (resolve, reject) => {
-            execa('git', ['status', '-s', '-uno'])
+            execa('git', ['status', '-s', '-uno'], this.execaOpts)
                 .then((result) => {
-                    if (result.stderr) {
-                        reject(result.stderr);
-                    }
                     const lines = result.stdout.split('\n');
                     resolve( lines.filter((item) => item.length) );
                 })

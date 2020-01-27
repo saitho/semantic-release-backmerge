@@ -32,14 +32,15 @@ export class PluginGroup {
 export function loadPlugins(parentPluginConfig: any, context): PluginGroup {
     const plugins = [];
     for (const plugin of parentPluginConfig.plugins) {
-        const {packageName, pluginConfig} = getPackageData(plugin);
-        if (!packageName) {
+        const packageData = getPackageData(plugin);
+        if (!packageData) {
             context.logger.log('Invalid plugin provided. Expected string or array, got ' + (typeof plugin));
             continue;
         }
+        const {packageName, pluginConfig} = packageData;
 
         const pluginPackage = require(packageName);
-        if (typeof pluginPackage.success !== 'function') {
+        if (!pluginPackage.hasOwnProperty('success') || typeof pluginPackage.success !== 'function') {
             context.logger.log('Method "success" not found in package ' + packageName + '.');
             continue;
         }

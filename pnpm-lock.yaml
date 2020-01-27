@@ -14,6 +14,7 @@ devDependencies:
   cz-conventional-changelog: 3.0.2
   jest: 25.1.0
   semantic-release: 16.0.3_semantic-release@16.0.3
+  semantic-release-github-pr: github.com/mysterycommand/semantic-release-github-pr/9f1cce634b1c373551b61ed276497304dd1a27e9_semantic-release@16.0.3
   ts-jest: 25.0.0_jest@25.1.0
   ts-mockito: 2.5.0
   typedoc: 0.15.8
@@ -828,6 +829,14 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-kL5CuoXA/dgxlBbVrflsflzQ3PAas7RYZB52NOm/6839iVYJgKMJ3cQJD+t2i5+qFa8h3MDpEOJiS64E8JLnSQ==
+  /agent-base/4.3.0:
+    dependencies:
+      es6-promisify: 5.0.0
+    dev: true
+    engines:
+      node: '>= 4.0.0'
+    resolution:
+      integrity: sha512-salcGninV0nPrwpGNn4VTXBb1SOuXQBiqbrNXoeizJsHrsL6ERFM2Ne3JUSBWRE6aeNJI2ROP/WEEIDUiDe3cg==
   /agent-base/5.1.1:
     dev: true
     engines:
@@ -1596,6 +1605,14 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-xb3ZL6+L8b9JLLCx3ZdoZy4+2ECphCMo2PwqgP1tlfVq6M6YReyzBJtvWWtbDSpNr9hn96pkCiZqUcFEc+54Qg==
+  /cross-spawn/5.1.0:
+    dependencies:
+      lru-cache: 4.1.5
+      shebang-command: 1.2.0
+      which: 1.3.1
+    dev: true
+    resolution:
+      integrity: sha1-6L0O/uWPz/b4+UUQoKVUu/ojVEk=
   /cross-spawn/6.0.5:
     dependencies:
       nice-try: 1.0.5
@@ -1704,6 +1721,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==
+  /debug/3.2.6:
+    dependencies:
+      ms: 2.1.2
+    dev: true
+    resolution:
+      integrity: sha512-mel+jf7nrtEl5Pn1Qx46zARXKDpBbvzezse7p7LqINmdoIk8PYP5SySaxEmYv6TZ0JyEKA1hsCId6DIhgITtWQ==
   /debug/4.1.1:
     dependencies:
       ms: 2.1.2
@@ -1846,6 +1869,12 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-/nt74Rm+PcfnirXGEdhZleTwGC2LMnuKTeeTIlI82xb5loBBoXNYzr2ezCroPSMtilK8EZIfcNZwOcHN+ib1Lg==
+  /dotenv/4.0.0:
+    dev: true
+    engines:
+      node: '>=4.6.0'
+    resolution:
+      integrity: sha1-hk7xN5rO1Vzm+V3r7NzhefegzR0=
   /duplexer2/0.1.4:
     dependencies:
       readable-stream: 2.3.7
@@ -1915,6 +1944,16 @@ packages:
       node: '>= 0.4'
     resolution:
       integrity: sha512-QCOllgZJtaUo9miYBcLChTUaHNjJF3PYs1VidD7AwiEj1kYxKeQTctLAezAOH5ZKRH0g2IgPn6KwB4IT8iRpvA==
+  /es6-promise/4.2.8:
+    dev: true
+    resolution:
+      integrity: sha512-HJDGx5daxeIvxdBxvG2cb9g4tEvwIk3i8+nhX0yGrYmZUzbkdg8QbDevheDB8gd0//uPj4c1EQua8Q+MViT0/w==
+  /es6-promisify/5.0.0:
+    dependencies:
+      es6-promise: 4.2.8
+    dev: true
+    resolution:
+      integrity: sha1-UQnWLz5W6pZ8S2NQWu8IKRyKUgM=
   /escape-string-regexp/1.0.5:
     dev: true
     engines:
@@ -1958,6 +1997,20 @@ packages:
     dev: true
     resolution:
       integrity: sha512-sEFIkc61v75sWeOe72qyrqg2Qg0OuLESziUDk/O/z2qgS15y2gWVFrI6f2Qn/qw/0/NCfCEsmNA4zOjkwEZT1A==
+  /execa/0.8.0:
+    dependencies:
+      cross-spawn: 5.1.0
+      get-stream: 3.0.0
+      is-stream: 1.1.0
+      npm-run-path: 2.0.2
+      p-finally: 1.0.0
+      signal-exit: 3.0.2
+      strip-eof: 1.0.0
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-2NdrvBtVIX7RkP1t1J08d07PyNo=
   /execa/1.0.0:
     dependencies:
       cross-spawn: 6.0.5
@@ -2240,6 +2293,14 @@ packages:
       node: '>= 0.10'
     resolution:
       integrity: sha512-YbffarhcicEhOrm4CtrwdKBdCuz576RLdhJDsIfvNtxUuhdRet1qZcsMjqbePtAseKdAnDyM/IyXbu7PRPRLYg==
+  /follow-redirects/1.2.6:
+    dependencies:
+      debug: 3.2.6
+    dev: true
+    engines:
+      node: '>=4.0'
+    resolution:
+      integrity: sha512-FrMqZ/FONtHnbqO651UPpfRUVukIEwJhXMfdr/JWAmrDbeYBu773b1J6gdWDyRIj4hvvzQEHoEOTrdR8o6KLYA==
   /for-in/1.0.2:
     dev: true
     engines:
@@ -2328,6 +2389,12 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-3Xzn3hh8Bsi/NTeWrHHgmfCYDrw=
+  /get-stream/3.0.0:
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-jpQ9E1jcN1VQVOy+LtsFqhdO3hQ=
   /get-stream/4.1.0:
     dependencies:
       pump: 3.0.0
@@ -2393,6 +2460,20 @@ packages:
     dev: true
     resolution:
       integrity: sha512-gZeLVGY8QVKMIkckncX+iCq2/L8PlwncvDFKiWkBn9EtCfYDbliRTTp6qzyQ1VMdITUfq7293zDzfpjdiGASSQ==
+  /github/12.1.0:
+    dependencies:
+      dotenv: 4.0.0
+      follow-redirects: 1.2.6
+      https-proxy-agent: 2.2.4
+      lodash: 4.17.15
+      mime: 2.4.4
+      netrc: 0.1.4
+    deprecated: '''github'' has been renamed to ''@octokit/rest'' (https://git.io/vNB11)'
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha512-HhWjhd/OATC4Hjj7xfGjGRtwWzo/fzTc55EkvsRatI9G6Vp47mVcdBIt1lQ56A9Qit/yVQRX1+M9jbWlcJvgug==
   /glob-parent/5.1.0:
     dependencies:
       is-glob: 4.0.1
@@ -2666,6 +2747,15 @@ packages:
       npm: '>=1.3.7'
     resolution:
       integrity: sha1-muzZJRFHcvPZW2WmCruPfBj7rOE=
+  /https-proxy-agent/2.2.4:
+    dependencies:
+      agent-base: 4.3.0
+      debug: 3.2.6
+    dev: true
+    engines:
+      node: '>= 4.5.0'
+    resolution:
+      integrity: sha512-OmvfoQ53WLjtA9HeYP9RNrWMJzzAz1JGaSFr1nijg0PVR1JaD/xbJq1mdEIIlxGpXp9eSe/O2LgU9DJmTPd0Eg==
   /https-proxy-agent/4.0.0:
     dependencies:
       agent-base: 5.1.1
@@ -2722,6 +2812,14 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-6e1q1cnWP2RXD9/keSkxHScg508CdXqXWgWBaETNhyuBFz+kUZlKboh+ISK+bU++DmbHimVBrOz/zzPe0sZ3sQ==
+  /import-from/2.1.0:
+    dependencies:
+      resolve-from: 3.0.0
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-M1238qev/VOqpHHUuAId7ja387E=
   /import-from/3.0.0:
     dependencies:
       resolve-from: 5.0.0
@@ -3823,6 +3921,13 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-W0b4AUft7leIcPCG0Eghz5mOVR8=
+  /lru-cache/4.1.5:
+    dependencies:
+      pseudomap: 1.0.2
+      yallist: 2.1.2
+    dev: true
+    resolution:
+      integrity: sha512-sWZlbEP2OsHNkXrMl5GYk/jKk70MBng6UU4YI/qGDYbgf6YbP4EvmqISbXCoJiRKs+1bSpFHVgQxvJ17F2li5g==
   /lru-cache/5.1.1:
     dependencies:
       yallist: 3.1.1
@@ -4084,6 +4189,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-5tq3/r9a2Bbqgc9cYpxaDr3nLBo=
+  /netrc/0.1.4:
+    dev: true
+    resolution:
+      integrity: sha1-a+lPysqNd63gqWcNxGCRTJRHJEQ=
   /nice-try/1.0.5:
     dev: true
     resolution:
@@ -4549,6 +4658,13 @@ packages:
     dev: true
     resolution:
       integrity: sha1-juqz5U+laSD+Fro493+iGqzC104=
+  /parse-github-url/1.0.2:
+    dev: true
+    engines:
+      node: '>=0.10.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-kgBf6avCbO3Cn6+RnzRGLkUsv4ZVqv/VfAYkRsyBcgkshNvVBkRn1FEZcW0Jb+npXQWm2vHPnnOqFteZxRRGNw==
   /parse-json/4.0.0:
     dependencies:
       error-ex: 1.3.2
@@ -4782,6 +4898,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Fx65lf9/YDn3hUX08XUc0J8rSux36rEsyiv21ZGUC1mOyeM3lTRpZLcrm8aAolzS4itwVfm7TAPyxC2E5zd6xg==
+  /pseudomap/1.0.2:
+    dev: true
+    resolution:
+      integrity: sha1-8FKijacOYYkX7wqKw0wa5aaChrM=
   /psl/1.7.0:
     dev: true
     resolution:
@@ -4836,6 +4956,10 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-Q2CxfGETatOAeDl/8RQW4Ybc+7g=
+  /ramda/0.25.0:
+    dev: true
+    resolution:
+      integrity: sha512-GXpfrYVPwx3K7RQ6aYT8KPS8XViSXUVJT1ONhoKPE9VAleW42YE+U+8VEyGWt41EnEQW7gwecYJriTI0pKoecQ==
   /rc/1.2.8:
     dependencies:
       deep-extend: 0.6.0
@@ -5067,7 +5191,6 @@ packages:
     dev: true
     engines:
       node: '>=4'
-    optional: true
     resolution:
       integrity: sha1-six699nWiBvItuZTM17rywoYh0g=
   /resolve-from/4.0.0:
@@ -5215,6 +5338,16 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-Ydydq3zC+WYDJK1+gRxRapLIED9PWeSuuS41wqyoRmzvhhh9nc+QQrVMKJYzJFULazeGhzSV0QleN2wD3boh2g==
+  /semantic-release-plugin-decorators/2.0.1_semantic-release@16.0.3:
+    dependencies:
+      import-from: 2.1.0
+      lodash: 4.17.15
+      semantic-release: 16.0.3_semantic-release@16.0.3
+    dev: true
+    peerDependencies:
+      semantic-release: '>=11'
+    resolution:
+      integrity: sha512-4h3rHcBmvc2KuZLqnSgA0zQWnim2eLD/re8bTtZXZBIqSoe9wblL6BxrEbADatCGXyCuBLHaqjFNeA2t+JGt9g==
   /semantic-release/16.0.3_semantic-release@16.0.3:
     dependencies:
       '@semantic-release/commit-analyzer': 7.0.0_semantic-release@16.0.3
@@ -6320,6 +6453,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-r9S/ZyXu/Xu9q1tYlpsLIsa3EeLXXk0VwlxqTcFRfg9EhMW+17kbt9G0NrgCmhGb5vT2hyhJZLfDGx+7+5Uj/w==
+  /yallist/2.1.2:
+    dev: true
+    resolution:
+      integrity: sha1-HBH5IY8HYImkfdUS+TxmmaaoHVI=
   /yallist/3.1.1:
     dev: true
     resolution:
@@ -6363,6 +6500,24 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-T39FNN1b6hCW4SOIk1XyTOWxtXdcen0t+XYrysQmChzSipvhBO8Bj0nK1ozAasdk24dNWuMZvr4k24nz+8HHLg==
+  github.com/mysterycommand/semantic-release-github-pr/9f1cce634b1c373551b61ed276497304dd1a27e9_semantic-release@16.0.3:
+    dependencies:
+      execa: 0.8.0
+      github: 12.1.0
+      parse-github-url: 1.0.2
+      ramda: 0.25.0
+      read-pkg: 3.0.0
+      semantic-release: 16.0.3_semantic-release@16.0.3
+      semantic-release-plugin-decorators: 2.0.1_semantic-release@16.0.3
+    dev: true
+    hasBin: true
+    id: github.com/mysterycommand/semantic-release-github-pr/9f1cce634b1c373551b61ed276497304dd1a27e9
+    name: semantic-release-github-pr
+    peerDependencies:
+      semantic-release: ^15.13.3
+    resolution:
+      tarball: 'https://codeload.github.com/mysterycommand/semantic-release-github-pr/tar.gz/9f1cce634b1c373551b61ed276497304dd1a27e9'
+    version: 0.0.0-development
 specifiers:
   '@saithodev/semantic-release-sharedconf-npm': ^2.0.2
   '@semantic-release/error': ^2.2.0
@@ -6378,6 +6533,7 @@ specifiers:
   jest: ^25.1.0
   lodash: ^4.17.15
   semantic-release: ^16.0.3
+  semantic-release-github-pr: 'github:mysterycommand/semantic-release-github-pr#fix/34-and-35'
   ts-jest: ^25.0.0
   ts-mockito: ^2.5.0
   typedoc: ^0.15.8

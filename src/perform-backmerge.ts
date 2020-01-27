@@ -1,6 +1,7 @@
 import {resolveConfig} from "./helpers/resolve-config";
 import Git from "./helpers/git";
 import {template} from 'lodash';
+import {loadPlugins} from "./helpers/plugins";
 
 export async function performBackmerge(git: Git, pluginConfig, context) {
     const {
@@ -55,25 +56,13 @@ export async function performBackmerge(git: Git, pluginConfig, context) {
 }
 
 async function triggerPluginHooks(pluginConfig, context) {
-    for(const plugin of pluginConfig.plugins) {
-        let packageName;
-        let subpluginConfig = {};
-        if (Array.isArray(plugin)) {
-            packageName = plugin[0];
-            subpluginConfig = plugin[1];
-        } else if(typeof plugin === 'string') {
-            packageName = plugin;
-        } else {
-            context.logger.log('Invalid plugin provided. Expected string or array, got ' + (typeof plugin));
-            continue;
-        }
+    context.logger.log('Loading plugins');
+    const plugins = loadPlugins(pluginConfig, context);
+    await plugins.success(context);
+    return;
 
-        const pluginPackage = require(packageName);
-        if (typeof pluginPackage.success !== 'function') {
-            context.logger.log('Method "success" not found in package ' + packageName + '.');
-            continue;
-        }
+    for(const packageName in pluginConfig.plugins) {
         context.logger.log('Executing "success" step of package ' + packageName);
-        pluginPackage.success(subpluginConfig, context);
+        await pluginConfig.plugins[packageName].success(context);
     }
 }

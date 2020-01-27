@@ -26,14 +26,14 @@ export async function performBackmerge(git: Git, pluginConfig, context) {
         'Release succeeded. Performing back-merge into branch "' + developBranchName + '".'
     );
 
-    // Branch is detached. Checkout master first to be able to check out other branches
-    await git.checkout(masterBranchName);
-
     // Make sure all remotes are fetched
     await git.configFetchAllRemotes();
 
     // Get latest commits before checking out
     await git.fetch();
+
+    // Branch is detached. Checkout master first to be able to check out other branches
+    await git.checkout(masterBranchName);
 
     await git.checkout(developBranchName);
     await git.rebase(masterBranchName);
@@ -52,7 +52,7 @@ export async function performBackmerge(git: Git, pluginConfig, context) {
         );
     }
 
-    await git.push(context.options.repositoryUrl, developBranchName);
+    await git.push(context.options.repositoryUrl, developBranchName, options.forcePush);
 }
 
 async function triggerPluginHooks(pluginConfig, context) {

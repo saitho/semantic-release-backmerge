@@ -46,6 +46,7 @@ The plugin can be configured in the [**semantic-release** configuration file](ht
 | `branchName` | The branch where the release is merged into. See [branchName](#branchName).  | develop   |
 | `plugins` | Plugins defined here may stage files to be included in a back-merge commit. See [plugins](#plugins).   |  []  |
 | `message` | The message for the back-merge commit (if files were changed by plugins. See [message](#message).   | `chore(release): Preparations for next release [skip ci]`     |
+| `forcePush` | If set the back-merge will be force-pushed. See [forcePush](#forcePush).   | false |
 
 #### `branchName`
 
@@ -74,3 +75,9 @@ The message for the back-merge commit is generated with [Lodash template](https:
 | `nextRelease`       | `Object` with `version`, `gitTag`, `gitHead` and `notes` of the release being done.                                                     |
 
 **Note**: It is recommended to include `[skip ci]` in the commit message to not trigger a new build. Some CI service support the `[skip ci]` keyword only in the subject of the message.
+
+#### `forcePush`
+
+Setting this option will force-push the commits from back-merge onto the develop branch.
+
+**Warning:** This will override commits that are not in the develop branch, so make sure that really is what you want!

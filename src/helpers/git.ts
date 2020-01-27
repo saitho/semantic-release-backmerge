@@ -41,11 +41,16 @@ export default class Git {
      *
      * @param {String} origin The remote repository URL.
      * @param {String} branch The branch to push.
+     * @param {Boolean} forcePush If branch should be force-pushed
      *
      * @throws {Error} if the push failed.
      */
-    async push(origin: string, branch: string) {
-        await execa('git', ['push', origin, `HEAD:${branch}`], this.execaOpts);
+    async push(origin: string, branch: string, forcePush: boolean = false) {
+        const args = ['push', origin, `HEAD:${branch}`];
+        if (forcePush) {
+            args.push('-f');
+        }
+        await execa('git', args, this.execaOpts);
     }
 
 
@@ -84,6 +89,15 @@ export default class Git {
         } catch (e) {
         }
         await execa('git', ['checkout', branch], this.execaOpts);
+    }
+
+    /**
+     * Pulls commits for the current branch from the remote repository.
+     *
+     * @throws {Error} if the checkout failed.
+     */
+    async pull() {
+        await execa('git', ['pull'], this.execaOpts);
     }
 
     /**

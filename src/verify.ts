@@ -1,4 +1,4 @@
-import {isString, isNil, isArray} from 'lodash';
+import {isString, isNil, isArray, isBoolean} from 'lodash';
 import {resolveConfig} from './helpers/resolve-config';
 import {getError} from './helpers/get-error';
 
@@ -10,6 +10,7 @@ export function verify(pluginConfig) {
         branchName: isNonEmptyString,
         message: isNonEmptyString,
         plugins: isArray,
+        forcePush: isBoolean,
     };
 
     const options = resolveConfig(pluginConfig);

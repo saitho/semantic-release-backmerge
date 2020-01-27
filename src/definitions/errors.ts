@@ -22,4 +22,10 @@ Your configuration for the \`successComment\` option is \`${message}\`.`,
             'README.md#plugins'
         )}) option must be an \`Array\`.`,
     }),
+    EINVALIDFORCEPUSH: () => ({
+        message: 'Invalid `forcePush` option.',
+        details: `The [forcePush option](${linkify(
+            'README.md#forcePush'
+        )}) option must be a \`Boolean\`.`,
+    }),
 };

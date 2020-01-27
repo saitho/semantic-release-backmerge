@@ -29,9 +29,9 @@ export class PluginGroup {
     }
 }
 
-export function loadPlugins(pluginConfig: any, context): PluginGroup {
+export function loadPlugins(parentPluginConfig: any, context): PluginGroup {
     const plugins = [];
-    for (const plugin of pluginConfig.plugins) {
+    for (const plugin of parentPluginConfig.plugins) {
         const {packageName, pluginConfig} = getPackageData(plugin);
         if (!packageName) {
             context.logger.log('Invalid plugin provided. Expected string or array, got ' + (typeof plugin));

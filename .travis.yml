@@ -28,6 +28,7 @@ jobs:
       if: branch = master
       node_js: lts/*
       script:
+        - pnpm run build
         - mkdir -p docs
       deploy:
         provider: script

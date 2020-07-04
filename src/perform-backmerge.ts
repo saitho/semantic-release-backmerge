@@ -38,7 +38,7 @@ export async function performBackmerge(git: Git, pluginConfig, context) {
     await git.checkout(developBranchName);
     await git.rebase(masterBranchName);
 
-    await triggerPluginHooks(pluginConfig, context);
+    await triggerPluginHooks(options, context);
     const stagedFiles = await git.getStagedFiles();
     context.logger.log('Found ' + stagedFiles.length + ' staged files for back-merge commit');
     if (stagedFiles.length) {

@@ -27,12 +27,20 @@ The plugin can be configured in the [**semantic-release** configuration file](ht
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
-    ["@saithodev/semantic-release-backmerge", {
-      "branchName": "dev",
-      "plugins": ["@semantic-release/exec", {
-        "successCmd": "echo 'Version in master is ${nextRelease.version}' > test.txt && git add test.txt"
-      }]
-    }]
+    [
+      "@saithodev/semantic-release-backmerge",
+      {
+        "branchName": "dev",
+        "plugins": [
+          [
+            "@semantic-release/exec",
+            {
+              "successCmd": "echo 'Version in master is ${nextRelease.version}' > test.txt && git add test.txt"
+            }
+          ]
+        ]
+      }
+    ]
   ]
 }
 ```

@@ -2,8 +2,8 @@ dependencies:
   '@semantic-release/error': 2.2.0
   aggregate-error: 3.0.1
   debug: 4.1.1
-  execa: 4.0.2
-  lodash: 4.17.15
+  execa: 4.0.3
+  lodash: 4.17.19
 devDependencies:
   '@saithodev/semantic-release-sharedconf-npm': 2.1.0_semantic-release@17.1.1
   '@types/jest': 26.0.7
@@ -15,7 +15,7 @@ devDependencies:
   jest: 26.1.0
   semantic-release: 17.1.1_semantic-release@17.1.1
   semantic-release-github-pr: github.com/mysterycommand/semantic-release-github-pr/9f1cce634b1c373551b61ed276497304dd1a27e9_semantic-release@17.1.1
-  ts-jest: 26.1.4_typescript@3.9.7
+  ts-jest: 26.1.4_jest@26.1.0+typescript@3.9.7
   ts-mockito: 2.6.1
   typedoc: 0.17.8_typescript@3.9.7
   typescript: 3.9.7
@@ -2143,6 +2143,7 @@ packages:
       onetime: 5.1.0
       signal-exit: 3.0.2
       strip-final-newline: 2.0.0
+    dev: true
     engines:
       node: '>=10'
     resolution:
@@ -2158,7 +2159,6 @@ packages:
       onetime: 5.1.0
       signal-exit: 3.0.2
       strip-final-newline: 2.0.0
-    dev: true
     engines:
       node: '>=10'
     resolution:
@@ -3986,10 +3986,10 @@ packages:
     resolution:
       integrity: sha1-2ZwHpmnp5tJOE2Lf4mbGdhavEwI=
   /lodash/4.17.15:
+    dev: true
     resolution:
       integrity: sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
   /lodash/4.17.19:
-    dev: true
     resolution:
       integrity: sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
   /longest/2.0.1:
@@ -6058,11 +6058,12 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-42RqLqTokTEr9+rObPsFOAvAHCE=
-  /ts-jest/26.1.4_typescript@3.9.7:
+  /ts-jest/26.1.4_jest@26.1.0+typescript@3.9.7:
     dependencies:
       bs-logger: 0.2.6
       buffer-from: 1.1.1
       fast-json-stable-stringify: 2.1.0
+      jest: 26.1.0
       jest-util: 26.1.0
       json5: 2.1.1
       lodash.memoize: 4.1.2
@@ -6530,9 +6531,9 @@ specifiers:
   commitizen: ^4.1.2
   cz-conventional-changelog: ^3.2.0
   debug: ^4.1.1
-  execa: ^4.0.2
+  execa: ^4.0.3
   jest: ^26.1.0
-  lodash: ^4.17.15
+  lodash: ^4.17.19
   semantic-release: ^17.1.1
   semantic-release-github-pr: 'github:mysterycommand/semantic-release-github-pr#fix/34-and-35'
   ts-jest: ^26.1.4

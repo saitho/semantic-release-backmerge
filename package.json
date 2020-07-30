@@ -27,8 +27,8 @@
     "@semantic-release/error": "^2.2.0",
     "aggregate-error": "^3.0.1",
     "debug": "^4.1.1",
-    "execa": "^4.0.2",
-    "lodash": "^4.17.15"
+    "execa": "^4.0.3",
+    "lodash": "^4.17.19"
   },
   "devDependencies": {
     "@saithodev/semantic-release-sharedconf-npm": "^2.1.0",

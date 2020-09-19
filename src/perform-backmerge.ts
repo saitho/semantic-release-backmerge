@@ -47,7 +47,7 @@ export async function performBackmerge(git: Git, pluginConfig, context) {
         }
         await git.commit(
             message
-                ? template(message)({branch: branch.name, lastRelease, nextRelease})
+                ? template(message)({branch: branch, lastRelease, nextRelease})
                 : `chore(release): Preparations for next release [skip ci]`
         );
     }

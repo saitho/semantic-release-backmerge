@@ -154,7 +154,40 @@
 				<a href="#branchname" id="branchname" style="color: inherit; text-decoration: none;">
 					<h4><code>branchName</code></h4>
 				</a>
-				<p>Branch name of the branch that should receive the back-merge. If none is given, the default value is used.</p>
+				<p>Branch name of the branch that should receive the back-merge. If none is given, the default value is used.
+				You may use <a href="https://lodash.com/docs#template">Lodash template</a> variables here. The following variables are available:</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Parameter</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>branch</code></td>
+							<td>The branch from which the release is done.</td>
+						</tr>
+						<tr>
+							<td><code>branch.name</code></td>
+							<td>The branch name.</td>
+						</tr>
+						<tr>
+							<td><code>branch.type</code></td>
+							<td>The <a href="https://github.com/semantic-release/semantic-release/blob/beta/docs/usage/workflow-configuration.md#branch-types">type of branch</a>.</td>
+						</tr>
+						<tr>
+							<td><code>branch.channel</code></td>
+							<td>The distribution channel on which to publish releases from this branch.</td>
+						</tr>
+						<tr>
+							<td><code>branch.range</code></td>
+							<td>The range of <a href="https://semver.org">semantic versions</a> to support on this branch.</td>
+						</tr>
+						<tr>
+							<td><code>branch.prerelease</code></td>
+							<td>The pre-release detonation to append to <a href="https://semver.org">semantic versions</a> released from this branch.</td>
+						</tr>
+				</tbody></table>
 				<a href="#plugins" id="plugins" style="color: inherit; text-decoration: none;">
 					<h4><code>plugins</code></h4>
 				</a>

@@ -1,9 +1,9 @@
 dependencies:
   '@semantic-release/error': 2.2.0
-  aggregate-error: 3.0.1
-  debug: 4.1.1
+  aggregate-error: 3.1.0
+  debug: 4.2.0
   execa: 4.0.3
-  lodash: 4.17.19
+  lodash: 4.17.20
 devDependencies:
   '@saithodev/semantic-release-sharedconf-npm': 2.1.0_semantic-release@17.1.1
   '@types/jest': 26.0.7
@@ -973,10 +973,20 @@ packages:
     dependencies:
       clean-stack: 2.2.0
       indent-string: 4.0.0
+    dev: true
     engines:
       node: '>=8'
     resolution:
       integrity: sha512-quoaXsZ9/BLNae5yiNoUz+Nhkwz83GhWwtYFglcjEQB2NDHCIpApbqXxIFnm4Pq/Nvhrsq5sYJFyohrrxnTGAA==
+  /aggregate-error/3.1.0:
+    dependencies:
+      clean-stack: 2.2.0
+      indent-string: 4.0.0
+    dev: false
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-4I7Td01quW/RpocfNayFdFVk1qSuoh0E7JrbRJ16nH01HhKFQ88INq9Sd+nd72zqRySlr9BmDA8xlEJ6vJMrYA==
   /ajv/6.11.0:
     dependencies:
       fast-deep-equal: 3.1.1
@@ -1855,8 +1865,22 @@ packages:
   /debug/4.1.1:
     dependencies:
       ms: 2.1.2
+    dev: true
     resolution:
       integrity: sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==
+  /debug/4.2.0:
+    dependencies:
+      ms: 2.1.2
+    dev: false
+    engines:
+      node: '>=6.0'
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+    resolution:
+      integrity: sha512-IX2ncY78vDTjZMFUdmsvIRFY2Cf4FnD0wRs+nQwJU8Lu99/tPFdb0VybiiMTPe3I6rQmwsqQqRBvxU+bZ/I8sg==
   /decamelize-keys/1.1.0:
     dependencies:
       decamelize: 1.2.0
@@ -3990,8 +4014,13 @@ packages:
     resolution:
       integrity: sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
   /lodash/4.17.19:
+    dev: true
     resolution:
       integrity: sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
+  /lodash/4.17.20:
+    dev: false
+    resolution:
+      integrity: sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
   /longest/2.0.1:
     dev: true
     engines:
@@ -6527,13 +6556,13 @@ specifiers:
   '@types/lodash': ^4.14.158
   '@types/node': ^14.0.27
   '@types/semantic-release': ^17.1.0
-  aggregate-error: ^3.0.1
+  aggregate-error: ^3.1.0
   commitizen: ^4.1.2
   cz-conventional-changelog: ^3.2.0
-  debug: ^4.1.1
+  debug: ^4.2.0
   execa: ^4.0.3
   jest: ^26.1.0
-  lodash: ^4.17.19
+  lodash: ^4.17.20
   semantic-release: ^17.1.1
   semantic-release-github-pr: 'github:mysterycommand/semantic-release-github-pr#fix/34-and-35'
   ts-jest: ^26.1.4

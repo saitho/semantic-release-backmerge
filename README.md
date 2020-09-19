@@ -2,6 +2,11 @@
 
 [**semantic-release**](https://github.com/semantic-release/semantic-release) plugin to back-merge a release in the project's [git](https://git-scm.com/) repository.
 
+**Note:** semantic-release in its core is not intended to be used with Git Flow where a stable (`master`/`main`) branch and a unstable branch (`develop`/`next`) exist. This plugin enables to use semantic-release with such branches, however it does NOT guarantee using semantic-release with Git Flow.
+
+Especially automatic hotfix releases may not be possible as those usually lead to merge conflicts with develop that have to be resolved manually.
+In such cases the release workflow will fail, causing a red pipeline!
+
 [![Build Status](https://travis-ci.com/saitho/semantic-release-backmerge.svg?branch=master)](https://travis-ci.com/saitho/semantic-release-backmerge)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=semantic-release-backmerge&metric=alert_status)](https://sonarcloud.io/dashboard?id=semantic-release-backmerge)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)

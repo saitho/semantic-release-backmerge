@@ -59,6 +59,16 @@ The plugin can be configured in the [**semantic-release** configuration file](ht
 #### `branchName`
 
 Branch name of the branch that should receive the back-merge. If none is given, the default value is used.
+You may use [Lodash template](https://lodash.com/docs#template) variables here. The following variables are available:
+
+| Parameter           | Description                                                                                                                             |
+|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| `branch`            | The branch from which the release is done.                                                                                              |
+| `branch.name`       | The branch name.                                                                                                                        |
+| `branch.type`       | The [type of branch](https://github.com/semantic-release/semantic-release/blob/beta/docs/usage/workflow-configuration.md#branch-types). |
+| `branch.channel`    | The distribution channel on which to publish releases from this branch.                                                                 |
+| `branch.range`      | The range of [semantic versions](https://semver.org) to support on this branch.                                                         |
+| `branch.prerelease` | The pre-release detonation to append to [semantic versions](https://semver.org) released from this branch.                              |
 
 #### `plugins`
 

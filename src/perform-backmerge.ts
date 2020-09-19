@@ -11,7 +11,7 @@ export async function performBackmerge(git: Git, pluginConfig, context) {
     }: any = context;
     const options = resolveConfig(pluginConfig);
     const masterBranchName = branch.name;
-    const developBranchName: string = options.branchName;
+    const developBranchName: string = template(options.branchName)({branch: branch});
     const message = options.message;
 
     context.logger.log(

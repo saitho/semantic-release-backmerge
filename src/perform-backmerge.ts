@@ -14,14 +14,6 @@ export async function performBackmerge(git: Git, pluginConfig, context) {
     const developBranchName: string = options.branchName;
     const message = options.message;
 
-    if (developBranchName === masterBranchName) {
-        context.logger.error(
-            'Branch for back-merge is the same as the branch which includes the release. ' +
-            'Aborting back-merge workflow.'
-        );
-        return;
-    }
-
     context.logger.log(
         'Release succeeded. Performing back-merge into branch "' + developBranchName + '".'
     );
@@ -32,11 +24,14 @@ export async function performBackmerge(git: Git, pluginConfig, context) {
     // Get latest commits before checking out
     await git.fetch();
 
-    // Branch is detached. Checkout master first to be able to check out other branches
-    await git.checkout(masterBranchName);
-
-    await git.checkout(developBranchName);
-    await git.rebase(masterBranchName);
+    if (developBranchName !== masterBranchName) {
+        // Branch is detached. Checkout master first to be able to check out other branches
+        await git.checkout(masterBranchName);
+        await git.checkout(developBranchName);
+        await git.rebase(masterBranchName);
+    } else {
+        await git.checkout(developBranchName);
+    }
 
     await triggerPluginHooks(options, context);
     const stagedFiles = await git.getStagedFiles();

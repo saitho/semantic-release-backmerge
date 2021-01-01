@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/saitho/semantic-release-backmerge/compare/v1.2.0...v1.2.1) (2021-01-01)
+
+
+### Bug Fixes
+
+* add setting allowSameBranchMerge ([#6](https://github.com/saitho/semantic-release-backmerge/issues/6)) ([138abb5](https://github.com/saitho/semantic-release-backmerge/commit/138abb52e1f68e8fb98cfa7a96da9348a1eb0fa0))
+
 # [1.2.0](https://github.com/saitho/semantic-release-backmerge/compare/v1.1.3...v1.2.0) (2020-09-19)
 
 

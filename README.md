@@ -97,6 +97,10 @@ The message for the back-merge commit is generated with [Lodash template](https:
 | `lastRelease`       | `Object` with `version`, `gitTag` and `gitHead` of the last release.                                                                    |
 | `nextRelease`       | `Object` with `version`, `gitTag`, `gitHead` and `notes` of the release being done.                                                     |
 
+#### `allowSameBranchMerge`
+
+If you want to be able to back-merge into the same branch as the branch that was being released from, enable this setting.
+
 **Note**: It is recommended to include `[skip ci]` in the commit message to not trigger a new build. Some CI service support the `[skip ci]` keyword only in the subject of the message.
 
 #### `forcePush`

@@ -44,7 +44,7 @@ describe("perform-backmerge", () => {
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
         const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
-        performBackmerge(instance(mockedGit), {branchName: 'master', plugins: []}, context)
+        performBackmerge(instance(mockedGit), {branchName: 'master', plugins: [], allowSameBranchMerge: true}, context)
             .then(() => {
                 verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "master".')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
@@ -55,6 +55,14 @@ describe("perform-backmerge", () => {
                 done();
             })
             .catch((error) => done(error));
+    });
+
+    it("disallow merging into the same branch", async () => {
+        const mockedGit = mock(Git);
+        const mockedLogger = mock(NullLogger);
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}};
+        await performBackmerge(instance(mockedGit), {branchName: 'master', allowSameBranchMerge: false}, context);
+        verify(mockedLogger.error(anyString())).once();
     });
 
     it("works with template in branch name", (done) => {
@@ -68,7 +76,7 @@ describe("perform-backmerge", () => {
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
         const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
-        performBackmerge(instance(mockedGit), {branchName: '${branch.name}', plugins: []}, context)
+        performBackmerge(instance(mockedGit), {branchName: '${branch.name}', plugins: [], allowSameBranchMerge: true}, context)
             .then(() => {
                 verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "master".')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();

@@ -171,4 +171,43 @@ describe("perform-backmerge", () => {
         verify(mockedGit.commit('my-commit-message')).once();
         verify(mockedGit.push('my-repo', 'develop', false)).once();
     });
+
+    it("stash and unstash", async () => {
+        const mockedGit = mock(Git);
+        const mockedLogger = mock(NullLogger);
+        when(mockedGit.checkout(anyString())).thenResolve();
+        when(mockedGit.configFetchAllRemotes()).thenResolve();
+        when(mockedGit.getStagedFiles())
+            .thenReturn(new Promise<string[]>(resolve => resolve([])));
+        when(mockedGit.fetch()).thenResolve();
+        when(mockedGit.commit(anyString())).thenResolve();
+        when(mockedGit.rebase(anyString())).thenResolve();
+        when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
+
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+
+        await performBackmerge(
+            instance(mockedGit),
+            {
+                branchName: 'develop',
+                clearWorkspace: true,
+                restoreWorkspace: true,
+                plugins: [] // plugin interactions are tested in helpers/plugins test
+            },
+            context
+        );
+        verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
+        verify(mockedGit.checkout('master')).once();
+        verify(mockedGit.configFetchAllRemotes()).once();
+        verify(mockedGit.fetch()).once();
+
+        const checkoutDevelopAction = mockedGit.checkout('develop');
+        verify(mockedGit.stash()).calledBefore(checkoutDevelopAction);
+        verify(checkoutDevelopAction).once();
+        verify(mockedGit.rebase('master')).once();
+
+        const pushAction = mockedGit.push('my-repo', 'develop', false)
+        verify(pushAction).once();
+        verify(mockedGit.unstash()).calledAfter(pushAction);
+    });
 });

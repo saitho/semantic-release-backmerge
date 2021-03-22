@@ -3,6 +3,7 @@ import {verify} from "./verify";
 import {performBackmerge} from "./perform-backmerge";
 import {Context} from "semantic-release";
 import Git from "./helpers/git";
+import {Config} from "./definitions/config";
 
 let verified = false;
 
@@ -12,7 +13,7 @@ let verified = false;
  * @param pluginConfig
  * @param context
  */
-export async function verifyConditions(pluginConfig, context: Context) {
+export async function verifyConditions(pluginConfig: Config, context: Context) {
     const {options} = context;
     if (options.prepare) {
         const preparePlugin = castArray(options.prepare)
@@ -21,6 +22,8 @@ export async function verifyConditions(pluginConfig, context: Context) {
         pluginConfig.plugins = defaultTo(pluginConfig.plugins, preparePlugin.plugins);
         pluginConfig.forcePush = defaultTo(pluginConfig.forcePush, preparePlugin.forcePush);
         pluginConfig.message = defaultTo(pluginConfig.message, preparePlugin.message);
+        pluginConfig.clearWorkspace = defaultTo(pluginConfig.clearWorkspace, preparePlugin.clearWorkspace);
+        pluginConfig.restoreWorkspace = defaultTo(pluginConfig.restoreWorkspace, preparePlugin.restoreWorkspace);
     }
 
     verify(pluginConfig);

@@ -86,6 +86,24 @@ describe("git", () => {
         );
     });
 
+    it("stash", async () => {
+        await subject.stash();
+        expect(execa).toHaveBeenCalledWith(
+            'git',
+            ['stash'],
+            expect.objectContaining(execaOpts)
+        );
+    });
+
+    it("unstash", async () => {
+        await subject.unstash();
+        expect(execa).toHaveBeenCalledWith(
+            'git',
+            ['stash', 'pop'],
+            expect.objectContaining(execaOpts)
+        );
+    });
+
     it("getStagedFiles", async () => {
         const execaMock: any = execa;
         execaMock.mockResolvedValueOnce({

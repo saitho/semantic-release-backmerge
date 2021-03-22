@@ -37,6 +37,24 @@ export default class Git {
     }
 
     /**
+     * Stash unstaged commits
+     *
+     * @throws {Error} if the commit failed.
+     */
+    async stash() {
+        await execa('git', ['stash'], this.execaOpts);
+    }
+
+    /**
+     * Unstash changes
+     *
+     * @throws {Error} if the commit failed.
+     */
+    async unstash() {
+        await execa('git', ['stash', 'pop'], this.execaOpts);
+    }
+
+    /**
      * Push to the remote repository.
      *
      * @param {String} origin The remote repository URL.

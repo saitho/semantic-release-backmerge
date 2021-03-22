@@ -2,8 +2,9 @@ import {resolveConfig} from "./helpers/resolve-config";
 import Git from "./helpers/git";
 import {template} from 'lodash';
 import {loadPlugins} from "./helpers/plugins";
+import {Config} from "./definitions/config";
 
-export async function performBackmerge(git: Git, pluginConfig, context) {
+export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, context) {
     const {
         branch,
         lastRelease,
@@ -32,6 +33,13 @@ export async function performBackmerge(git: Git, pluginConfig, context) {
     // Get latest commits before checking out
     await git.fetch();
 
+    if (options.clearWorkspace) {
+        context.logger.log(
+            'Stashing uncommitted files from Git workspace.'
+        );
+        await git.stash();
+    }
+
     if (developBranchName !== masterBranchName) {
         // Branch is detached. Checkout master first to be able to check out other branches
         await git.checkout(masterBranchName);
@@ -56,6 +64,13 @@ export async function performBackmerge(git: Git, pluginConfig, context) {
     }
 
     await git.push(context.options.repositoryUrl, developBranchName, options.forcePush);
+
+    if (options.restoreWorkspace) {
+        context.logger.log(
+            'Restoring stashed files to Git workspace.'
+        );
+        await git.unstash();
+    }
 }
 
 async function triggerPluginHooks(pluginConfig, context) {

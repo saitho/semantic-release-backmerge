@@ -27,6 +27,9 @@ $ npm install @saithodev/semantic-release-backmerge -D
 
 The plugin can be configured in the [**semantic-release** configuration file](https://github.com/semantic-release/semantic-release/blob/master/docs/usage/configuration.md#configuration):
 
+**Note:** As this plugin will rebase your "develop" branch onto your "master" branch, you may not have any unstaged files in your workspace.
+If you do, you may set the [clearWorkspace](#clearWorkspace) option to stash them and restore them with [restoreWorkspace](#restoreWorkspace) if needed.
+
 ```json
 {
   "plugins": [
@@ -60,6 +63,8 @@ The plugin can be configured in the [**semantic-release** configuration file](ht
 | `plugins` | Plugins defined here may stage files to be included in a back-merge commit. See [plugins](#plugins).   |  []  |
 | `message` | The message for the back-merge commit (if files were changed by plugins. See [message](#message).   | `chore(release): Preparations for next release [skip ci]`     |
 | `forcePush` | If set the back-merge will be force-pushed. See [forcePush](#forcePush).   | false |
+| `clearWorkspace` | Whether to stash the current workspace before backmerge. See [clearWorkspace](#clearWorkspace).   | false |
+| `restoreWorkspace` | Restore the stashed workspace after backmerge completed. See [restoreWorkspace](#restoreWorkspace).   | false |
 
 #### `branchName`
 
@@ -108,3 +113,11 @@ If you want to be able to back-merge into the same branch as the branch that was
 Setting this option will force-push the commits from back-merge onto the develop branch.
 
 **Warning:** This will override commits that are not in the develop branch, so make sure that really is what you want!
+
+#### `clearWorkspace`
+
+Setting this option will stash all uncommitted changes from Git workspace before attempting rebase.
+
+#### `restoreWorkspace`
+
+Setting this option will restore the stashed changes after the backmerge completed.

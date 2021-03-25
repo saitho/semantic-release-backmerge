@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/saitho/semantic-release-backmerge/compare/v1.3.0...v1.4.0) (2021-03-25)
+
+
+### Features
+
+* configure backmerge strategy ([7098421](https://github.com/saitho/semantic-release-backmerge/commit/709842180f3eb742d68984fb6b1725bcab10b55b))
+
 # [1.3.0](https://github.com/saitho/semantic-release-backmerge/compare/v1.2.1...v1.3.0) (2021-03-25)
 
 

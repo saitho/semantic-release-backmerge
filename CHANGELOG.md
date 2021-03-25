@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/saitho/semantic-release-backmerge/compare/v1.2.1...v1.3.0) (2021-03-25)
+
+
+### Features
+
+* add options to clear and restore workspace ([9bd009b](https://github.com/saitho/semantic-release-backmerge/commit/9bd009be3eaed6a36cba69df7a02487bbdafd7ba))
+
 ## [1.2.1](https://github.com/saitho/semantic-release-backmerge/compare/v1.2.0...v1.2.1) (2021-01-01)
 
 

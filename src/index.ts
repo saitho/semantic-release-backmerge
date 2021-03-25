@@ -19,6 +19,7 @@ export async function verifyConditions(pluginConfig: Config, context: Context) {
         const preparePlugin = castArray(options.prepare)
                 .find(config => config.path && config.path === '@saithodev/semantic-release-backmerge') || {};
         pluginConfig.branchName = defaultTo(pluginConfig.branchName, preparePlugin.branchName);
+        pluginConfig.backmergeStrategy = defaultTo(pluginConfig.backmergeStrategy, preparePlugin.backmergeStrategy);
         pluginConfig.plugins = defaultTo(pluginConfig.plugins, preparePlugin.plugins);
         pluginConfig.forcePush = defaultTo(pluginConfig.forcePush, preparePlugin.forcePush);
         pluginConfig.message = defaultTo(pluginConfig.message, preparePlugin.message);

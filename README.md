@@ -60,6 +60,7 @@ If you do, you may set the [clearWorkspace](#clearWorkspace) option to stash the
 | Options   | Description                                                                     | Default   |
 |-----------|---------------------------------------------------------------------------------|-----------|
 | `branchName` | The branch where the release is merged into. See [branchName](#branchName).  | develop   |
+| `backmergeStrategy` | How to perform the backmerge. See [backmergeStrategy](#backmergeStrategy).  | rebase   |
 | `plugins` | Plugins defined here may stage files to be included in a back-merge commit. See [plugins](#plugins).   |  []  |
 | `message` | The message for the back-merge commit (if files were changed by plugins. See [message](#message).   | `chore(release): Preparations for next release [skip ci]`     |
 | `forcePush` | If set the back-merge will be force-pushed. See [forcePush](#forcePush).   | false |
@@ -121,3 +122,8 @@ Setting this option will stash all uncommitted changes from Git workspace before
 #### `restoreWorkspace`
 
 Setting this option will restore the stashed changes after the backmerge completed.
+
+#### `backmergeStrategy`
+
+This setting will determine whether the _develop_ branch should be rebased onto _master_ or _master_ should be merged into _develop_.
+Allowed values: rebase (default), merge

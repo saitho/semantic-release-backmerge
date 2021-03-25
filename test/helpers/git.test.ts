@@ -104,6 +104,15 @@ describe("git", () => {
         );
     });
 
+    it("merge", async () => {
+        await subject.merge('master');
+        expect(execa).toHaveBeenCalledWith(
+            'git',
+            ['merge', 'origin/master'],
+            expect.objectContaining(execaOpts)
+        );
+    });
+
     it("getStagedFiles", async () => {
         const execaMock: any = execa;
         execaMock.mockResolvedValueOnce({

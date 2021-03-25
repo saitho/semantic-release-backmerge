@@ -130,4 +130,19 @@ export default class Git {
     async rebase(branch: string) {
         await execa('git', ['rebase', `origin/${branch}`], this.execaOpts);
     }
+
+    /**
+     * Rebases the currently checked out branch onto another branch.
+     *
+     * @param {String} branch The branch to rebase onto.
+     * @param {boolean} fromOrigin
+     *
+     * @throws {Error} if the rebase failed.
+     */
+    async merge(branch: string, fromOrigin = true) {
+        if (fromOrigin) {
+            branch = 'origin/' + branch;
+        }
+        await execa('git', ['merge', branch], this.execaOpts);
+    }
 }

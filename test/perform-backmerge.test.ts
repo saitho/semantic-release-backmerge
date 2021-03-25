@@ -19,7 +19,7 @@ describe("perform-backmerge", () => {
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
         const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
-        performBackmerge(instance(mockedGit), {branchName: 'develop', plugins: []}, context)
+        performBackmerge(instance(mockedGit), {branchName: 'develop'}, context)
             .then(() => {
                 verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
                 verify(mockedGit.checkout('master')).once();
@@ -44,7 +44,7 @@ describe("perform-backmerge", () => {
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
         const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
-        performBackmerge(instance(mockedGit), {branchName: 'master', plugins: [], allowSameBranchMerge: true}, context)
+        performBackmerge(instance(mockedGit), {branchName: 'master', allowSameBranchMerge: true}, context)
             .then(() => {
                 verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "master".')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
@@ -76,7 +76,7 @@ describe("perform-backmerge", () => {
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
         const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
-        performBackmerge(instance(mockedGit), {branchName: '${branch.name}', plugins: [], allowSameBranchMerge: true}, context)
+        performBackmerge(instance(mockedGit), {branchName: '${branch.name}', allowSameBranchMerge: true}, context)
             .then(() => {
                 verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "master".')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
@@ -125,7 +125,7 @@ describe("perform-backmerge", () => {
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
         const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
-        performBackmerge(instance(mockedGit), {branchName: 'develop', plugins: [], forcePush: true}, context)
+        performBackmerge(instance(mockedGit), {branchName: 'develop', forcePush: true}, context)
             .then(() => {
                 verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
                 verify(mockedGit.checkout('master')).once();
@@ -157,8 +157,7 @@ describe("perform-backmerge", () => {
             instance(mockedGit),
             {
                 branchName: 'develop',
-                message: 'my-commit-message',
-                plugins: [] // plugin interactions are tested in helpers/plugins test
+                message: 'my-commit-message'
             },
             context
         );
@@ -191,8 +190,7 @@ describe("perform-backmerge", () => {
             {
                 branchName: 'develop',
                 clearWorkspace: true,
-                restoreWorkspace: true,
-                plugins: [] // plugin interactions are tested in helpers/plugins test
+                restoreWorkspace: true
             },
             context
         );
@@ -209,5 +207,38 @@ describe("perform-backmerge", () => {
         const pushAction = mockedGit.push('my-repo', 'develop', false)
         verify(pushAction).once();
         verify(mockedGit.unstash()).calledAfter(pushAction);
+    });
+
+    it("merge as backmerge strategy", async () => {
+        const mockedGit = mock(Git);
+        const mockedLogger = mock(NullLogger);
+        when(mockedGit.checkout(anyString())).thenResolve();
+        when(mockedGit.configFetchAllRemotes()).thenResolve();
+        when(mockedGit.getStagedFiles())
+            .thenReturn(new Promise<string[]>(resolve => resolve([])));
+        when(mockedGit.fetch()).thenResolve();
+        when(mockedGit.commit(anyString())).thenResolve();
+        when(mockedGit.merge(anyString())).thenResolve();
+        when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
+
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+
+        await performBackmerge(
+            instance(mockedGit),
+            {
+                branchName: 'develop',
+                backmergeStrategy: 'merge'
+            },
+            context
+        );
+        verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
+        verify(mockedGit.checkout('master')).once();
+        verify(mockedGit.configFetchAllRemotes()).once();
+        verify(mockedGit.fetch()).once();
+
+        verify(mockedGit.checkout('develop')).once();
+        verify(mockedGit.merge('master')).once();
+
+        verify(mockedGit.push('my-repo', 'develop', false)).once();
     });
 });

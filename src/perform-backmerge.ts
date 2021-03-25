@@ -44,7 +44,11 @@ export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, 
         // Branch is detached. Checkout master first to be able to check out other branches
         await git.checkout(masterBranchName);
         await git.checkout(developBranchName);
-        await git.rebase(masterBranchName);
+        if (options.backmergeStrategy === 'merge') {
+            await git.merge(masterBranchName);
+        } else {
+            await git.rebase(masterBranchName);
+        }
     } else {
         await git.checkout(developBranchName);
     }

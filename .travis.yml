@@ -7,7 +7,7 @@ cache:
     - node_modules
 
 install:
-  - npm i pnpm -g
+  - npm i pnpm@5.18.9 -g
   - pnpm install
 
 jobs:

@@ -77,8 +77,8 @@ export default class Git {
      *
      * @throws {Error} if the fetch failed.
      */
-    async fetch() {
-        await execa('git', ['fetch'], this.execaOpts);
+    async fetch(repositoryUrl: string) {
+        await execa('git', ['fetch', repositoryUrl], this.execaOpts);
     }
 
     /**

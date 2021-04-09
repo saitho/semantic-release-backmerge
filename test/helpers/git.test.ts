@@ -55,8 +55,8 @@ describe("git", () => {
     });
 
     it("fetch", async () => {
-        await subject.fetch();
-        expect(execa).toHaveBeenCalledWith('git', ['fetch'], expect.objectContaining(execaOpts));
+        await subject.fetch('my-repo');
+        expect(execa).toHaveBeenCalledWith('git', ['fetch', 'my-repo'], expect.objectContaining(execaOpts));
     });
 
     it("configFetchAllRemotes", async () => {

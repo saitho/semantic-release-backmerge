@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/saitho/semantic-release-backmerge/compare/v1.4.1...v1.4.2) (2021-04-12)
+
+
+### Bug Fixes
+
+* **revert:** reverts "fix: fetch repository with URL" ([#16](https://github.com/saitho/semantic-release-backmerge/issues/16)) ([e470e7a](https://github.com/saitho/semantic-release-backmerge/commit/e470e7a75b86e330d773eaa81d7870d901780208))
+
 ## [1.4.1](https://github.com/saitho/semantic-release-backmerge/compare/v1.4.0...v1.4.1) (2021-04-09)
 
 

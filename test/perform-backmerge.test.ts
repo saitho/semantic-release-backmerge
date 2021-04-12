@@ -14,7 +14,7 @@ describe("perform-backmerge", () => {
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
         when(mockedGit.getStagedFiles()).thenResolve([]);
-        when(mockedGit.fetch(anyString())).thenResolve();
+        when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
@@ -24,7 +24,7 @@ describe("perform-backmerge", () => {
                 verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch('my-repo')).once();
+                verify(mockedGit.fetch()).once();
                 verify(mockedGit.checkout('develop')).once();
                 verify(mockedGit.rebase('master')).once();
                 verify(mockedGit.push('my-repo', 'develop', false)).once();
@@ -39,7 +39,7 @@ describe("perform-backmerge", () => {
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
         when(mockedGit.getStagedFiles()).thenResolve([]);
-        when(mockedGit.fetch(anyString())).thenResolve();
+        when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
@@ -48,7 +48,7 @@ describe("perform-backmerge", () => {
             .then(() => {
                 verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "master".')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch('my-repo')).once();
+                verify(mockedGit.fetch()).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.rebase('master')).never();
                 verify(mockedGit.push('my-repo', 'master', false)).once();
@@ -71,7 +71,7 @@ describe("perform-backmerge", () => {
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
         when(mockedGit.getStagedFiles()).thenResolve([]);
-        when(mockedGit.fetch(anyString())).thenResolve();
+        when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
@@ -80,7 +80,7 @@ describe("perform-backmerge", () => {
             .then(() => {
                 verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "master".')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch('my-repo')).once();
+                verify(mockedGit.fetch()).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.rebase('master')).never();
                 verify(mockedGit.push('my-repo', 'master', false)).once();
@@ -95,7 +95,7 @@ describe("perform-backmerge", () => {
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
         when(mockedGit.getStagedFiles()).thenResolve([]);
-        when(mockedGit.fetch(anyString())).thenResolve();
+        when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
@@ -105,7 +105,7 @@ describe("perform-backmerge", () => {
                 verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch('my-repo')).once();
+                verify(mockedGit.fetch()).once();
                 verify(mockedGit.checkout('develop')).once();
                 verify(mockedGit.rebase('master')).once();
                 verify(mockedGit.push('my-repo', 'develop', false)).once();
@@ -120,7 +120,7 @@ describe("perform-backmerge", () => {
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
         when(mockedGit.getStagedFiles()).thenResolve([]);
-        when(mockedGit.fetch(anyString())).thenResolve();
+        when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
@@ -130,7 +130,7 @@ describe("perform-backmerge", () => {
                 verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch('my-repo')).once();
+                verify(mockedGit.fetch()).once();
                 verify(mockedGit.checkout('develop')).once();
                 verify(mockedGit.rebase('master')).once();
                 verify(mockedGit.push('my-repo', 'develop', true)).once();
@@ -146,7 +146,7 @@ describe("perform-backmerge", () => {
         when(mockedGit.configFetchAllRemotes()).thenResolve();
         when(mockedGit.getStagedFiles())
             .thenReturn(new Promise<string[]>(resolve => resolve(['A    file-changed-by-plugin.md'])));
-        when(mockedGit.fetch(anyString())).thenResolve();
+        when(mockedGit.fetch()).thenResolve();
         when(mockedGit.commit(anyString())).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
@@ -164,7 +164,7 @@ describe("perform-backmerge", () => {
         verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
         verify(mockedGit.checkout('master')).once();
         verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch('my-repo')).once();
+        verify(mockedGit.fetch()).once();
         verify(mockedGit.checkout('develop')).once();
         verify(mockedGit.rebase('master')).once();
         verify(mockedGit.commit('my-commit-message')).once();
@@ -178,7 +178,7 @@ describe("perform-backmerge", () => {
         when(mockedGit.configFetchAllRemotes()).thenResolve();
         when(mockedGit.getStagedFiles())
             .thenReturn(new Promise<string[]>(resolve => resolve([])));
-        when(mockedGit.fetch(anyString())).thenResolve();
+        when(mockedGit.fetch()).thenResolve();
         when(mockedGit.commit(anyString())).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
@@ -197,7 +197,7 @@ describe("perform-backmerge", () => {
         verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
         verify(mockedGit.checkout('master')).once();
         verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch('my-repo')).once();
+        verify(mockedGit.fetch()).once();
 
         const checkoutDevelopAction = mockedGit.checkout('develop');
         verify(mockedGit.stash()).calledBefore(checkoutDevelopAction);
@@ -216,7 +216,7 @@ describe("perform-backmerge", () => {
         when(mockedGit.configFetchAllRemotes()).thenResolve();
         when(mockedGit.getStagedFiles())
             .thenReturn(new Promise<string[]>(resolve => resolve([])));
-        when(mockedGit.fetch(anyString())).thenResolve();
+        when(mockedGit.fetch()).thenResolve();
         when(mockedGit.commit(anyString())).thenResolve();
         when(mockedGit.merge(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
@@ -234,7 +234,7 @@ describe("perform-backmerge", () => {
         verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
         verify(mockedGit.checkout('master')).once();
         verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch('my-repo')).once();
+        verify(mockedGit.fetch()).once();
 
         verify(mockedGit.checkout('develop')).once();
         verify(mockedGit.merge('master')).once();

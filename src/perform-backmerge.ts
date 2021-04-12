@@ -31,7 +31,7 @@ export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, 
     await git.configFetchAllRemotes();
 
     // Get latest commits before checking out
-    await git.fetch(context.options.repositoryUrl);
+    await git.fetch();
 
     if (options.clearWorkspace) {
         context.logger.log(

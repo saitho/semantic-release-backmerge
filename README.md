@@ -53,6 +53,22 @@ If you do, you may set the [clearWorkspace](#clearWorkspace) option to stash the
 }
 ```
 
+### Jenkins
+
+If you're using Jenkins, you may need to set the username and password for Git as below (see [#12](https://github.com/saitho/semantic-release-backmerge/issues/12)):
+
+```jenkinsfile
+withCredentials([usernamePassword(credentialsId: JENKINS_GIT_CREDENTIALS_ID, passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+    sh("git config credential.username ${GIT_USERNAME}")
+    sh("git config credential.helper '!f() { echo password=$GIT_PASSWORD; }; f'")
+}
+withCredentials([usernameColonPassword(credentialsId: JENKINS_GIT_CREDENTIALS_ID, variable: 'GIT_CREDENTIALS')]) {
+    nodejs(JENKINS_NODE_JS_INSTALLATION_LABEL) {
+        sh("npx semantic-release")
+    }
+}
+```
+
 ## Configuration
 
 ### Options

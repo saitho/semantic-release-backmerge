@@ -1,4 +1,5 @@
 export type BackmergeStrategy = "rebase" | "merge";
+export type MergeMode = "none" | "ours" | "theirs";
 
 export interface Config {
     branchName: string;
@@ -9,4 +10,5 @@ export interface Config {
     allowSameBranchMerge: boolean;
     clearWorkspace: boolean;
     restoreWorkspace: boolean;
+    mergeMode: MergeMode;
 }

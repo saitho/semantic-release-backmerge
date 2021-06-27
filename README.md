@@ -82,6 +82,7 @@ withCredentials([usernameColonPassword(credentialsId: JENKINS_GIT_CREDENTIALS_ID
 | `forcePush` | If set the back-merge will be force-pushed. See [forcePush](#forcePush).   | false |
 | `clearWorkspace` | Whether to stash the current workspace before backmerge. See [clearWorkspace](#clearWorkspace).   | false |
 | `restoreWorkspace` | Restore the stashed workspace after backmerge completed. See [restoreWorkspace](#restoreWorkspace).   | false |
+| `mergeMode` | Mode for merging (when `backmergeStrategy=merge`). See [mergeMode](#mergeMode).   | none |
 
 #### `branchName`
 
@@ -143,3 +144,13 @@ Setting this option will restore the stashed changes after the backmerge complet
 
 This setting will determine whether the _develop_ branch should be rebased onto _master_ or _master_ should be merged into _develop_.
 Allowed values: rebase (default), merge
+
+#### `mergeMode`
+
+This setting will be used to determine how merge conflicts are resolved when using the `merge` backmerge strategy.
+
+Allowed values: none (default), ours, theirs
+
+none = no merge conflict resolve (process will abort on merge conflicts!)
+ours = apply changes from _develop_ branch
+theirs = apply changes from _master_ branch

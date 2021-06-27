@@ -113,6 +113,24 @@ describe("git", () => {
         );
     });
 
+    it("merge (ours)", async () => {
+        await subject.merge('master', 'ours');
+        expect(execa).toHaveBeenCalledWith(
+            'git',
+            ['merge', '-X ours', 'origin/master'],
+            expect.objectContaining(execaOpts)
+        );
+    });
+
+    it("merge (theirs)", async () => {
+        await subject.merge('master', 'theirs');
+        expect(execa).toHaveBeenCalledWith(
+            'git',
+            ['merge', '-X theirs', 'origin/master'],
+            expect.objectContaining(execaOpts)
+        );
+    });
+
     it("getStagedFiles", async () => {
         const execaMock: any = execa;
         execaMock.mockResolvedValueOnce({

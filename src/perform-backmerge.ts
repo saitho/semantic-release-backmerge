@@ -45,7 +45,7 @@ export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, 
         await git.checkout(masterBranchName);
         await git.checkout(developBranchName);
         if (options.backmergeStrategy === 'merge') {
-            await git.merge(masterBranchName);
+            await git.merge(masterBranchName, options.mergeMode);
         } else {
             await git.rebase(masterBranchName);
         }

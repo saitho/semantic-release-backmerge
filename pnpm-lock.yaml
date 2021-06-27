@@ -13,13 +13,13 @@ devDependencies:
   commitizen: 4.2.2
   cz-conventional-changelog: 3.3.0
   jest: 26.6.3
-  semantic-release: 17.3.1
+  semantic-release: 17.3.1_semantic-release@17.3.1
   semantic-release-github-pr: 6.0.1_semantic-release@17.3.1
   ts-jest: 26.4.4_jest@26.6.3+typescript@4.1.3
   ts-mockito: 2.6.1
   typedoc: 0.20.7_typescript@4.1.3
   typescript: 4.1.3
-lockfileVersion: 5.2
+lockfileVersion: 5.1
 packages:
   /@babel/code-frame/7.8.3:
     dependencies:
@@ -344,7 +344,7 @@ packages:
       jest-haste-map: 26.6.2
       jest-message-util: 26.6.2
       jest-regex-util: 26.0.0
-      jest-resolve: 26.6.2
+      jest-resolve: 26.6.2_jest-resolve@26.6.2
       jest-resolve-dependencies: 26.6.3
       jest-runner: 26.6.3
       jest-runtime: 26.6.3
@@ -414,7 +414,7 @@ packages:
       istanbul-lib-source-maps: 4.0.0
       istanbul-reports: 3.0.2
       jest-haste-map: 26.6.2
-      jest-resolve: 26.6.2
+      jest-resolve: 26.6.2_jest-resolve@26.6.2
       jest-util: 26.6.2
       jest-worker: 26.6.2
       slash: 3.0.0
@@ -712,7 +712,7 @@ packages:
       aggregate-error: 3.1.0
       fs-extra: 9.0.1
       lodash: 4.17.20
-      semantic-release: 17.3.1
+      semantic-release: 17.3.1_semantic-release@17.3.1
     dev: true
     engines:
       node: '>=10.18'
@@ -729,7 +729,7 @@ packages:
       import-from: 3.0.0
       lodash: 4.17.15
       micromatch: 4.0.2
-      semantic-release: 17.3.1
+      semantic-release: 17.3.1_semantic-release@17.3.1
     dev: true
     engines:
       node: '>=10.18'
@@ -748,7 +748,7 @@ packages:
       execa: 4.0.3
       lodash: 4.17.20
       parse-json: 5.0.0
-      semantic-release: 17.3.1
+      semantic-release: 17.3.1_semantic-release@17.3.1
     dev: true
     engines:
       node: '>=10.18'
@@ -766,7 +766,7 @@ packages:
       lodash: 4.17.20
       micromatch: 4.0.2
       p-reduce: 2.1.0
-      semantic-release: 17.3.1
+      semantic-release: 17.3.1_semantic-release@17.3.1
     dev: true
     engines:
       node: '>=10.18'
@@ -791,7 +791,7 @@ packages:
       mime: 2.4.4
       p-filter: 2.1.0
       p-retry: 4.2.0
-      semantic-release: 17.3.1
+      semantic-release: 17.3.1_semantic-release@17.3.1
       url-join: 4.0.1
     dev: true
     engines:
@@ -813,7 +813,7 @@ packages:
       rc: 1.2.8
       read-pkg: 5.2.0
       registry-auth-token: 4.1.1
-      semantic-release: 17.3.1
+      semantic-release: 17.3.1_semantic-release@17.3.1
       semver: 7.3.2
       tempy: 1.0.0
     dev: true
@@ -835,7 +835,7 @@ packages:
       into-stream: 5.1.1
       lodash: 4.17.15
       read-pkg-up: 7.0.1
-      semantic-release: 17.3.1
+      semantic-release: 17.3.1_semantic-release@17.3.1
     dev: true
     engines:
       node: '>=10.18'
@@ -3539,7 +3539,7 @@ packages:
       jest-get-type: 26.3.0
       jest-jasmine2: 26.6.3
       jest-regex-util: 26.0.0
-      jest-resolve: 26.6.2
+      jest-resolve: 26.6.2_jest-resolve@26.6.2
       jest-util: 26.6.2
       jest-validate: 26.6.2
       micromatch: 4.0.2
@@ -3723,7 +3723,7 @@ packages:
       integrity: sha512-YyFjePHHp1LzpzYcmgqkJ0nm0gg/lJx2aZFzFy1S6eUqNjXsOqTK10zNRff2dNfssgokjkG65OlWNcIlgd3zew==
   /jest-pnp-resolver/1.2.2_jest-resolve@26.6.2:
     dependencies:
-      jest-resolve: 26.6.2
+      jest-resolve: 26.6.2_jest-resolve@26.6.2
     dev: true
     engines:
       node: '>=6'
@@ -3750,7 +3750,7 @@ packages:
       node: '>= 10.14.2'
     resolution:
       integrity: sha512-pVwUjJkxbhe4RY8QEWzN3vns2kqyuldKpxlxJlzEYfKSvY6/bMvxoFrYYzUO1Gx28yKWN37qyV7rIoIp2h8fTg==
-  /jest-resolve/26.6.2:
+  /jest-resolve/26.6.2_jest-resolve@26.6.2:
     dependencies:
       '@jest/types': 26.6.2
       chalk: 4.1.0
@@ -3763,6 +3763,8 @@ packages:
     dev: true
     engines:
       node: '>= 10.14.2'
+    peerDependencies:
+      jest-resolve: '*'
     resolution:
       integrity: sha512-sOxsZOq25mT1wRsfHcbtkInS+Ek7Q8jCHUB0ZUTP0tc/c41QHriU/NunqMfCUWsL4H3MHpvQD4QR9kSYhS7UvQ==
   /jest-runner/26.6.3:
@@ -3781,7 +3783,7 @@ packages:
       jest-haste-map: 26.6.2
       jest-leak-detector: 26.6.2
       jest-message-util: 26.6.2
-      jest-resolve: 26.6.2
+      jest-resolve: 26.6.2_jest-resolve@26.6.2
       jest-runtime: 26.6.3
       jest-util: 26.6.2
       jest-worker: 26.6.2
@@ -3814,7 +3816,7 @@ packages:
       jest-message-util: 26.6.2
       jest-mock: 26.6.2
       jest-regex-util: 26.0.0
-      jest-resolve: 26.6.2
+      jest-resolve: 26.6.2_jest-resolve@26.6.2
       jest-snapshot: 26.6.2
       jest-util: 26.6.2
       jest-validate: 26.6.2
@@ -3850,7 +3852,7 @@ packages:
       jest-haste-map: 26.6.2
       jest-matcher-utils: 26.6.2
       jest-message-util: 26.6.2
-      jest-resolve: 26.6.2
+      jest-resolve: 26.6.2_jest-resolve@26.6.2
       natural-compare: 1.4.0
       pretty-format: 26.6.2
       semver: 7.3.2
@@ -5572,7 +5574,7 @@ packages:
       parse-github-url: 1.0.2
       ramda: 0.26.1
       read-pkg: 5.2.0
-      semantic-release: 17.3.1
+      semantic-release: 17.3.1_semantic-release@17.3.1
       semantic-release-plugin-decorators: 3.0.0_semantic-release@17.3.1
     dev: true
     hasBin: true
@@ -5582,13 +5584,13 @@ packages:
       integrity: sha512-wmprb3Xle2nhD/ad07EfuGBhChJVr7ClhFFb6y2kMpnIiQSgMaIV/19gkGOgk7R+XBkTlqqoLiM8J8MD2YgB3g==
   /semantic-release-plugin-decorators/3.0.0_semantic-release@17.3.1:
     dependencies:
-      semantic-release: 17.3.1
+      semantic-release: 17.3.1_semantic-release@17.3.1
     dev: true
     peerDependencies:
       semantic-release: '>=11'
     resolution:
       integrity: sha512-BIUUe9gUwH+N5k/fr9KEin/2cU80r62kLBPLS/o9Dl/TK3gNsu4CJgb7SAJyWvoothDRbWLZSgTS3Qz8UJuT/Q==
-  /semantic-release/17.3.1:
+  /semantic-release/17.3.1_semantic-release@17.3.1:
     dependencies:
       '@semantic-release/commit-analyzer': 8.0.1_semantic-release@17.3.1
       '@semantic-release/error': 2.2.0
@@ -5622,6 +5624,8 @@ packages:
     engines:
       node: '>=10.18'
     hasBin: true
+    peerDependencies:
+      semantic-release: '*'
     resolution:
       integrity: sha512-NSdxvnBTklrRBYRexVUx44Hri9sTu9b8x+1HfWDGIWemDTFQfWOTbT1N3oy5l8WcZHodhRvtyI7gm50SfAa3Fg==
   /semver-diff/3.1.1:

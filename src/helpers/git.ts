@@ -1,4 +1,5 @@
 import * as execa from 'execa';
+import {MergeMode} from "../definitions/config";
 const debug = require('debug')('semantic-release:backmerge');
 
 export default class Git {
@@ -135,14 +136,16 @@ export default class Git {
      * Rebases the currently checked out branch onto another branch.
      *
      * @param {String} branch The branch to rebase onto.
-     * @param {boolean} fromOrigin
+     * @param {MergeMode} mergeMode
      *
      * @throws {Error} if the rebase failed.
      */
-    async merge(branch: string, fromOrigin = true) {
-        if (fromOrigin) {
-            branch = 'origin/' + branch;
+    async merge(branch: string, mergeMode: MergeMode = 'none') {
+        const args = ['merge']
+        if (mergeMode !== 'none') {
+            args.push('-X ' + mergeMode)
         }
-        await execa('git', ['merge', branch], this.execaOpts);
+        args.push('origin/' + branch)
+        await execa('git', args, this.execaOpts);
     }
 }

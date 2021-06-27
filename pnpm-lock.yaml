@@ -14,7 +14,6 @@ devDependencies:
   cz-conventional-changelog: 3.3.0
   jest: 26.6.3
   semantic-release: 17.3.1_semantic-release@17.3.1
-  semantic-release-github-pr: 6.0.1_semantic-release@17.3.1
   ts-jest: 26.4.4_jest@26.6.3+typescript@4.1.3
   ts-mockito: 2.6.1
   typedoc: 0.20.7_typescript@4.1.3
@@ -1040,14 +1039,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-tLc0wSnatxAQHVHUapaHdz72pi9KUyHjq5KyHjGg9Y8Ifdc79pTh2XvI6I1/chZbnM7QtNKzh66ooDogPZSleA==
-  /agent-base/4.3.0:
-    dependencies:
-      es6-promisify: 5.0.0
-    dev: true
-    engines:
-      node: '>= 4.0.0'
-    resolution:
-      integrity: sha512-salcGninV0nPrwpGNn4VTXBb1SOuXQBiqbrNXoeizJsHrsL6ERFM2Ne3JUSBWRE6aeNJI2ROP/WEEIDUiDe3cg==
   /agent-base/6.0.0:
     dependencies:
       debug: 4.1.1
@@ -1965,13 +1956,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==
-  /debug/3.2.6:
-    dependencies:
-      ms: 2.1.2
-    deprecated: 'Debug versions >=3.2.0 <3.2.7 || >=4 <4.3.1 have a low-severity ReDos regression when used in a Node.js environment. It is recommended you upgrade to 3.2.7 or 4.3.1. (https://github.com/visionmedia/debug/issues/797)'
-    dev: true
-    resolution:
-      integrity: sha512-mel+jf7nrtEl5Pn1Qx46zARXKDpBbvzezse7p7LqINmdoIk8PYP5SySaxEmYv6TZ0JyEKA1hsCId6DIhgITtWQ==
   /debug/4.1.1:
     dependencies:
       ms: 2.1.2
@@ -2139,12 +2123,6 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-G3CK8JSknJoOfbyteQq6U52sEXc=
-  /dotenv/4.0.0:
-    dev: true
-    engines:
-      node: '>=4.6.0'
-    resolution:
-      integrity: sha1-hk7xN5rO1Vzm+V3r7NzhefegzR0=
   /duplexer2/0.1.4:
     dependencies:
       readable-stream: 2.3.7
@@ -2193,16 +2171,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-7dFHNmqeFSEt2ZBsCriorKnn3Z2pj+fd9kmI6QoWw4//DL+icEBfc0U7qJCisqrTsKTjw4fNFy2pW9OqStD84g==
-  /es6-promise/4.2.8:
-    dev: true
-    resolution:
-      integrity: sha512-HJDGx5daxeIvxdBxvG2cb9g4tEvwIk3i8+nhX0yGrYmZUzbkdg8QbDevheDB8gd0//uPj4c1EQua8Q+MViT0/w==
-  /es6-promisify/5.0.0:
-    dependencies:
-      es6-promise: 4.2.8
-    dev: true
-    resolution:
-      integrity: sha1-UQnWLz5W6pZ8S2NQWu8IKRyKUgM=
   /escape-string-regexp/1.0.5:
     dev: true
     engines:
@@ -2711,21 +2679,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-LZTTk0nqJnKN48YRtOpR8H5SEfp1oM2tls90NuZmBxN95PnCvmuXGzqQ4QmVirBgKx2KPYfPGteX3/raWjKenQ==
-  /github/13.1.1:
-    dependencies:
-      debug: 3.2.6
-      dotenv: 4.0.0
-      https-proxy-agent: 2.2.4
-      is-stream: 1.1.0
-      lodash: 4.17.20
-      proxy-from-env: 1.1.0
-      url-template: 2.0.8
-    deprecated: '''github'' has been renamed to ''@octokit/rest'' (https://git.io/vNB11)'
-    dev: true
-    engines:
-      node: '>=4'
-    resolution:
-      integrity: sha512-BpItPaOCuvotnNUGXSSEDkB86eqQ7+k7j8/+lu5gbRmNnFPW/uQyFezH1fjy7XojieVNzD/+MgPhBngaw+Ocfw==
   /glob-parent/5.1.0:
     dependencies:
       is-glob: 4.0.1
@@ -2985,15 +2938,6 @@ packages:
       npm: '>=1.3.7'
     resolution:
       integrity: sha1-muzZJRFHcvPZW2WmCruPfBj7rOE=
-  /https-proxy-agent/2.2.4:
-    dependencies:
-      agent-base: 4.3.0
-      debug: 3.2.6
-    dev: true
-    engines:
-      node: '>= 4.5.0'
-    resolution:
-      integrity: sha512-OmvfoQ53WLjtA9HeYP9RNrWMJzzAz1JGaSFr1nijg0PVR1JaD/xbJq1mdEIIlxGpXp9eSe/O2LgU9DJmTPd0Eg==
   /https-proxy-agent/5.0.0:
     dependencies:
       agent-base: 6.0.0
@@ -4888,13 +4832,6 @@ packages:
     dev: true
     resolution:
       integrity: sha1-juqz5U+laSD+Fro493+iGqzC104=
-  /parse-github-url/1.0.2:
-    dev: true
-    engines:
-      node: '>=0.10.0'
-    hasBin: true
-    resolution:
-      integrity: sha512-kgBf6avCbO3Cn6+RnzRGLkUsv4ZVqv/VfAYkRsyBcgkshNvVBkRn1FEZcW0Jb+npXQWm2vHPnnOqFteZxRRGNw==
   /parse-json/4.0.0:
     dependencies:
       error-ex: 1.3.2
@@ -5124,10 +5061,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Fx65lf9/YDn3hUX08XUc0J8rSux36rEsyiv21ZGUC1mOyeM3lTRpZLcrm8aAolzS4itwVfm7TAPyxC2E5zd6xg==
-  /proxy-from-env/1.1.0:
-    dev: true
-    resolution:
-      integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==
   /psl/1.7.0:
     dev: true
     resolution:
@@ -5186,10 +5119,6 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-Q2CxfGETatOAeDl/8RQW4Ybc+7g=
-  /ramda/0.26.1:
-    dev: true
-    resolution:
-      integrity: sha512-hLWjpy7EnsDBb0p+Z3B7rPi3GDeRG5ZtiI33kJhTt+ORCd38AbAIjB/9zRIUoeTbE/AVX5ZkU7m6bznsvrf8eQ==
   /rc/1.2.8:
     dependencies:
       deep-extend: 0.6.0
@@ -5565,31 +5494,6 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-5LBh1Tls8c9xgGjw3QrMwETmTMVk0oFgvrFSvWx62llR2hcEInrKNZ2GZCCuuy2lvWrdl5jhbpeqc5hRYKFOcw==
-  /semantic-release-github-pr/6.0.1_semantic-release@17.3.1:
-    dependencies:
-      debug: 4.3.1
-      env-ci: 5.0.1
-      execa: 4.0.3
-      github: 13.1.1
-      parse-github-url: 1.0.2
-      ramda: 0.26.1
-      read-pkg: 5.2.0
-      semantic-release: 17.3.1_semantic-release@17.3.1
-      semantic-release-plugin-decorators: 3.0.0_semantic-release@17.3.1
-    dev: true
-    hasBin: true
-    peerDependencies:
-      semantic-release: '>=16.0.0'
-    resolution:
-      integrity: sha512-wmprb3Xle2nhD/ad07EfuGBhChJVr7ClhFFb6y2kMpnIiQSgMaIV/19gkGOgk7R+XBkTlqqoLiM8J8MD2YgB3g==
-  /semantic-release-plugin-decorators/3.0.0_semantic-release@17.3.1:
-    dependencies:
-      semantic-release: 17.3.1_semantic-release@17.3.1
-    dev: true
-    peerDependencies:
-      semantic-release: '>=11'
-    resolution:
-      integrity: sha512-BIUUe9gUwH+N5k/fr9KEin/2cU80r62kLBPLS/o9Dl/TK3gNsu4CJgb7SAJyWvoothDRbWLZSgTS3Qz8UJuT/Q==
   /semantic-release/17.3.1_semantic-release@17.3.1:
     dependencies:
       '@semantic-release/commit-analyzer': 8.0.1_semantic-release@17.3.1
@@ -6496,10 +6400,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-jk1+QP6ZJqyOiuEI9AEWQfju/nB2Pw466kbA0LEZljHwKeMgd9WrAEgEGxjPDD2+TNbbb37rTyhEfrCXfuKXnA==
-  /url-template/2.0.8:
-    dev: true
-    resolution:
-      integrity: sha1-/FZaPMy/93MMd19WQflVV5FDnyE=
   /use/3.1.1:
     dev: true
     engines:
@@ -6780,7 +6680,6 @@ specifiers:
   jest: ^26.6.3
   lodash: ^4.17.20
   semantic-release: ^17.3.1
-  semantic-release-github-pr: ^6.0.1
   ts-jest: ^26.4.4
   ts-mockito: ^2.6.1
   typedoc: ^0.20.7

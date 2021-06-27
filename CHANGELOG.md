@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/saitho/semantic-release-backmerge/compare/v1.4.2...v1.5.0) (2021-06-27)
+
+
+### Features
+
+* add merge mode ([#13](https://github.com/saitho/semantic-release-backmerge/issues/13)) ([c58f040](https://github.com/saitho/semantic-release-backmerge/commit/c58f0405829a224435383fc84dead29937cc4210))
+
 ## [1.4.2](https://github.com/saitho/semantic-release-backmerge/compare/v1.4.1...v1.4.2) (2021-04-12)
 
 

@@ -61,6 +61,6 @@ jobs:
       - run: mkdir -p docs
       - run: pnpx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

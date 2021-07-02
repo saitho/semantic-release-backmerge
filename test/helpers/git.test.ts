@@ -59,6 +59,12 @@ describe("git", () => {
         expect(execa).toHaveBeenCalledWith('git', ['fetch'], expect.objectContaining(execaOpts));
     });
 
+    it("fetch", async () => {
+        const url = 'https://someUrl';
+        await subject.fetch(url);
+        expect(execa).toHaveBeenCalledWith('git', ['fetch', url], expect.objectContaining(execaOpts));
+    });
+
     it("configFetchAllRemotes", async () => {
         await subject.configFetchAllRemotes();
         expect(execa).toHaveBeenCalledWith(

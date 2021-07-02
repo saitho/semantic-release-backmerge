@@ -24,7 +24,7 @@ describe("perform-backmerge", () => {
                 verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch()).once();
+                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
                 verify(mockedGit.checkout('develop')).once();
                 verify(mockedGit.rebase('master')).once();
                 verify(mockedGit.push('my-repo', 'develop', false)).once();
@@ -48,7 +48,7 @@ describe("perform-backmerge", () => {
             .then(() => {
                 verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "master".')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch()).once();
+                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.rebase('master')).never();
                 verify(mockedGit.push('my-repo', 'master', false)).once();
@@ -80,7 +80,7 @@ describe("perform-backmerge", () => {
             .then(() => {
                 verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "master".')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch()).once();
+                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.rebase('master')).never();
                 verify(mockedGit.push('my-repo', 'master', false)).once();
@@ -105,7 +105,7 @@ describe("perform-backmerge", () => {
                 verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch()).once();
+                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
                 verify(mockedGit.checkout('develop')).once();
                 verify(mockedGit.rebase('master')).once();
                 verify(mockedGit.push('my-repo', 'develop', false)).once();
@@ -130,7 +130,7 @@ describe("perform-backmerge", () => {
                 verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch()).once();
+                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
                 verify(mockedGit.checkout('develop')).once();
                 verify(mockedGit.rebase('master')).once();
                 verify(mockedGit.push('my-repo', 'develop', true)).once();
@@ -164,7 +164,7 @@ describe("perform-backmerge", () => {
         verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
         verify(mockedGit.checkout('master')).once();
         verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch()).once();
+        verify(mockedGit.fetch(context.options.repositoryUrl)).once();
         verify(mockedGit.checkout('develop')).once();
         verify(mockedGit.rebase('master')).once();
         verify(mockedGit.commit('my-commit-message')).once();
@@ -197,7 +197,7 @@ describe("perform-backmerge", () => {
         verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
         verify(mockedGit.checkout('master')).once();
         verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch()).once();
+        verify(mockedGit.fetch(context.options.repositoryUrl)).once();
 
         const checkoutDevelopAction = mockedGit.checkout('develop');
         verify(mockedGit.stash()).calledBefore(checkoutDevelopAction);
@@ -234,7 +234,7 @@ describe("perform-backmerge", () => {
         verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
         verify(mockedGit.checkout('master')).once();
         verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch()).once();
+        verify(mockedGit.fetch(context.options.repositoryUrl)).once();
 
         verify(mockedGit.checkout('develop')).once();
         verify(mockedGit.merge('master', 'none')).once();
@@ -268,7 +268,7 @@ describe("perform-backmerge", () => {
         verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
         verify(mockedGit.checkout('master')).once();
         verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch()).once();
+        verify(mockedGit.fetch(context.options.repositoryUrl)).once();
 
         verify(mockedGit.checkout('develop')).once();
         verify(mockedGit.merge('master', 'ours')).once();
@@ -302,7 +302,7 @@ describe("perform-backmerge", () => {
         verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
         verify(mockedGit.checkout('master')).once();
         verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch()).once();
+        verify(mockedGit.fetch(context.options.repositoryUrl)).once();
 
         verify(mockedGit.checkout('develop')).once();
         verify(mockedGit.merge('master', 'theirs')).once();
@@ -336,7 +336,7 @@ describe("perform-backmerge", () => {
         verify(mockedLogger.log('Release succeeded. Performing back-merge into branch "develop".')).once();
         verify(mockedGit.checkout('master')).once();
         verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch()).once();
+        verify(mockedGit.fetch(context.options.repositoryUrl)).once();
 
         verify(mockedGit.checkout('develop')).once();
         verify(mockedGit.merge('master', 'ours')).once();

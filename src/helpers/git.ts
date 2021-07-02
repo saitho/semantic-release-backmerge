@@ -78,8 +78,12 @@ export default class Git {
      *
      * @throws {Error} if the fetch failed.
      */
-    async fetch() {
-        await execa('git', ['fetch'], this.execaOpts);
+    async fetch(url?: string) {
+        const args = ['fetch'];
+        if (url) {
+            args.push(url);
+        }
+        await execa('git', args, this.execaOpts);
     }
 
     /**

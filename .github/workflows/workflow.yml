@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches: [ master ]
 jobs:
   build:
     name: Lint Code Base
@@ -35,6 +37,7 @@ jobs:
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
     needs: tests
     steps:
       - uses: actions/checkout@v2
@@ -48,6 +51,7 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
     needs: sonarcloud
     steps:
       - uses: actions/checkout@v2

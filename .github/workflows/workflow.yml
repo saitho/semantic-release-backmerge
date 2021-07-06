@@ -20,6 +20,9 @@ jobs:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_JSCPD: false # Can not exclude specific file: https://github.com/kucherenko/jscpd/issues/215
+          VALIDATE_TYPESCRIPT_STANDARD: false
+          VALIDATE_MARKDOWN: false
   tests:
     name: Unit Tests
     runs-on: ubuntu-latest

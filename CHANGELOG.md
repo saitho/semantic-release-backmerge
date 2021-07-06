@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/saitho/semantic-release-backmerge/compare/v1.5.0...v1.5.1) (2021-07-06)
+
+
+### Bug Fixes
+
+* use repository url from semantic release config ([f4cd9b4](https://github.com/saitho/semantic-release-backmerge/commit/f4cd9b4a894d4d162d2babfc09299567e3f14896))
+
 # [1.5.0](https://github.com/saitho/semantic-release-backmerge/compare/v1.4.2...v1.5.0) (2021-06-27)
 
 

@@ -14,7 +14,7 @@ export function verify(pluginConfig) {
     };
 
     const options = resolveConfig(pluginConfig);
-    const errors = Object.entries(options).reduce(
+    const reducedErrors = Object.entries(options).reduce(
         (errors, [option, value]) =>
             !isNil(value) && VALIDATORS.hasOwnProperty(option) && !VALIDATORS[option](value)
                 ? [...errors, getError(`EINVALID${option.toUpperCase()}`, {[option]: value})]
@@ -22,7 +22,7 @@ export function verify(pluginConfig) {
         []
     );
 
-    if (errors.length > 0) {
-        throw new AggregateError(errors);
+    if (reducedErrors.length > 0) {
+        throw new AggregateError(reducedErrors);
     }
 }

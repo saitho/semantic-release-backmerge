@@ -23,33 +23,35 @@ export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, 
         return;
     }
 
-    context.logger.log(
-        'Release succeeded. Performing back-merge into branch "' + developBranchName + '".'
-    );
+    context.logger.log('Release succeeded. Performing back-merge into branch "' + developBranchName + '".');
 
     // Make sure all remotes are fetched
+    context.logger.log(`Fetching all remotes.`);
     await git.configFetchAllRemotes();
 
     // Get latest commits before checking out
-    await git.fetch(context.options?.repositoryUrl ?? null);
+    context.logger.log(`Fetching latest commits from repository at "${context.options.repositoryUrl}".`);
+    await git.fetch(context.options.repositoryUrl);
 
     if (options.clearWorkspace) {
-        context.logger.log(
-            'Stashing uncommitted files from Git workspace.'
-        );
+        context.logger.log('Stashing uncommitted files from Git workspace.');
         await git.stash();
     }
 
     if (developBranchName !== masterBranchName) {
         // Branch is detached. Checkout master first to be able to check out other branches
+        context.logger.log('Branch is detached. Checking out master branch.');
         await git.checkout(masterBranchName);
+        context.logger.log('Checking out develop branch.');
         await git.checkout(developBranchName);
+        context.logger.log(`Performing backmerge with "${options.backmergeStrategy}" strategy.`);
         if (options.backmergeStrategy === 'merge') {
             await git.merge(masterBranchName, options.mergeMode);
         } else {
             await git.rebase(masterBranchName);
         }
     } else {
+        context.logger.log('Checking out develop branch directly.');
         await git.checkout(developBranchName);
     }
 
@@ -67,12 +69,11 @@ export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, 
         );
     }
 
+    context.logger.log(`Pushing backmerge to develop branch ${developBranchName}`);
     await git.push(context.options.repositoryUrl, developBranchName, options.forcePush);
 
     if (options.restoreWorkspace) {
-        context.logger.log(
-            'Restoring stashed files to Git workspace.'
-        );
+        context.logger.log('Restoring stashed files to Git workspace.');
         await git.unstash();
     }
 }

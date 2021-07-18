@@ -107,7 +107,7 @@ export default class Git {
      * @throws {Error} if the checkout failed.
      */
     async checkout(branch: string) {
-        await execa('git', ['checkout', branch], this.execaOpts);
+        await execa('git', ['checkout', '-B', branch], this.execaOpts);
     }
 
     /**

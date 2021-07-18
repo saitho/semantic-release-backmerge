@@ -87,7 +87,7 @@ describe("git", () => {
         await subject.checkout('develop');
         expect(execa).toHaveBeenCalledWith(
             'git',
-            ['checkout', 'develop'],
+            ['checkout', '-B', 'develop'],
             expect.objectContaining(execaOpts)
         );
     });

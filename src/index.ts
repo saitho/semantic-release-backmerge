@@ -38,7 +38,7 @@ export async function verifyConditions(pluginConfig: Config, context: Context) {
  */
 export async function success(pluginConfig, context: Context) {
     if (!verified) {
-        await verify(pluginConfig);
+        verify(pluginConfig);
         verified = true;
     }
 

@@ -1,3 +1,10 @@
+## [1.5.3](https://github.com/saitho/semantic-release-backmerge/compare/v1.5.2...v1.5.3) (2021-07-20)
+
+
+### Bug Fixes
+
+* **git:** fix -X option ([0865f6e](https://github.com/saitho/semantic-release-backmerge/commit/0865f6e3e659b4f7ff0fb07e4e0b7dc201824bd0))
+
 ## [1.5.2](https://github.com/saitho/semantic-release-backmerge/compare/v1.5.1...v1.5.2) (2021-07-18)
 
 

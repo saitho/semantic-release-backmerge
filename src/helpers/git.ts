@@ -147,7 +147,7 @@ export default class Git {
     async merge(branch: string, mergeMode: MergeMode = 'none') {
         const args = ['merge']
         if (mergeMode !== 'none') {
-            args.push('-X ' + mergeMode)
+            args.push('-X' + mergeMode)
         }
         args.push('origin/' + branch)
         await execa('git', args, this.execaOpts);

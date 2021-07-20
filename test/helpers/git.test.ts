@@ -123,7 +123,7 @@ describe("git", () => {
         await subject.merge('master', 'ours');
         expect(execa).toHaveBeenCalledWith(
             'git',
-            ['merge', '-X ours', 'origin/master'],
+            ['merge', '-Xours', 'origin/master'],
             expect.objectContaining(execaOpts)
         );
     });
@@ -132,7 +132,7 @@ describe("git", () => {
         await subject.merge('master', 'theirs');
         expect(execa).toHaveBeenCalledWith(
             'git',
-            ['merge', '-X theirs', 'origin/master'],
+            ['merge', '-Xtheirs', 'origin/master'],
             expect.objectContaining(execaOpts)
         );
     });

@@ -69,6 +69,19 @@ withCredentials([usernameColonPassword(credentialsId: JENKINS_GIT_CREDENTIALS_ID
 }
 ```
 
+### Backmerging into protected branches
+
+You can backmerge into protected branches if repository admins/owners are allowed to do that.
+Make sure to provide an admin/owner's access token or credentials (e.g. via `GITHUB_TOKEN`).
+
+**For GitHub Actions** you also need to disable `persist-credentials` in the checkout action:
+```yaml
+- uses: actions/checkout@v2
+  with:
+    persist-credentials: false
+```
+The personal access token in `GITHUB_TOKEN` needs access to the `repo` scope.
+
 ## Configuration
 
 ### Options

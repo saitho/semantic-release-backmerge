@@ -70,7 +70,9 @@ export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, 
     }
 
     context.logger.log(`Pushing backmerge to develop branch ${developBranchName}`);
-    await git.push(context.options.repositoryUrl, developBranchName, options.forcePush);
+    const getGitAuthUrl = require('semantic-release/lib/get-git-auth-url');
+    const authedRepositoryUrl = await getGitAuthUrl({...context, branch: {name: developBranchName}});
+    await git.push(authedRepositoryUrl, developBranchName, options.forcePush);
 
     if (options.restoreWorkspace) {
         context.logger.log('Restoring stashed files to Git workspace.');

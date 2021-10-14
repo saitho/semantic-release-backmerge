@@ -24,6 +24,7 @@
     "commit": "git-cz"
   },
   "dependencies": {
+    "semantic-release": ">=13.0.0",
     "@semantic-release/error": "^2.2.0",
     "aggregate-error": "^3.1.0",
     "debug": "^4.3.1",
@@ -39,7 +40,6 @@
     "commitizen": "^4.2.2",
     "cz-conventional-changelog": "^3.3.0",
     "jest": "^26.6.3",
-    "semantic-release": "^17.3.1",
     "ts-jest": "^26.4.4",
     "ts-mockito": "^2.6.1",
     "typedoc": "^0.20.7",

@@ -8,6 +8,8 @@ class NullLogger {
 }
 
 describe("perform-backmerge", () => {
+    jest.mock('semantic-release/lib/get-git-auth-url', () => jest.fn((c) => c.options.repositoryUrl));
+
     it("works with correct configuration", (done) => {
         const mockedGit = mock(Git);
         const mockedLogger = mock(NullLogger);

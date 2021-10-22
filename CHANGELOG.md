@@ -1,3 +1,21 @@
+# [2.0.0](https://github.com/saitho/semantic-release-backmerge/compare/v1.5.3...v2.0.0) (2021-10-22)
+
+
+### Bug Fixes
+
+* use Git auth URL for pushing ([#27](https://github.com/saitho/semantic-release-backmerge/issues/27)) ([9b76e14](https://github.com/saitho/semantic-release-backmerge/commit/9b76e14ed01068732230d0c1bca066da2761e5aa))
+
+
+### chore
+
+* require semantic-release >=13.0.0 ([13288a4](https://github.com/saitho/semantic-release-backmerge/commit/13288a405d820e4cbea536a297c7a173cc5f3719))
+
+
+### BREAKING CHANGES
+
+* semantic-release >=13.0.0 is set as minimum
+dependency to use this plugin.
+
 ## [1.5.3](https://github.com/saitho/semantic-release-backmerge/compare/v1.5.2...v1.5.3) (2021-07-20)
 
 

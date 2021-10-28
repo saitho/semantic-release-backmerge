@@ -38,7 +38,7 @@ If you do, you may set the [clearWorkspace](#clearWorkspace) option to stash the
     [
       "@saithodev/semantic-release-backmerge",
       {
-        "branchName": "dev",
+        "branches": ["dev"],
         "plugins": [
           [
             "@semantic-release/exec",
@@ -88,7 +88,7 @@ The personal access token in `GITHUB_TOKEN` needs access to the `repo` scope.
 
 | Options   | Description                                                                     | Default   |
 |-----------|---------------------------------------------------------------------------------|-----------|
-| `branchName` | The branch where the release is merged into. See [branchName](#branchName).  | develop   |
+| `branches` | The branches where the release is merged into. See [branches](#branches).  | ['develop']   |
 | `backmergeStrategy` | How to perform the backmerge. See [backmergeStrategy](#backmergeStrategy).  | rebase   |
 | `plugins` | Plugins defined here may stage files to be included in a back-merge commit. See [plugins](#plugins).   |  []  |
 | `message` | The message for the back-merge commit (if files were changed by plugins. See [message](#message).   | `chore(release): Preparations for next release [skip ci]`     |
@@ -97,10 +97,37 @@ The personal access token in `GITHUB_TOKEN` needs access to the `repo` scope.
 | `restoreWorkspace` | Restore the stashed workspace after backmerge completed. See [restoreWorkspace](#restoreWorkspace).   | false |
 | `mergeMode` | Mode for merging (when `backmergeStrategy=merge`). See [mergeMode](#mergeMode).   | none |
 
-#### `branchName`
+#### `branchName` (deprecated)
+
+**Deprecated:** Use [`branches`](#branches) instead (e.g. `branches: ["develop"]`)
 
 Branch name of the branch that should receive the back-merge. If none is given, the default value is used.
 You may use [Lodash template](https://lodash.com/docs#template) variables here. The following variables are available:
+
+| Parameter           | Description                                                                                                                             |
+|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| `branch`            | The branch from which the release is done.                                                                                              |
+| `branch.name`       | The branch name.                                                                                                                        |
+| `branch.type`       | The [type of branch](https://github.com/semantic-release/semantic-release/blob/beta/docs/usage/workflow-configuration.md#branch-types). |
+| `branch.channel`    | The distribution channel on which to publish releases from this branch.                                                                 |
+| `branch.range`      | The range of [semantic versions](https://semver.org) to support on this branch.                                                         |
+| `branch.prerelease` | The pre-release detonation to append to [semantic versions](https://semver.org) released from this branch.                              |
+
+#### `branches`
+
+Branch names that should receive the back-merge. If none is given, the default value is used.
+This argument takes a list of branch name strings or objects. A branch object looks like this:
+`{from: "master", to: "dev"}`
+In this example, a release from `master` branch is merged into `dev` branch. With that you can perform conditional backmerges,
+i.e. backmerges that only occur when merged from a certain branch.
+
+Here is an example where all releases will backmerge into `develop` and releases from `next` branch will be backmerged into `staging` as well.
+
+```json
+branches: ["develop", {from: "next", to: "staging"}]
+```
+
+You may use [Lodash template](https://lodash.com/docs#template) variables in branch name strings. The following variables are available:
 
 | Parameter           | Description                                                                                                                             |
 |---------------------|-----------------------------------------------------------------------------------------------------------------------------------------|

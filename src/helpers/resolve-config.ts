@@ -2,9 +2,11 @@ import {isNil} from 'lodash';
 import {Config} from "../definitions/config";
 
 export function resolveConfig(config: Partial<Config>): Config {
-    const {branchName, backmergeStrategy, plugins, message, forcePush, allowSameBranchMerge, clearWorkspace, restoreWorkspace, mergeMode} = config
+    const {branchName, branches, backmergeStrategy, plugins, message, forcePush, allowSameBranchMerge, clearWorkspace, restoreWorkspace, mergeMode} = config
     return {
-        branchName: isNil(branchName) ? 'develop' : branchName,
+        // @deprecated branchName – todo: remove with next major release
+        branchName: isNil(branchName) ? null : branchName,
+        branches: isNil(branches) ? ['develop'] : branches,
         backmergeStrategy: isNil(backmergeStrategy) ? 'rebase' : backmergeStrategy,
         plugins: isNil(plugins) ? [] : plugins,
         message: message,

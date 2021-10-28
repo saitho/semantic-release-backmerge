@@ -4,39 +4,21 @@ import {template} from 'lodash';
 import {loadPlugins} from "./helpers/plugins";
 import {Config} from "./definitions/config";
 
-export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, context) {
+async function performBackmergeIntoBranch(git: Git, pluginConfig: Partial<Config>, context, options: Config, developBranchName: string) {
     const {
         branch,
         lastRelease,
         nextRelease
     }: any = context;
-    const options = resolveConfig(pluginConfig);
     const masterBranchName = branch.name;
-    const developBranchName: string = template(options.branchName)({branch: branch});
-    const message = options.message;
-
     if (!options.allowSameBranchMerge && developBranchName === masterBranchName) {
-        context.logger.error(
+        throw new Error(
             'Branch for back-merge is the same as the branch which includes the release. ' +
             'Aborting back-merge workflow.'
         );
-        return;
     }
 
-    context.logger.log('Release succeeded. Performing back-merge into branch "' + developBranchName + '".');
-
-    // Make sure all remotes are fetched
-    context.logger.log(`Fetching all remotes.`);
-    await git.configFetchAllRemotes();
-
-    // Get latest commits before checking out
-    context.logger.log(`Fetching latest commits from repository at "${context.options.repositoryUrl}".`);
-    await git.fetch(context.options.repositoryUrl);
-
-    if (options.clearWorkspace) {
-        context.logger.log('Stashing uncommitted files from Git workspace.');
-        await git.stash();
-    }
+    context.logger.log('Performing back-merge into branch "' + developBranchName + '".');
 
     if (developBranchName !== masterBranchName) {
         // Branch is detached. Checkout master first to be able to check out other branches
@@ -62,6 +44,7 @@ export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, 
         for (const file of stagedFiles) {
             context.logger.log(file);
         }
+        const message = options.message;
         await git.commit(
             message
                 ? template(message)({branch: branch, lastRelease, nextRelease})
@@ -73,6 +56,59 @@ export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, 
     const getGitAuthUrl = require('semantic-release/lib/get-git-auth-url');
     const authedRepositoryUrl = await getGitAuthUrl({...context, branch: {name: developBranchName}});
     await git.push(authedRepositoryUrl, developBranchName, options.forcePush);
+}
+
+export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, context) {
+    const branch = context.branch;
+    const options = resolveConfig(pluginConfig);
+
+    // fallback to `branchName` if `branches` are empty. todo: remove with next major release as this is deprecated
+    if (options.branchName != null && options.branchName.length) {
+        options.branches = [options.branchName]
+        context.logger.log('The property "branchName" is deprecated. Please use "branches" instead: `branches: ["' + options.branchName + '"]`')
+    }
+
+    // Make sure all remotes are fetched
+    context.logger.log(`Fetching all remotes.`);
+    await git.configFetchAllRemotes();
+
+    // Get latest commits before checking out
+    context.logger.log(`Fetching latest commits from repository at "${context.options.repositoryUrl}".`);
+    await git.fetch(context.options.repositoryUrl);
+
+    if (options.clearWorkspace) {
+        context.logger.log('Stashing uncommitted files from Git workspace.');
+        await git.stash();
+    }
+
+    for(const developBranch of options.branches) {
+        let developBranchName: string;
+        if (typeof(developBranch) === 'object') {
+            if (!developBranch.hasOwnProperty('from') || !developBranch.hasOwnProperty('to')) {
+                console.log(developBranch)
+                context.logger.log(developBranch.toString())
+                context.logger.error('Invalid branch configuration found and ignored.')
+                continue;
+            }
+            if (branch.name !== developBranch.from) {
+                context.logger.log(
+                    'Branch "' + developBranch.to + '" was skipped as release did not originate from branch "' + developBranch.from + '".'
+                );
+                continue;
+            }
+            developBranchName = developBranch.to.toString()
+        } else {
+            developBranchName = developBranch.toString();
+        }
+
+        try {
+            await performBackmergeIntoBranch(git, pluginConfig, context, options, template(developBranchName)({branch: branch}))
+        } catch (e) {
+            context.logger.error('Process aborted due to an error while backmerging a branch.')
+            context.logger.error(e)
+            break
+        }
+    }
 
     if (options.restoreWorkspace) {
         context.logger.log('Restoring stashed files to Git workspace.');

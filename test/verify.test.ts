@@ -9,6 +9,11 @@ describe("verify", () => {
             verify({branchName: ''});
         }).toThrowError('SemanticReleaseError: Invalid `branchName` option.');
     });
+    it("throws error if branches is not an array", () => {
+        expect(() => {
+            verify({branches: ''});
+        }).toThrowError('SemanticReleaseError: Invalid `branches` option.');
+    });
     it("throws error for empty commit message", () => {
         expect(() => {
             verify({message: ''});

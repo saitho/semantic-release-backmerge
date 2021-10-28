@@ -1,7 +1,8 @@
 export type BackmergeStrategy = "rebase" | "merge";
 export type MergeMode = "none" | "ours" | "theirs";
 
-type BranchType = string|{from: string; to: string}
+export type BranchTypeStruct = {from: string; to: string}
+type BranchType = string|BranchTypeStruct
 
 export interface Config {
     branchName: string;

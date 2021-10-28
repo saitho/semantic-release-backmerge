@@ -1,6 +1,7 @@
 import {performBackmerge} from "../src/perform-backmerge";
 import Git from "../src/helpers/git";
 import {instance, mock, verify, when, anyString, anything} from "ts-mockito";
+import {resolveConfig} from "../src/helpers/resolve-config";
 
 class NullLogger {
     log(message) {}
@@ -24,6 +25,33 @@ describe("perform-backmerge", () => {
         performBackmerge(instance(mockedGit), {branches: ['develop']}, context)
             .then(() => {
                 verify(mockedLogger.log('Performing back-merge into branch "develop".')).once();
+                verify(mockedLogger.error('Invalid branch configuration found and ignored.')).never();
+                verify(mockedGit.checkout('master')).once();
+                verify(mockedGit.configFetchAllRemotes()).once();
+                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+                verify(mockedGit.checkout('develop')).once();
+                verify(mockedGit.rebase('master')).once();
+                verify(mockedGit.push('my-repo', 'develop', false)).once();
+                done();
+            })
+            .catch((error) => done(error));
+    });
+
+    it("works with default configuration", (done) => {
+        const mockedGit = mock(Git);
+        const mockedLogger = mock(NullLogger);
+        when(mockedGit.checkout(anyString())).thenResolve();
+        when(mockedGit.configFetchAllRemotes()).thenResolve();
+        when(mockedGit.getStagedFiles()).thenResolve([]);
+        when(mockedGit.fetch()).thenResolve();
+        when(mockedGit.rebase(anyString())).thenResolve();
+        when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
+
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        performBackmerge(instance(mockedGit), resolveConfig({}), context)
+            .then(() => {
+                verify(mockedLogger.log('Performing back-merge into branch "develop".')).once();
+                verify(mockedLogger.error('Invalid branch configuration found and ignored.')).never();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
                 verify(mockedGit.fetch(context.options.repositoryUrl)).once();
@@ -367,6 +395,8 @@ describe("perform-backmerge to multiple branches", () => {
                 verify(mockedGit.configFetchAllRemotes()).once();
                 verify(mockedGit.fetch(context.options.repositoryUrl)).once();
                 verify(mockedGit.rebase('master')).twice();
+
+                verify(mockedLogger.error('Invalid branch configuration found and ignored.')).never();
 
                 verify(mockedLogger.log('Performing back-merge into branch "develop".')).once();
                 verify(mockedGit.checkout('develop')).once();

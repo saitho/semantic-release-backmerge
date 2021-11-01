@@ -1,127 +1,52 @@
-<!doctype html>
-<html class="default no-js">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>@saithodev/semantic-release-backmerge</title>
-	<meta name="description" content="Documentation for @saithodev/semantic-release-backmerge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="assets/css/main.css">
-	<script async src="assets/js/search.js" id="search-script"></script>
-</head>
-<body>
-<header>
-	<div class="tsd-page-toolbar">
-		<div class="container">
-			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
-					<div class="field">
-						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
-						<input id="tsd-search-field" type="text" />
-					</div>
-					<ul class="results">
-						<li class="state loading">Preparing search index...</li>
-						<li class="state failure">The search index is not available</li>
-					</ul>
-					<a href="index.html" class="title">@saithodev/semantic-release-backmerge</a>
-				</div>
-				<div class="table-cell" id="tsd-widgets">
-					<div id="tsd-filter">
-						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
-						<div class="tsd-filter-group">
-							<div class="tsd-select" id="tsd-filter-visibility">
-								<span class="tsd-select-label">All</span>
-								<ul class="tsd-select-list">
-									<li data-value="public">Public</li>
-									<li data-value="protected">Public/Protected</li>
-									<li data-value="private" class="selected">All</li>
-								</ul>
-							</div>
-							<input type="checkbox" id="tsd-filter-inherited" checked />
-							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-externals" checked />
-							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-						</div>
-					</div>
-					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="tsd-page-title">
-		<div class="container">
-			<h1>@saithodev/semantic-release-backmerge</h1>
-		</div>
-	</div>
-</header>
-<div class="container container-main">
-	<div class="row">
-		<div class="col-8 col-content">
-			<div class="tsd-panel tsd-typography">
-				<a href="#saithodevsemantic-release-backmerge" id="saithodevsemantic-release-backmerge" style="color: inherit; text-decoration: none;">
-					<h1>@saithodev/semantic-release-backmerge</h1>
-				</a>
-				<p><a href="https://github.com/semantic-release/semantic-release"><strong>semantic-release</strong></a> plugin to back-merge a release in the project&#39;s <a href="https://git-scm.com/">git</a> repository.</p>
-				<p><strong>Note:</strong> semantic-release in its core is not intended to be used with Git Flow where a stable (<code>master</code>/<code>main</code>) branch and a unstable branch (<code>develop</code>/<code>next</code>) exist. This plugin enables to use semantic-release with such branches, however it does NOT guarantee using semantic-release with Git Flow.</p>
-				<p>Especially automatic hotfix releases may not be possible as those usually lead to merge conflicts with develop that have to be resolved manually.
-				In such cases the release workflow will fail, causing a red pipeline!</p>
-				<p><a href="https://travis-ci.com/saitho/semantic-release-backmerge"><img src="https://travis-ci.com/saitho/semantic-release-backmerge.svg?branch=master" alt="Build Status"></a>
-					<a href="https://sonarcloud.io/dashboard?id=semantic-release-backmerge"><img src="https://sonarcloud.io/api/project_badges/measure?project=semantic-release-backmerge&metric=alert_status" alt="Quality Gate Status"></a>
-					<a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic-release"></a>
-				<a href="http://commitizen.github.io/cz-cli/"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen friendly"></a></p>
-				<table>
-					<thead>
-						<tr>
-							<th>Step</th>
-							<th>Description</th>
-						</tr>
-					</thead>
-					<tbody><tr>
-							<td><code>verifyConditions</code></td>
-							<td>Verify the access to the remote Git repository, the <a href="#branchName">&#39;branchName&#39;</a> option configuration.</td>
-						</tr>
-						<tr>
-							<td><code>done</code></td>
-							<td>Create a back-merge into the configured branch if the release is successful.</td>
-						</tr>
-				</tbody></table>
-				<a href="#install" id="install" style="color: inherit; text-decoration: none;">
-					<h2>Install</h2>
-				</a>
-				<pre><code class="language-bash"><span style="color: #000000">$ npm install @saithodev/semantic-release-backmerge -D</span>
+<!DOCTYPE html><html class="default no-js"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>@saithodev/semantic-release-backmerge</title><meta name="description" content="Documentation for @saithodev/semantic-release-backmerge"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem(&quot;tsd-theme&quot;) || &quot;os&quot;)</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">@saithodev/semantic-release-backmerge</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>@saithodev/semantic-release-backmerge</h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography">
+<a href="#saithodevsemantic-release-backmerge" id="saithodevsemantic-release-backmerge" style="color: inherit; text-decoration: none;">
+  <h1>@saithodev/semantic-release-backmerge</h1>
+</a>
+<p><a href="https://github.com/semantic-release/semantic-release"><strong>semantic-release</strong></a> plugin to back-merge a release in the project&#39;s <a href="https://git-scm.com/">git</a> repository.</p>
+<p><strong>Note:</strong> semantic-release in its core is not intended to be used with Git Flow where a stable (<code>master</code>/<code>main</code>) branch and a unstable branch (<code>develop</code>/<code>next</code>) exist. This plugin enables to use semantic-release with such branches, however it does NOT guarantee using semantic-release with Git Flow.</p>
+<p>Especially automatic hotfix releases may not be possible as those usually lead to merge conflicts with develop that have to be resolved manually.
+In such cases the release workflow will fail, causing a red pipeline!</p>
+<p><a href="https://travis-ci.com/saitho/semantic-release-backmerge"><img src="https://travis-ci.com/saitho/semantic-release-backmerge.svg?branch=master" alt="Build Status"></a>
+<a href="https://sonarcloud.io/dashboard?id=semantic-release-backmerge"><img src="https://sonarcloud.io/api/project_badges/measure?project=semantic-release-backmerge&metric=alert_status" alt="Quality Gate Status"></a>
+<a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic-release"></a>
+<a href="http://commitizen.github.io/cz-cli/"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen friendly"></a></p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>verifyConditions</code></td>
+<td>Verify the access to the remote Git repository, the <a href="#branchName">&#39;branchName&#39;</a> option configuration.</td>
+</tr>
+<tr>
+<td><code>done</code></td>
+<td>Create a back-merge into the configured branch if the release is successful.</td>
+</tr>
+</tbody></table>
+
+<a href="#install" id="install" style="color: inherit; text-decoration: none;">
+  <h2>Install</h2>
+</a>
+<pre><code class="language-bash"><span class="hl-0">$ npm install @saithodev/semantic-release-backmerge -D</span>
 </code></pre>
-				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
-					<h2>Usage</h2>
-				</a>
-				<p>The plugin can be configured in the <a href="https://github.com/semantic-release/semantic-release/blob/master/docs/usage/configuration.md#configuration"><strong>semantic-release</strong> configuration file</a>:</p>
-				<p><strong>Note:</strong> As this plugin will rebase your &quot;develop&quot; branch onto your &quot;master&quot; branch, you may not have any unstaged files in your workspace.
-				If you do, you may set the <a href="#clearWorkspace">clearWorkspace</a> option to stash them and restore them with <a href="#restoreWorkspace">restoreWorkspace</a> if needed.</p>
-				<pre><code class="language-json"><span style="color: #000000">{</span>
-<span style="color: #000000">  </span><span style="color: #0451A5">&quot;plugins&quot;</span><span style="color: #000000">: [</span>
-<span style="color: #000000">    </span><span style="color: #A31515">&quot;@semantic-release/commit-analyzer&quot;</span><span style="color: #000000">,</span>
-<span style="color: #000000">    </span><span style="color: #A31515">&quot;@semantic-release/release-notes-generator&quot;</span><span style="color: #000000">,</span>
-<span style="color: #000000">    [</span>
-<span style="color: #000000">      </span><span style="color: #A31515">&quot;@saithodev/semantic-release-backmerge&quot;</span><span style="color: #000000">,</span>
-<span style="color: #000000">      {</span>
-<span style="color: #000000">        </span><span style="color: #0451A5">&quot;branchName&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;dev&quot;</span><span style="color: #000000">,</span>
-<span style="color: #000000">        </span><span style="color: #0451A5">&quot;plugins&quot;</span><span style="color: #000000">: [</span>
-<span style="color: #000000">          [</span>
-<span style="color: #000000">            </span><span style="color: #A31515">&quot;@semantic-release/exec&quot;</span><span style="color: #000000">,</span>
-<span style="color: #000000">            {</span>
-<span style="color: #000000">              </span><span style="color: #0451A5">&quot;successCmd&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;echo &#039;Version in master is ${nextRelease.version}&#039; &gt; test.txt &amp;&amp; git add test.txt&quot;</span>
-<span style="color: #000000">            }</span>
-<span style="color: #000000">          ]</span>
-<span style="color: #000000">        ]</span>
-<span style="color: #000000">      }</span>
-<span style="color: #000000">    ]</span>
-<span style="color: #000000">  ]</span>
-<span style="color: #000000">}</span>
+
+<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+  <h2>Usage</h2>
+</a>
+<p>The plugin can be configured in the <a href="https://github.com/semantic-release/semantic-release/blob/master/docs/usage/configuration.md#configuration"><strong>semantic-release</strong> configuration file</a>:</p>
+<p><strong>Note:</strong> As this plugin will rebase your &quot;develop&quot; branch onto your &quot;master&quot; branch, you may not have any unstaged files in your workspace.
+If you do, you may set the <a href="#clearWorkspace">clearWorkspace</a> option to stash them and restore them with <a href="#restoreWorkspace">restoreWorkspace</a> if needed.</p>
+<pre><code class="language-json"><span class="hl-0">{</span><br/><span class="hl-0">  </span><span class="hl-1">&quot;plugins&quot;</span><span class="hl-0">: [</span><br/><span class="hl-0">    </span><span class="hl-2">&quot;@semantic-release/commit-analyzer&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-2">&quot;@semantic-release/release-notes-generator&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    [</span><br/><span class="hl-0">      </span><span class="hl-2">&quot;@saithodev/semantic-release-backmerge&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">      {</span><br/><span class="hl-0">        </span><span class="hl-1">&quot;branches&quot;</span><span class="hl-0">: [</span><span class="hl-2">&quot;dev&quot;</span><span class="hl-0">],</span><br/><span class="hl-0">        </span><span class="hl-1">&quot;plugins&quot;</span><span class="hl-0">: [</span><br/><span class="hl-0">          [</span><br/><span class="hl-0">            </span><span class="hl-2">&quot;@semantic-release/exec&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">            {</span><br/><span class="hl-0">              </span><span class="hl-1">&quot;successCmd&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;echo &#39;Version in master is ${nextRelease.version}&#39; &gt; test.txt &amp;&amp; git add test.txt&quot;</span><br/><span class="hl-0">            }</span><br/><span class="hl-0">          ]</span><br/><span class="hl-0">        ]</span><br/><span class="hl-0">      }</span><br/><span class="hl-0">    ]</span><br/><span class="hl-0">  ]</span><br/><span class="hl-0">}</span>
 </code></pre>
-				<a href="#jenkins" id="jenkins" style="color: inherit; text-decoration: none;">
-					<h3>Jenkins</h3>
-				</a>
-				<p>If you&#39;re using Jenkins, you may need to set the username and password for Git as below (see <a href="https://github.com/saitho/semantic-release-backmerge/issues/12">#12</a>):</p>
-				<pre><code class="language-jenkinsfile">withCredentials([usernamePassword(credentialsId: JENKINS_GIT_CREDENTIALS_ID, passwordVariable: &#39;GIT_PASSWORD&#39;, usernameVariable: &#39;GIT_USERNAME&#39;)]) {
+
+<a href="#jenkins" id="jenkins" style="color: inherit; text-decoration: none;">
+  <h3>Jenkins</h3>
+</a>
+<p>If you&#39;re using Jenkins, you may need to set the username and password for Git as below (see <a href="https://github.com/saitho/semantic-release-backmerge/issues/12">#12</a>):</p>
+<pre><code class="language-jenkinsfile">withCredentials([usernamePassword(credentialsId: JENKINS_GIT_CREDENTIALS_ID, passwordVariable: &#39;GIT_PASSWORD&#39;, usernameVariable: &#39;GIT_USERNAME&#39;)]) {
     sh(&quot;git config credential.username ${GIT_USERNAME}&quot;)
     sh(&quot;git config credential.helper &#39;!f() { echo password=$GIT_PASSWORD; }; f&#39;&quot;)
 }
@@ -129,246 +54,246 @@ withCredentials([usernameColonPassword(credentialsId: JENKINS_GIT_CREDENTIALS_ID
     nodejs(JENKINS_NODE_JS_INSTALLATION_LABEL) {
         sh(&quot;npx semantic-release&quot;)
     }
-}</code></pre>
-				<a href="#configuration" id="configuration" style="color: inherit; text-decoration: none;">
-					<h2>Configuration</h2>
-				</a>
-				<a href="#options" id="options" style="color: inherit; text-decoration: none;">
-					<h3>Options</h3>
-				</a>
-				<table>
-					<thead>
-						<tr>
-							<th>Options</th>
-							<th>Description</th>
-							<th>Default</th>
-						</tr>
-					</thead>
-					<tbody><tr>
-							<td><code>branchName</code></td>
-							<td>The branch where the release is merged into. See <a href="#branchName">branchName</a>.</td>
-							<td>develop</td>
-						</tr>
-						<tr>
-							<td><code>backmergeStrategy</code></td>
-							<td>How to perform the backmerge. See <a href="#backmergeStrategy">backmergeStrategy</a>.</td>
-							<td>rebase</td>
-						</tr>
-						<tr>
-							<td><code>plugins</code></td>
-							<td>Plugins defined here may stage files to be included in a back-merge commit. See <a href="#plugins">plugins</a>.</td>
-							<td>[]</td>
-						</tr>
-						<tr>
-							<td><code>message</code></td>
-							<td>The message for the back-merge commit (if files were changed by plugins. See <a href="#message">message</a>.</td>
-							<td><code>chore(release): Preparations for next release [skip ci]</code></td>
-						</tr>
-						<tr>
-							<td><code>forcePush</code></td>
-							<td>If set the back-merge will be force-pushed. See <a href="#forcePush">forcePush</a>.</td>
-							<td>false</td>
-						</tr>
-						<tr>
-							<td><code>clearWorkspace</code></td>
-							<td>Whether to stash the current workspace before backmerge. See <a href="#clearWorkspace">clearWorkspace</a>.</td>
-							<td>false</td>
-						</tr>
-						<tr>
-							<td><code>restoreWorkspace</code></td>
-							<td>Restore the stashed workspace after backmerge completed. See <a href="#restoreWorkspace">restoreWorkspace</a>.</td>
-							<td>false</td>
-						</tr>
-						<tr>
-							<td><code>mergeMode</code></td>
-							<td>Mode for merging (when <code>backmergeStrategy=merge</code>). See <a href="#mergeMode">mergeMode</a>.</td>
-							<td>none</td>
-						</tr>
-				</tbody></table>
-				<a href="#branchname" id="branchname" style="color: inherit; text-decoration: none;">
-					<h4><code>branchName</code></h4>
-				</a>
-				<p>Branch name of the branch that should receive the back-merge. If none is given, the default value is used.
-				You may use <a href="https://lodash.com/docs#template">Lodash template</a> variables here. The following variables are available:</p>
-				<table>
-					<thead>
-						<tr>
-							<th>Parameter</th>
-							<th>Description</th>
-						</tr>
-					</thead>
-					<tbody><tr>
-							<td><code>branch</code></td>
-							<td>The branch from which the release is done.</td>
-						</tr>
-						<tr>
-							<td><code>branch.name</code></td>
-							<td>The branch name.</td>
-						</tr>
-						<tr>
-							<td><code>branch.type</code></td>
-							<td>The <a href="https://github.com/semantic-release/semantic-release/blob/beta/docs/usage/workflow-configuration.md#branch-types">type of branch</a>.</td>
-						</tr>
-						<tr>
-							<td><code>branch.channel</code></td>
-							<td>The distribution channel on which to publish releases from this branch.</td>
-						</tr>
-						<tr>
-							<td><code>branch.range</code></td>
-							<td>The range of <a href="https://semver.org">semantic versions</a> to support on this branch.</td>
-						</tr>
-						<tr>
-							<td><code>branch.prerelease</code></td>
-							<td>The pre-release detonation to append to <a href="https://semver.org">semantic versions</a> released from this branch.</td>
-						</tr>
-				</tbody></table>
-				<a href="#plugins" id="plugins" style="color: inherit; text-decoration: none;">
-					<h4><code>plugins</code></h4>
-				</a>
-				<p>Use this if you have to make changes to the files for your development branch (e.g. setting a -dev version).
-				It uses the same plugin structure as semantic-release, but only trigger the &quot;success&quot; step after rebase from develop onto master is done and just before it is pushed.</p>
-				<p><em>Note:</em> Please make sure that the files you changed are staged to Git workspace. Only then they will be committed.</p>
-				<a href="#message" id="message" style="color: inherit; text-decoration: none;">
-					<h4><code>message</code></h4>
-				</a>
-				<p>The message for the back-merge commit is generated with <a href="https://lodash.com/docs#template">Lodash template</a>. The following variables are available:</p>
-				<table>
-					<thead>
-						<tr>
-							<th>Parameter</th>
-							<th>Description</th>
-						</tr>
-					</thead>
-					<tbody><tr>
-							<td><code>branch</code></td>
-							<td>The branch from which the release is done.</td>
-						</tr>
-						<tr>
-							<td><code>branch.name</code></td>
-							<td>The branch name.</td>
-						</tr>
-						<tr>
-							<td><code>branch.type</code></td>
-							<td>The <a href="https://github.com/semantic-release/semantic-release/blob/beta/docs/usage/workflow-configuration.md#branch-types">type of branch</a>.</td>
-						</tr>
-						<tr>
-							<td><code>branch.channel</code></td>
-							<td>The distribution channel on which to publish releases from this branch.</td>
-						</tr>
-						<tr>
-							<td><code>branch.range</code></td>
-							<td>The range of <a href="https://semver.org">semantic versions</a> to support on this branch.</td>
-						</tr>
-						<tr>
-							<td><code>branch.prerelease</code></td>
-							<td>The pre-release detonation to append to <a href="https://semver.org">semantic versions</a> released from this branch.</td>
-						</tr>
-						<tr>
-							<td><code>lastRelease</code></td>
-							<td><code>Object</code> with <code>version</code>, <code>gitTag</code> and <code>gitHead</code> of the last release.</td>
-						</tr>
-						<tr>
-							<td><code>nextRelease</code></td>
-							<td><code>Object</code> with <code>version</code>, <code>gitTag</code>, <code>gitHead</code> and <code>notes</code> of the release being done.</td>
-						</tr>
-				</tbody></table>
-				<a href="#allowsamebranchmerge" id="allowsamebranchmerge" style="color: inherit; text-decoration: none;">
-					<h4><code>allowSameBranchMerge</code></h4>
-				</a>
-				<p>If you want to be able to back-merge into the same branch as the branch that was being released from, enable this setting.</p>
-				<p><strong>Note</strong>: It is recommended to include <code>[skip ci]</code> in the commit message to not trigger a new build. Some CI service support the <code>[skip ci]</code> keyword only in the subject of the message.</p>
-				<a href="#forcepush" id="forcepush" style="color: inherit; text-decoration: none;">
-					<h4><code>forcePush</code></h4>
-				</a>
-				<p>Setting this option will force-push the commits from back-merge onto the develop branch.</p>
-				<p><strong>Warning:</strong> This will override commits that are not in the develop branch, so make sure that really is what you want!</p>
-				<a href="#clearworkspace" id="clearworkspace" style="color: inherit; text-decoration: none;">
-					<h4><code>clearWorkspace</code></h4>
-				</a>
-				<p>Setting this option will stash all uncommitted changes from Git workspace before attempting rebase.</p>
-				<a href="#restoreworkspace" id="restoreworkspace" style="color: inherit; text-decoration: none;">
-					<h4><code>restoreWorkspace</code></h4>
-				</a>
-				<p>Setting this option will restore the stashed changes after the backmerge completed.</p>
-				<a href="#backmergestrategy" id="backmergestrategy" style="color: inherit; text-decoration: none;">
-					<h4><code>backmergeStrategy</code></h4>
-				</a>
-				<p>This setting will determine whether the <em>develop</em> branch should be rebased onto <em>master</em> or <em>master</em> should be merged into <em>develop</em>.
-				Allowed values: rebase (default), merge</p>
-				<a href="#mergemode" id="mergemode" style="color: inherit; text-decoration: none;">
-					<h4><code>mergeMode</code></h4>
-				</a>
-				<p>This setting will be used to determine how merge conflicts are resolved when using the <code>merge</code> backmerge strategy.</p>
-				<p>Allowed values: none (default), ours, theirs</p>
-				<p>none = no merge conflict resolve (process will abort on merge conflicts!)
-					ours = apply changes from <em>develop</em> branch
-				theirs = apply changes from <em>master</em> branch</p>
-			</div>
-		</div>
-		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
-			<nav class="tsd-navigation primary">
-				<ul>
-					<li class=" ">
-						<a href="modules.html">Exports</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/definitions_config.html">definitions/config</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/definitions_errors.html">definitions/errors</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/helpers_get_error.html">helpers/get-<wbr>error</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/helpers_git.html">helpers/git</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/helpers_plugins.html">helpers/plugins</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/helpers_resolve_config.html">helpers/resolve-<wbr>config</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/index.html">index</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/perform_backmerge.html">perform-<wbr>backmerge</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/verify.html">verify</a>
-					</li>
-				</ul>
-			</nav>
-			<nav class="tsd-navigation secondary menu-sticky">
-				<ul class="before-current">
-				</ul>
-			</nav>
-		</div>
-	</div>
-</div>
-<footer class="with-border-bottom">
-	<div class="container">
-		<h2>Legend</h2>
-		<div class="tsd-legend-group">
-			<ul class="tsd-legend">
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-			</ul>
-		</div>
-	</div>
-</footer>
-<div class="container tsd-generator">
-	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
-</div>
-<div class="overlay"></div>
-<script src="assets/js/main.js"></script>
-</body>
-</html>
+}
+</code></pre>
+
+<a href="#backmerging-into-protected-branches" id="backmerging-into-protected-branches" style="color: inherit; text-decoration: none;">
+  <h3>Backmerging into protected branches</h3>
+</a>
+<p>You can backmerge into protected branches if repository admins/owners are allowed to do that.
+Make sure to provide an admin/owner&#39;s access token or credentials (e.g. via <code>GITHUB_TOKEN</code>).</p>
+<p><strong>For GitHub Actions</strong> you also need to disable <code>persist-credentials</code> in the checkout action:</p>
+<pre><code class="language-yaml"><span class="hl-0">- </span><span class="hl-3">uses</span><span class="hl-0">: </span><span class="hl-4">actions/checkout@v2</span><br/><span class="hl-0">  </span><span class="hl-3">with</span><span class="hl-0">:</span><br/><span class="hl-0">    </span><span class="hl-3">persist-credentials</span><span class="hl-0">: </span><span class="hl-5">false</span>
+</code></pre>
+<p>The personal access token in <code>GITHUB_TOKEN</code> needs access to the <code>repo</code> scope.</p>
+
+<a href="#configuration" id="configuration" style="color: inherit; text-decoration: none;">
+  <h2>Configuration</h2>
+</a>
+
+<a href="#options" id="options" style="color: inherit; text-decoration: none;">
+  <h3>Options</h3>
+</a>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>branches</code></td>
+<td>The branches where the release is merged into. See <a href="#branches">branches</a>.</td>
+<td>[&#39;develop&#39;]</td>
+</tr>
+<tr>
+<td><code>backmergeStrategy</code></td>
+<td>How to perform the backmerge. See <a href="#backmergeStrategy">backmergeStrategy</a>.</td>
+<td>rebase</td>
+</tr>
+<tr>
+<td><code>plugins</code></td>
+<td>Plugins defined here may stage files to be included in a back-merge commit. See <a href="#plugins">plugins</a>.</td>
+<td>[]</td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td>The message for the back-merge commit (if files were changed by plugins. See <a href="#message">message</a>.</td>
+<td><code>chore(release): Preparations for next release [skip ci]</code></td>
+</tr>
+<tr>
+<td><code>forcePush</code></td>
+<td>If set the back-merge will be force-pushed. See <a href="#forcePush">forcePush</a>.</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>clearWorkspace</code></td>
+<td>Whether to stash the current workspace before backmerge. See <a href="#clearWorkspace">clearWorkspace</a>.</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>restoreWorkspace</code></td>
+<td>Restore the stashed workspace after backmerge completed. See <a href="#restoreWorkspace">restoreWorkspace</a>.</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>mergeMode</code></td>
+<td>Mode for merging (when <code>backmergeStrategy=merge</code>). See <a href="#mergeMode">mergeMode</a>.</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<a href="#branchname-deprecated" id="branchname-deprecated" style="color: inherit; text-decoration: none;">
+  <h4><code>branchName</code> (deprecated)</h4>
+</a>
+<p><strong>Deprecated:</strong> Use <a href="#branches"><code>branches</code></a> instead (e.g. <code>branches: [&quot;develop&quot;]</code>)</p>
+<p>Branch name of the branch that should receive the back-merge. If none is given, the default value is used.
+You may use <a href="https://lodash.com/docs#template">Lodash template</a> variables here. The following variables are available:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>branch</code></td>
+<td>The branch from which the release is done.</td>
+</tr>
+<tr>
+<td><code>branch.name</code></td>
+<td>The branch name.</td>
+</tr>
+<tr>
+<td><code>branch.type</code></td>
+<td>The <a href="https://github.com/semantic-release/semantic-release/blob/beta/docs/usage/workflow-configuration.md#branch-types">type of branch</a>.</td>
+</tr>
+<tr>
+<td><code>branch.channel</code></td>
+<td>The distribution channel on which to publish releases from this branch.</td>
+</tr>
+<tr>
+<td><code>branch.range</code></td>
+<td>The range of <a href="https://semver.org">semantic versions</a> to support on this branch.</td>
+</tr>
+<tr>
+<td><code>branch.prerelease</code></td>
+<td>The pre-release detonation to append to <a href="https://semver.org">semantic versions</a> released from this branch.</td>
+</tr>
+</tbody></table>
+
+<a href="#branches" id="branches" style="color: inherit; text-decoration: none;">
+  <h4><code>branches</code></h4>
+</a>
+<p>Branch names that should receive the back-merge. If none is given, the default value is used.
+This argument takes a list of branch name strings or objects. A branch object looks like this:
+<code>{from: &quot;master&quot;, to: &quot;dev&quot;}</code>
+In this example, a release from <code>master</code> branch is merged into <code>dev</code> branch. With that you can perform conditional backmerges,
+i.e. backmerges that only occur when merged from a certain branch.</p>
+<p>Here is an example where all releases will backmerge into <code>develop</code> and releases from <code>next</code> branch will be backmerged into <code>staging</code> as well.</p>
+<pre><code class="language-json"><span class="hl-0">branches: [</span><span class="hl-2">&quot;develop&quot;</span><span class="hl-0">, {</span><span class="hl-6">from</span><span class="hl-0">: </span><span class="hl-2">&quot;next&quot;</span><span class="hl-0">, </span><span class="hl-6">to</span><span class="hl-0">: </span><span class="hl-2">&quot;staging&quot;</span><span class="hl-0">}]</span>
+</code></pre>
+<p>You may use <a href="https://lodash.com/docs#template">Lodash template</a> variables in branch name strings. The following variables are available:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>branch</code></td>
+<td>The branch from which the release is done.</td>
+</tr>
+<tr>
+<td><code>branch.name</code></td>
+<td>The branch name.</td>
+</tr>
+<tr>
+<td><code>branch.type</code></td>
+<td>The <a href="https://github.com/semantic-release/semantic-release/blob/beta/docs/usage/workflow-configuration.md#branch-types">type of branch</a>.</td>
+</tr>
+<tr>
+<td><code>branch.channel</code></td>
+<td>The distribution channel on which to publish releases from this branch.</td>
+</tr>
+<tr>
+<td><code>branch.range</code></td>
+<td>The range of <a href="https://semver.org">semantic versions</a> to support on this branch.</td>
+</tr>
+<tr>
+<td><code>branch.prerelease</code></td>
+<td>The pre-release detonation to append to <a href="https://semver.org">semantic versions</a> released from this branch.</td>
+</tr>
+</tbody></table>
+
+<a href="#plugins" id="plugins" style="color: inherit; text-decoration: none;">
+  <h4><code>plugins</code></h4>
+</a>
+<p>Use this if you have to make changes to the files for your development branch (e.g. setting a -dev version).
+It uses the same plugin structure as semantic-release, but only trigger the &quot;success&quot; step after rebase from develop onto master is done and just before it is pushed.</p>
+<p><em>Note:</em> Please make sure that the files you changed are staged to Git workspace. Only then they will be committed.</p>
+
+<a href="#message" id="message" style="color: inherit; text-decoration: none;">
+  <h4><code>message</code></h4>
+</a>
+<p>The message for the back-merge commit is generated with <a href="https://lodash.com/docs#template">Lodash template</a>. The following variables are available:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>branch</code></td>
+<td>The branch from which the release is done.</td>
+</tr>
+<tr>
+<td><code>branch.name</code></td>
+<td>The branch name.</td>
+</tr>
+<tr>
+<td><code>branch.type</code></td>
+<td>The <a href="https://github.com/semantic-release/semantic-release/blob/beta/docs/usage/workflow-configuration.md#branch-types">type of branch</a>.</td>
+</tr>
+<tr>
+<td><code>branch.channel</code></td>
+<td>The distribution channel on which to publish releases from this branch.</td>
+</tr>
+<tr>
+<td><code>branch.range</code></td>
+<td>The range of <a href="https://semver.org">semantic versions</a> to support on this branch.</td>
+</tr>
+<tr>
+<td><code>branch.prerelease</code></td>
+<td>The pre-release detonation to append to <a href="https://semver.org">semantic versions</a> released from this branch.</td>
+</tr>
+<tr>
+<td><code>lastRelease</code></td>
+<td><code>Object</code> with <code>version</code>, <code>gitTag</code> and <code>gitHead</code> of the last release.</td>
+</tr>
+<tr>
+<td><code>nextRelease</code></td>
+<td><code>Object</code> with <code>version</code>, <code>gitTag</code>, <code>gitHead</code> and <code>notes</code> of the release being done.</td>
+</tr>
+</tbody></table>
+
+<a href="#allowsamebranchmerge" id="allowsamebranchmerge" style="color: inherit; text-decoration: none;">
+  <h4><code>allowSameBranchMerge</code></h4>
+</a>
+<p>If you want to be able to back-merge into the same branch as the branch that was being released from, enable this setting.</p>
+<p><strong>Note</strong>: It is recommended to include <code>[skip ci]</code> in the commit message to not trigger a new build. Some CI service support the <code>[skip ci]</code> keyword only in the subject of the message.</p>
+
+<a href="#forcepush" id="forcepush" style="color: inherit; text-decoration: none;">
+  <h4><code>forcePush</code></h4>
+</a>
+<p>Setting this option will force-push the commits from back-merge onto the develop branch.</p>
+<p><strong>Warning:</strong> This will override commits that are not in the develop branch, so make sure that really is what you want!</p>
+
+<a href="#clearworkspace" id="clearworkspace" style="color: inherit; text-decoration: none;">
+  <h4><code>clearWorkspace</code></h4>
+</a>
+<p>Setting this option will stash all uncommitted changes from Git workspace before attempting rebase.</p>
+
+<a href="#restoreworkspace" id="restoreworkspace" style="color: inherit; text-decoration: none;">
+  <h4><code>restoreWorkspace</code></h4>
+</a>
+<p>Setting this option will restore the stashed changes after the backmerge completed.</p>
+
+<a href="#backmergestrategy" id="backmergestrategy" style="color: inherit; text-decoration: none;">
+  <h4><code>backmergeStrategy</code></h4>
+</a>
+<p>This setting will determine whether the <em>develop</em> branch should be rebased onto <em>master</em> or <em>master</em> should be merged into <em>develop</em>.
+Allowed values: rebase (default), merge</p>
+
+<a href="#mergemode" id="mergemode" style="color: inherit; text-decoration: none;">
+  <h4><code>mergeMode</code></h4>
+</a>
+<p>This setting will be used to determine how merge conflicts are resolved when using the <code>merge</code> backmerge strategy.</p>
+<p>Allowed values: none (default), ours, theirs</p>
+<p>none = no merge conflict resolve (process will abort on merge conflicts!)
+ours = apply changes from <em>develop</em> branch
+theirs = apply changes from <em>master</em> branch</p>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-function"><a href="modules.html#success" class="tsd-kind-icon">success</a></li><li class="tsd-kind-function"><a href="modules.html#verifyConditions" class="tsd-kind-icon">verify<wbr/>Conditions</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>

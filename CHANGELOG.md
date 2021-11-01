@@ -1,3 +1,11 @@
+# [2.1.0](https://github.com/saitho/semantic-release-backmerge/compare/v2.0.0...v2.1.0) (2021-11-01)
+
+
+### Features
+
+* add `branches` setting ([70d4c4f](https://github.com/saitho/semantic-release-backmerge/commit/70d4c4fae2b3e7394dd66ee86afa9270c9ffa7e3))
+* multi-branch and conditional backmerges ([5df3ec3](https://github.com/saitho/semantic-release-backmerge/commit/5df3ec389ba504e17e70059db6508b8b97cbb279))
+
 # [2.0.0](https://github.com/saitho/semantic-release-backmerge/compare/v1.5.3...v2.0.0) (2021-10-22)
 
 

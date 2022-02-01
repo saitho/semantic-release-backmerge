@@ -30,7 +30,22 @@ async function performBackmergeIntoBranch(git: Git, pluginConfig: Partial<Config
         if (options.backmergeStrategy === 'merge') {
             await git.merge(masterBranchName, options.mergeMode);
         } else {
-            await git.rebase(masterBranchName);
+            try {
+                await git.rebase(masterBranchName)
+            } catch (e) {
+                if (e.stderr != null && e.stderr.includes('have unstaged changes')) {
+                    context.logger.error('Rebase failed: You have unstaged changes.')
+                    const modifiedFiles = await git.getModifiedFiles();
+                    if (modifiedFiles.length) {
+                        context.logger.error(`${modifiedFiles.length} modified file(s):`)
+                        for (const file of modifiedFiles) {
+                            context.logger.error(file)
+                        }
+                    }
+                    return
+                }
+                throw e
+            }
         }
     } else {
         context.logger.log('Checking out develop branch directly.');

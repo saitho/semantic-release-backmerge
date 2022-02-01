@@ -16,7 +16,7 @@ describe("perform-backmerge", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles()).thenResolve([]);
+        when(mockedGit.getModifiedFiles()).thenResolve([]);
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
@@ -42,7 +42,7 @@ describe("perform-backmerge", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles()).thenResolve([]);
+        when(mockedGit.getModifiedFiles()).thenResolve([]);
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
@@ -68,7 +68,7 @@ describe("perform-backmerge", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles()).thenResolve([]);
+        when(mockedGit.getModifiedFiles()).thenResolve([]);
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
@@ -100,7 +100,7 @@ describe("perform-backmerge", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles()).thenResolve([]);
+        when(mockedGit.getModifiedFiles()).thenResolve([]);
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
@@ -124,7 +124,7 @@ describe("perform-backmerge", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles()).thenResolve([]);
+        when(mockedGit.getModifiedFiles()).thenResolve([]);
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
@@ -149,7 +149,7 @@ describe("perform-backmerge", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles()).thenResolve([]);
+        when(mockedGit.getModifiedFiles()).thenResolve([]);
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
@@ -174,7 +174,7 @@ describe("perform-backmerge", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles())
+        when(mockedGit.getModifiedFiles())
             .thenReturn(new Promise<string[]>(resolve => resolve(['A    file-changed-by-plugin.md'])));
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.commit(anyString())).thenResolve();
@@ -206,7 +206,7 @@ describe("perform-backmerge", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles())
+        when(mockedGit.getModifiedFiles())
             .thenReturn(new Promise<string[]>(resolve => resolve([])));
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.commit(anyString())).thenResolve();
@@ -244,7 +244,7 @@ describe("perform-backmerge", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles())
+        when(mockedGit.getModifiedFiles())
             .thenReturn(new Promise<string[]>(resolve => resolve([])));
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.commit(anyString())).thenResolve();
@@ -277,7 +277,7 @@ describe("perform-backmerge", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles())
+        when(mockedGit.getModifiedFiles())
             .thenReturn(new Promise<string[]>(resolve => resolve([])));
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.commit(anyString())).thenResolve();
@@ -311,7 +311,7 @@ describe("perform-backmerge", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles())
+        when(mockedGit.getModifiedFiles())
             .thenReturn(new Promise<string[]>(resolve => resolve([])));
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.commit(anyString())).thenResolve();
@@ -345,7 +345,7 @@ describe("perform-backmerge", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles())
+        when(mockedGit.getModifiedFiles())
             .thenReturn(new Promise<string[]>(resolve => resolve([])));
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.commit(anyString())).thenResolve();
@@ -383,7 +383,7 @@ describe("perform-backmerge to multiple branches", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles()).thenResolve([]);
+        when(mockedGit.getModifiedFiles()).thenResolve([]);
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
@@ -415,7 +415,7 @@ describe("perform-backmerge to multiple branches", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles()).thenResolve([]);
+        when(mockedGit.getModifiedFiles()).thenResolve([]);
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
@@ -445,7 +445,7 @@ describe("perform-backmerge to multiple branches", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles()).thenResolve([]);
+        when(mockedGit.getModifiedFiles()).thenResolve([]);
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
@@ -473,7 +473,7 @@ describe("perform-backmerge to multiple branches", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles()).thenResolve([]);
+        when(mockedGit.getModifiedFiles()).thenResolve([]);
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
@@ -499,7 +499,7 @@ describe("perform-backmerge to multiple branches", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles()).thenResolve([]);
+        when(mockedGit.getModifiedFiles()).thenResolve([]);
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
@@ -537,7 +537,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles()).thenResolve([]);
+        when(mockedGit.getModifiedFiles()).thenResolve([]);
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
@@ -562,7 +562,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles()).thenResolve([]);
+        when(mockedGit.getModifiedFiles()).thenResolve([]);
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
@@ -594,7 +594,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles()).thenResolve([]);
+        when(mockedGit.getModifiedFiles()).thenResolve([]);
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
@@ -618,7 +618,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles()).thenResolve([]);
+        when(mockedGit.getModifiedFiles()).thenResolve([]);
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
@@ -643,7 +643,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles()).thenResolve([]);
+        when(mockedGit.getModifiedFiles()).thenResolve([]);
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
@@ -668,7 +668,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles())
+        when(mockedGit.getModifiedFiles())
             .thenReturn(new Promise<string[]>(resolve => resolve(['A    file-changed-by-plugin.md'])));
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.commit(anyString())).thenResolve();
@@ -700,7 +700,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles())
+        when(mockedGit.getModifiedFiles())
             .thenReturn(new Promise<string[]>(resolve => resolve([])));
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.commit(anyString())).thenResolve();
@@ -738,7 +738,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles())
+        when(mockedGit.getModifiedFiles())
             .thenReturn(new Promise<string[]>(resolve => resolve([])));
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.commit(anyString())).thenResolve();
@@ -771,7 +771,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles())
+        when(mockedGit.getModifiedFiles())
             .thenReturn(new Promise<string[]>(resolve => resolve([])));
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.commit(anyString())).thenResolve();
@@ -805,7 +805,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles())
+        when(mockedGit.getModifiedFiles())
             .thenReturn(new Promise<string[]>(resolve => resolve([])));
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.commit(anyString())).thenResolve();
@@ -839,7 +839,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         const mockedLogger = mock(NullLogger);
         when(mockedGit.checkout(anyString())).thenResolve();
         when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getStagedFiles())
+        when(mockedGit.getModifiedFiles())
             .thenReturn(new Promise<string[]>(resolve => resolve([])));
         when(mockedGit.fetch()).thenResolve();
         when(mockedGit.commit(anyString())).thenResolve();

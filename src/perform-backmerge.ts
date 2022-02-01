@@ -38,7 +38,8 @@ async function performBackmergeIntoBranch(git: Git, pluginConfig: Partial<Config
     }
 
     await triggerPluginHooks(options, context);
-    const stagedFiles = await git.getStagedFiles();
+    // in this case there are only staged files
+    const stagedFiles = await git.getModifiedFiles();
     context.logger.log('Found ' + stagedFiles.length + ' staged files for back-merge commit');
     if (stagedFiles.length) {
         for (const file of stagedFiles) {

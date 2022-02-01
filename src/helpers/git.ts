@@ -111,10 +111,10 @@ export default class Git {
     }
 
     /**
-     * Get list of files that are included in next commit
+     * Get list of files that are tracked and modified
      * Each entry consists of the status and the file path.
      */
-    getStagedFiles(): Promise<string[]> {
+    getModifiedFiles(): Promise<string[]> {
         return new Promise<string[]>(async (resolve, reject) => {
             execa('git', ['status', '-s', '-uno'], this.execaOpts)
                 .then((result) => {

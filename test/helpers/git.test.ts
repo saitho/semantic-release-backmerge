@@ -137,13 +137,13 @@ describe("git", () => {
         );
     });
 
-    it("getStagedFiles", async () => {
+    it("getModifiedFiles", async () => {
         const execaMock: any = execa;
         execaMock.mockResolvedValueOnce({
             stdout: `A  file.txt\nB file2.txt`
         });
 
-        const files = await subject.getStagedFiles();
+        const files = await subject.getModifiedFiles();
         expect(execa).toHaveBeenCalledWith(
             'git',
             ['status', '-s', '-uno'],
@@ -152,12 +152,12 @@ describe("git", () => {
         expect(files).toEqual(['A  file.txt','B file2.txt']);
     });
 
-    it("getStagedFiles fails", (done) => {
+    it("getModifiedFiles fails", (done) => {
         const execaMock: any = execa;
         execaMock.mockRejectedValueOnce({
             stderr: 'An error occurred'
         });
-        subject.getStagedFiles()
+        subject.getModifiedFiles()
             .then(() => done('Error expected'))
             .catch(() => done());
     });

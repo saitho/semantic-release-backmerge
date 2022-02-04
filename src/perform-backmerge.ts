@@ -33,18 +33,18 @@ async function performBackmergeIntoBranch(git: Git, pluginConfig: Partial<Config
             try {
                 await git.rebase(releaseBranchName)
             } catch (e) {
-                if (e.stderr != null && e.stderr.includes('have unstaged changes')) {
-                    context.logger.error('Rebase failed: You have unstaged changes.')
-                    const modifiedFiles = await git.getModifiedFiles();
-                    if (modifiedFiles.length) {
-                        context.logger.error(`${modifiedFiles.length} modified file(s):`)
-                        for (const file of modifiedFiles) {
-                            context.logger.error(file)
-                        }
-                    }
-                    return
+                if (e.stderr == null || !e.stderr.includes('have unstaged changes')) {
+                   throw e
                 }
-                throw e
+                context.logger.error('Rebase failed: You have unstaged changes.')
+                const modifiedFiles = await git.getModifiedFiles()
+                if (modifiedFiles.length) {
+                    context.logger.error(`${modifiedFiles.length} modified file(s):`)
+                    for (const file of modifiedFiles) {
+                        context.logger.error(file)
+                    } 
+                }
+                return
             }
         }
     } else {

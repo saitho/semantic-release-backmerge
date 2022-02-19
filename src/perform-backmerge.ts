@@ -10,35 +10,51 @@ async function performBackmergeIntoBranch(git: Git, pluginConfig: Partial<Config
         lastRelease,
         nextRelease
     }: any = context;
-    const masterBranchName = branch.name;
-    if (!options.allowSameBranchMerge && developBranchName === masterBranchName) {
+    const releaseBranchName = branch.name;
+    if (!options.allowSameBranchMerge && developBranchName === releaseBranchName) {
         throw new Error(
             'Branch for back-merge is the same as the branch which includes the release. ' +
             'Aborting back-merge workflow.'
         );
     }
 
-    context.logger.log('Performing back-merge into branch "' + developBranchName + '".');
+    context.logger.log('Performing back-merge into develop branch "' + developBranchName + '".');
 
-    if (developBranchName !== masterBranchName) {
+    if (developBranchName !== releaseBranchName) {
         // Branch is detached. Checkout master first to be able to check out other branches
-        context.logger.log('Branch is detached. Checking out master branch.');
-        await git.checkout(masterBranchName);
-        context.logger.log('Checking out develop branch.');
+        context.logger.log(`Branch is detached. Checking out release branch "${releaseBranchName}".`);
+        await git.checkout(releaseBranchName);
+        context.logger.log(`Checking out develop branch "${developBranchName}".`);
         await git.checkout(developBranchName);
         context.logger.log(`Performing backmerge with "${options.backmergeStrategy}" strategy.`);
         if (options.backmergeStrategy === 'merge') {
-            await git.merge(masterBranchName, options.mergeMode);
+            await git.merge(releaseBranchName, options.mergeMode);
         } else {
-            await git.rebase(masterBranchName);
+            try {
+                await git.rebase(releaseBranchName)
+            } catch (e) {
+                if (e.stderr == null || !e.stderr.includes('have unstaged changes')) {
+                   throw e
+                }
+                context.logger.error('Rebase failed: You have unstaged changes.')
+                const modifiedFiles = await git.getModifiedFiles()
+                if (modifiedFiles.length) {
+                    context.logger.error(`${modifiedFiles.length} modified file(s):`)
+                    for (const file of modifiedFiles) {
+                        context.logger.error(file)
+                    } 
+                }
+                return
+            }
         }
     } else {
-        context.logger.log('Checking out develop branch directly.');
+        context.logger.log(`Checking out develop branch "${developBranchName}" directly.`);
         await git.checkout(developBranchName);
     }
 
     await triggerPluginHooks(options, context);
-    const stagedFiles = await git.getStagedFiles();
+    // in this case there are only staged files
+    const stagedFiles = await git.getModifiedFiles();
     context.logger.log('Found ' + stagedFiles.length + ' staged files for back-merge commit');
     if (stagedFiles.length) {
         for (const file of stagedFiles) {

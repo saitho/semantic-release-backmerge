@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/saitho/semantic-release-backmerge/compare/v2.1.0...v2.1.1) (2022-02-19)
+
+
+### Bug Fixes
+
+* improve logging ([#31](https://github.com/saitho/semantic-release-backmerge/issues/31)) ([e5a04d7](https://github.com/saitho/semantic-release-backmerge/commit/e5a04d7d5f081f395c7994a434f04b7f7d6eba4e))
+
 # [2.1.0](https://github.com/saitho/semantic-release-backmerge/compare/v2.0.0...v2.1.0) (2021-11-01)
 
 

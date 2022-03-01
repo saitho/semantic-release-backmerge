@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/saitho/semantic-release-backmerge/compare/v2.1.1...v2.1.2) (2022-03-01)
+
+
+### Bug Fixes
+
+* abort process when encountering unrecoverable error ([#33](https://github.com/saitho/semantic-release-backmerge/issues/33)) ([5e9b60c](https://github.com/saitho/semantic-release-backmerge/commit/5e9b60ccb23a2018d9c0699ea10a01e588c53f73))
+
 ## [2.1.1](https://github.com/saitho/semantic-release-backmerge/compare/v2.1.0...v2.1.1) (2022-02-19)
 
 

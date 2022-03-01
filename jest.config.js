@@ -6,6 +6,7 @@ module.exports = {
       tsconfig: 'tsconfig.json'
     }
   },
+  clearMocks: true,
   moduleFileExtensions: [
     'js',
     'json',

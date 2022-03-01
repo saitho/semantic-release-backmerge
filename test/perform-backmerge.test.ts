@@ -8,6 +8,10 @@ class NullLogger {
     error(message) {}
 }
 
+const realProcessExit = process.exit;
+process.exit = jest.fn(() => "" as never);
+afterAll(() => { process.exit = realProcessExit; });
+
 describe("perform-backmerge", () => {
     jest.mock('semantic-release/lib/get-git-auth-url', () => jest.fn((c) => c.options.repositoryUrl));
 
@@ -438,6 +442,7 @@ describe("perform-backmerge to multiple branches", () => {
         verify(mockedLogger.error('Process aborted due to an error while backmerging a branch.')).once();
         verify(mockedLogger.error(anyString())).once();
         verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).never();
+        expect(process.exit).toBeCalledWith(1);
     });
 
     it("skip conditional backmerge if the release branch does not match the 'from' branch", (done) => {
@@ -548,6 +553,7 @@ describe("perform-backmerge with error", () => {
                 verify(mockedLogger.error('1 modified file(s):')).once();
                 verify(mockedLogger.error('M testfile')).once();
                 verify(mockedGit.push('my-repo', 'develop', false)).never();
+                expect(process.exit).toBeCalledWith(1);
                 done();
             })
             .catch((error) => done(error));

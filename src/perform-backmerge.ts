@@ -44,7 +44,9 @@ async function performBackmergeIntoBranch(git: Git, pluginConfig: Partial<Config
                         context.logger.error(file)
                     } 
                 }
-                return
+                throw new Error(
+                    'Unable to rebase branch (see error output above).'
+                );
             }
         }
     } else {
@@ -122,6 +124,7 @@ export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, 
         } catch (e) {
             context.logger.error('Process aborted due to an error while backmerging a branch.')
             context.logger.error(e)
+            process.exit(1)
             break
         }
     }

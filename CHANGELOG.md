@@ -1,3 +1,11 @@
+## [2.1.3](https://github.com/saitho/semantic-release-backmerge/compare/v2.1.2...v2.1.3) (2023-01-11)
+
+
+### Bug Fixes
+
+* limit to semantic-release below 20.0.0 ([4dbca4a](https://github.com/saitho/semantic-release-backmerge/commit/4dbca4a24b51c238ebc1ec613af656725e09739a))
+* update dev-dependencies ([3771228](https://github.com/saitho/semantic-release-backmerge/commit/3771228bb856089682c70773784f175cdf4367d3))
+
 ## [2.1.2](https://github.com/saitho/semantic-release-backmerge/compare/v2.1.1...v2.1.2) (2022-03-01)
 
 

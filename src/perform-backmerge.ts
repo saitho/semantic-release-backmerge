@@ -1,10 +1,14 @@
-import {resolveConfig} from "./helpers/resolve-config";
-import Git from "./helpers/git";
-import {template} from 'lodash';
-import {loadPlugins} from "./helpers/plugins";
-import {Config} from "./definitions/config";
+import {resolveConfig} from "./helpers/resolve-config.js";
+import Git from "./helpers/git.js";
+import lodash from 'lodash';
+const {template} = lodash;
+import {loadPlugins} from "./helpers/plugins.js";
+import {Config} from "./definitions/config.js";
 
-async function performBackmergeIntoBranch(git: Git, pluginConfig: Partial<Config>, context, options: Config, developBranchName: string) {
+import getGitAuthUrl from 'semantic-release/lib/get-git-auth-url.js';
+import {Context} from "semantic-release";
+
+async function performBackmergeIntoBranch(git: Git, _pluginConfig: Partial<Config>, context: Context, options: Config, developBranchName: string) {
     const {
         branch,
         lastRelease,
@@ -32,7 +36,7 @@ async function performBackmergeIntoBranch(git: Git, pluginConfig: Partial<Config
         } else {
             try {
                 await git.rebase(releaseBranchName)
-            } catch (e) {
+            } catch (e: any) {
                 if (e.stderr == null || !e.stderr.includes('have unstaged changes')) {
                    throw e
                 }
@@ -69,13 +73,17 @@ async function performBackmergeIntoBranch(git: Git, pluginConfig: Partial<Config
     }
 
     context.logger.log(`Pushing backmerge to develop branch ${developBranchName}`);
-    const getGitAuthUrl = require('semantic-release/lib/get-git-auth-url');
     const authedRepositoryUrl = await getGitAuthUrl({...context, branch: {name: developBranchName}});
     await git.push(authedRepositoryUrl, developBranchName, options.forcePush);
 }
 
-export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, context) {
+export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, context: Context) {
     const branch = context.branch;
+    if (!branch) {
+        context.logger.error('Process aborted due as no branch was given in context.')
+        process.exit(1)
+        return
+    }
     const options = resolveConfig(pluginConfig);
 
     // fallback to `branches` if `backmergeBranches` are empty. todo: remove with next major release as this is deprecated
@@ -95,8 +103,8 @@ export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, 
     await git.configFetchAllRemotes();
 
     // Get latest commits before checking out
-    context.logger.log(`Fetching latest commits from repository at "${context.options.repositoryUrl}".`);
-    await git.fetch(context.options.repositoryUrl);
+    context.logger.log(`Fetching latest commits from repository at "${context.options!.repositoryUrl}".`);
+    await git.fetch(context.options!.repositoryUrl);
 
     if (options.clearWorkspace) {
         context.logger.log('Stashing uncommitted files from Git workspace.');
@@ -107,7 +115,6 @@ export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, 
         let developBranchName: string;
         if (typeof(developBranch) === 'object') {
             if (!developBranch.hasOwnProperty('from') || !developBranch.hasOwnProperty('to')) {
-                console.log(developBranch)
                 context.logger.log(developBranch.toString())
                 context.logger.error('Invalid branch configuration found and ignored.')
                 continue;
@@ -125,7 +132,7 @@ export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, 
 
         try {
             await performBackmergeIntoBranch(git, pluginConfig, context, options, template(developBranchName)({branch: branch}))
-        } catch (e) {
+        } catch (e: any) {
             context.logger.error('Process aborted due to an error while backmerging a branch.')
             context.logger.error(e)
             process.exit(1)
@@ -139,7 +146,7 @@ export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, 
     }
 }
 
-async function triggerPluginHooks(pluginConfig, context) {
+async function triggerPluginHooks(pluginConfig: Config, context: Context) {
     context.logger.log('Loading plugins');
     const plugins = loadPlugins(pluginConfig, context);
     context.logger.log('Executing "done" step of plugins');

@@ -1,21 +1,21 @@
-const pkg = require('../../package.json');
-
-const [homepage] = pkg.homepage.split('#');
-const linkify = file => `${homepage}/blob/master/${file}`;
+const linkify = (file: string) => `https://github.com/saitho/semantic-release-backmerge/blob/master/${file}`;
 
 export const ERROR_DEFINITIONS = {
+    // @ts-ignore
     EINVALIDBRANCHNAME: ({branchName}) => ({
         message: 'Invalid `branchName` option.',
         details: `The [branchName option](${linkify(
             'README.md#branchName'
         )}) option must be a \`String\`. Your configuration for the \`branchName\` option is \`${branchName}\`.`,
     }),
+    // @ts-ignore
     EINVALIDBACKMERGEBRANCHES: ({backmergeBranches}) => ({
         message: 'Invalid `backmergeBranches` option.',
         details: `The [backmergeBranches option](${linkify(
             'README.md#backmergeBranches'
         )}) option must be an \`Array\`. Your configuration for the \`backmergeBranches\` option is \`${backmergeBranches}\`.`,
     }),
+    // @ts-ignore
     EINVALIDMESSAGE: ({message}) => ({
         message: 'Invalid `message` option.',
         details: `The [message option](${linkify('README.md#message')}) option, if defined, must be a non empty \`String\`.

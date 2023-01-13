@@ -1,11 +1,6 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.json'
-    }
-  },
   clearMocks: true,
   moduleFileExtensions: [
     'js',
@@ -14,6 +9,9 @@ module.exports = {
   ],
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest'
+  },
+  moduleNameMapper: {
+    "(.+)\\.js": "$1"
   },
   testMatch: [
     '**/test/**/*.test.ts'

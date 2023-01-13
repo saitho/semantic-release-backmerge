@@ -1,5 +1,6 @@
-import {isNil} from 'lodash';
-import {Config} from "../definitions/config";
+import lodash from 'lodash';
+const {isNil} = lodash;
+import {Config} from "../definitions/config.js";
 
 export function resolveConfig(config: Partial<Config>): Config {
     let {branchName, branches, backmergeBranches, backmergeStrategy, plugins, message, forcePush, allowSameBranchMerge, clearWorkspace, restoreWorkspace, mergeMode} = config
@@ -8,7 +9,7 @@ export function resolveConfig(config: Partial<Config>): Config {
     }
     return {
         // @deprecated branchName – todo: remove with next major release
-        branchName: isNil(branchName) ? null : branchName,
+        branchName: isNil(branchName) ? '' : branchName,
         branches: branches,
         backmergeBranches: backmergeBranches,
         backmergeStrategy: isNil(backmergeStrategy) ? 'rebase' : backmergeStrategy,

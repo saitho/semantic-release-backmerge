@@ -3,11 +3,33 @@
     "src/**/*"
   ],
   "compilerOptions": {
-    "target": "es2015",
-    "module": "commonjs",
+    "target": "es2018",
+    "lib": [
+      "es2018",
+      "esnext.asynciterable"
+    ],
     "declaration": true,
-    "outDir": "./dist",
-    "strict": false,
-    "esModuleInterop": false
+    "strict": true,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "dist",
+    "noEmitOnError": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "sourceMap": true,
+    "inlineSourceMap": false,
+    "checkJs": true,
+    "allowJs": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noErrorTruncation": true,
+    "moduleResolution": "Node",
+    "resolveJsonModule": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   }
 }

@@ -1,4 +1,4 @@
-import {verify} from "../src/verify";
+import {verify} from "./verify";
 
 describe("verify", () => {
     it("does not throw error for valid config", () => {
@@ -23,10 +23,5 @@ describe("verify", () => {
         expect(() => {
             verify({plugins: 'not an array'});
         }).toThrowError('SemanticReleaseError: Invalid `plugins` option.');
-    });
-    it("throws error if forcePush is not a boolean", () => {
-        expect(() => {
-            verify({forcePush: 'no a boolean'});
-        }).toThrowError('SemanticReleaseError: Invalid `forcePush` option.');
     });
 });

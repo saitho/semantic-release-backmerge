@@ -1,9 +1,7 @@
-import {verify} from "../../src/verify";
-
 jest.mock('execa');
-import * as execa from 'execa';
+import execa from 'execa';
 
-import Git from "../../src/helpers/git";
+import Git from "./git";
 
 const execaOpts = {foo: 'bar'};
 const subject = new Git(execaOpts);

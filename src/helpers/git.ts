@@ -1,6 +1,7 @@
-import * as execa from 'execa';
-import {MergeMode} from "../definitions/config";
-const debug = require('debug')('semantic-release:backmerge');
+import {MergeMode} from "../definitions/config.js";
+import execa from "execa";
+import debugPkg from "debug";
+const debug = debugPkg('semantic-release:backmerge');
 
 export default class Git {
     /**
@@ -117,11 +118,11 @@ export default class Git {
     getModifiedFiles(): Promise<string[]> {
         return new Promise<string[]>(async (resolve, reject) => {
             execa('git', ['status', '-s', '-uno'], this.execaOpts)
-                .then((result) => {
+                .then((result: { stdout: string; }) => {
                     const lines = result.stdout.split('\n');
-                    resolve( lines.filter((item) => item.length) );
+                    resolve( lines.filter((item: string) => item.length) );
                 })
-                .catch((error) => reject(error));
+                .catch((error: any) => reject(error));
         })
     }
 

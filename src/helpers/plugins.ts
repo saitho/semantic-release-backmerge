@@ -1,4 +1,6 @@
-function getPackageData(plugin) {
+import {Context} from "semantic-release";
+
+function getPackageData(plugin: string|string[]) {
     if (Array.isArray(plugin)) {
         return {packageName: plugin[0], pluginConfig: plugin[1]};
     }
@@ -21,7 +23,7 @@ export class PluginGroup {
     constructor(plugins: Array<IPlugin>) {
         this.plugins = plugins;
     }
-    async success(context) {
+    async success(context: Context) {
         for (const pluginPackage of this.plugins) {
             context.logger.log('Executing "success" step of package ' + pluginPackage.packageName);
             await pluginPackage.pluginPackage.success(pluginPackage.pluginConfig, context);
@@ -29,7 +31,7 @@ export class PluginGroup {
     }
 }
 
-export function loadPlugins(parentPluginConfig: any, context): PluginGroup {
+export function loadPlugins(parentPluginConfig: any, context: Context): PluginGroup {
     const plugins = [];
     for (const plugin of parentPluginConfig.plugins) {
         const packageData = getPackageData(plugin);
@@ -45,7 +47,7 @@ export function loadPlugins(parentPluginConfig: any, context): PluginGroup {
             continue;
         }
         context.logger.log('Plugin ' + packageName + ' loaded successfully.');
-        plugins.push({packageName, pluginConfig, pluginPackage});
+        plugins.push({packageName, pluginConfig: pluginConfig as object, pluginPackage});
     }
 
     return new PluginGroup(plugins);

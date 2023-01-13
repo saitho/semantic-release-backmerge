@@ -1,12 +1,14 @@
-import {isString, isNil, isArray, isBoolean} from 'lodash';
-import {resolveConfig} from './helpers/resolve-config';
-import {getError} from './helpers/get-error';
+import lodash from 'lodash';
+const {isString, isNil, isArray, isBoolean} = lodash;
+import {resolveConfig} from './helpers/resolve-config.js';
+import {getError} from './helpers/get-error.js';
+import { Config } from './definitions/config.js';
+import AggregateError from "aggregate-error"
 
-const AggregateError = require('aggregate-error');
-const isNonEmptyString = (value) => isString(value) && value.trim();
+const isNonEmptyString = (value: string) => isString(value) && value.trim();
 
-export function verify(pluginConfig) {
-    const VALIDATORS = {
+export function verify(pluginConfig: Partial<Config>) {
+    const VALIDATORS: any = {
         branchName: isNonEmptyString,
         branches: isArray,
         message: isNonEmptyString,
@@ -16,10 +18,11 @@ export function verify(pluginConfig) {
 
     const options = resolveConfig(pluginConfig);
     const reducedErrors = Object.entries(options).reduce(
-        (errors, [option, value]) =>
-            !isNil(value) && VALIDATORS.hasOwnProperty(option) && !VALIDATORS[option](value)
+        (errors: any[], [option, value]) => {
+            return !isNil(value) && VALIDATORS.hasOwnProperty(option) && !VALIDATORS[option](value)
                 ? [...errors, getError(`EINVALID${option.toUpperCase()}`, {[option]: value})]
-                : errors,
+                : errors
+        },
         []
     );
 

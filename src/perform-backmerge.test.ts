@@ -1,7 +1,8 @@
-import {performBackmerge} from "../src/perform-backmerge";
-import Git from "../src/helpers/git";
+import {performBackmerge} from "./perform-backmerge";
+import Git from "./helpers/git";
 import {instance, mock, verify, when, anyString, anything} from "ts-mockito";
-import {resolveConfig} from "../src/helpers/resolve-config";
+import {resolveConfig} from "./helpers/resolve-config";
+import {Context} from "semantic-release";
 
 jest.mock('semantic-release/lib/get-git-auth-url.js', () => ({
     __esModule: true,
@@ -9,8 +10,8 @@ jest.mock('semantic-release/lib/get-git-auth-url.js', () => ({
 }));
 
 class NullLogger {
-    log(message) {}
-    error(message) {}
+    log(_message: string) {}
+    error(_message: string) {}
 }
 
 const realProcessExit = process.exit;
@@ -28,14 +29,14 @@ describe("perform-backmerge", () => {
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context;
         performBackmerge(instance(mockedGit), {branches: ['develop']}, context)
             .then(() => {
                 verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
                 verify(mockedLogger.error('Invalid branch configuration found and ignored.')).never();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+                verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
                 verify(mockedGit.checkout('develop')).once();
                 verify(mockedGit.rebase('master')).once();
                 verify(mockedGit.push('my-repo', 'develop', false)).once();
@@ -54,14 +55,14 @@ describe("perform-backmerge", () => {
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context;
         performBackmerge(instance(mockedGit), resolveConfig({}), context)
             .then(() => {
                 verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
                 verify(mockedLogger.error('Invalid branch configuration found and ignored.')).never();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+                verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
                 verify(mockedGit.checkout('develop')).once();
                 verify(mockedGit.rebase('master')).once();
                 verify(mockedGit.push('my-repo', 'develop', false)).once();
@@ -80,12 +81,12 @@ describe("perform-backmerge", () => {
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context;
         performBackmerge(instance(mockedGit), {branches: ['master'], allowSameBranchMerge: true}, context)
             .then(() => {
                 verify(mockedLogger.log('Performing back-merge into develop branch "master".')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+                verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.rebase('master')).never();
                 verify(mockedGit.push('my-repo', 'master', false)).once();
@@ -97,7 +98,7 @@ describe("perform-backmerge", () => {
     it("disallow merging into the same branch", async () => {
         const mockedGit = mock(Git);
         const mockedLogger = mock(NullLogger);
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context;
         await performBackmerge(instance(mockedGit), {branches: ['master'], allowSameBranchMerge: false}, context);
         verify(mockedLogger.error(anyString())).once();
     });
@@ -112,12 +113,12 @@ describe("perform-backmerge", () => {
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context;
         performBackmerge(instance(mockedGit), {branches: ['${branch.name}'], allowSameBranchMerge: true}, context)
             .then(() => {
                 verify(mockedLogger.log('Performing back-merge into develop branch "master".')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+                verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.rebase('master')).never();
                 verify(mockedGit.push('my-repo', 'master', false)).once();
@@ -136,13 +137,13 @@ describe("perform-backmerge", () => {
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context;
         performBackmerge(instance(mockedGit), {branches: ['develop']}, context)
             .then(() => {
                 verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+                verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
                 verify(mockedGit.checkout('develop')).once();
                 verify(mockedGit.rebase('master')).once();
                 verify(mockedGit.push('my-repo', 'develop', false)).once();
@@ -161,13 +162,13 @@ describe("perform-backmerge", () => {
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context;
         performBackmerge(instance(mockedGit), {branches: ['develop'], forcePush: true}, context)
             .then(() => {
                 verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+                verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
                 verify(mockedGit.checkout('develop')).once();
                 verify(mockedGit.rebase('master')).once();
                 verify(mockedGit.push('my-repo', 'develop', true)).once();
@@ -188,7 +189,7 @@ describe("perform-backmerge", () => {
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
 
         await performBackmerge(
             instance(mockedGit),
@@ -201,7 +202,7 @@ describe("perform-backmerge", () => {
         verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
         verify(mockedGit.checkout('master')).once();
         verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+        verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
         verify(mockedGit.checkout('develop')).once();
         verify(mockedGit.rebase('master')).once();
         verify(mockedGit.commit('my-commit-message')).once();
@@ -220,7 +221,7 @@ describe("perform-backmerge", () => {
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context;
 
         await performBackmerge(
             instance(mockedGit),
@@ -234,7 +235,7 @@ describe("perform-backmerge", () => {
         verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
         verify(mockedGit.checkout('master')).once();
         verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+        verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
 
         const checkoutDevelopAction = mockedGit.checkout('develop');
         verify(mockedGit.stash()).calledBefore(checkoutDevelopAction);
@@ -258,7 +259,7 @@ describe("perform-backmerge", () => {
         when(mockedGit.merge(anyString(), anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
 
         await performBackmerge(
             instance(mockedGit),
@@ -271,7 +272,7 @@ describe("perform-backmerge", () => {
         verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
         verify(mockedGit.checkout('master')).once();
         verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+        verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
 
         verify(mockedGit.checkout('develop')).once();
         verify(mockedGit.merge('master', 'none')).once();
@@ -291,7 +292,7 @@ describe("perform-backmerge", () => {
         when(mockedGit.merge(anyString(), anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context;
 
         await performBackmerge(
             instance(mockedGit),
@@ -305,7 +306,7 @@ describe("perform-backmerge", () => {
         verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
         verify(mockedGit.checkout('master')).once();
         verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+        verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
 
         verify(mockedGit.checkout('develop')).once();
         verify(mockedGit.merge('master', 'ours')).once();
@@ -325,7 +326,7 @@ describe("perform-backmerge", () => {
         when(mockedGit.merge(anyString(), anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
 
         await performBackmerge(
             instance(mockedGit),
@@ -339,7 +340,7 @@ describe("perform-backmerge", () => {
         verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
         verify(mockedGit.checkout('master')).once();
         verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+        verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
 
         verify(mockedGit.checkout('develop')).once();
         verify(mockedGit.merge('master', 'theirs')).once();
@@ -359,7 +360,7 @@ describe("perform-backmerge", () => {
         when(mockedGit.merge(anyString(), anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
 
         await performBackmerge(
             instance(mockedGit),
@@ -373,7 +374,7 @@ describe("perform-backmerge", () => {
         verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
         verify(mockedGit.checkout('master')).once();
         verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+        verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
 
         verify(mockedGit.checkout('develop')).once();
         verify(mockedGit.merge('master', 'ours')).once();
@@ -393,12 +394,12 @@ describe("perform-backmerge to multiple branches", () => {
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context;
         performBackmerge(instance(mockedGit), {branches: ['develop', 'dev']}, context)
             .then(() => {
                 verify(mockedGit.checkout('master')).twice();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+                verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
                 verify(mockedGit.rebase('master')).twice();
 
                 verify(mockedLogger.error('Invalid branch configuration found and ignored.')).never();
@@ -425,7 +426,7 @@ describe("perform-backmerge to multiple branches", () => {
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
         performBackmerge(instance(mockedGit), {branches: [{from: "main", to: "next"}]}, context)
             .then(() => {
                 verify(mockedLogger.log('Branch "next" was skipped as release did not originate from branch "main".')).once();
@@ -438,7 +439,7 @@ describe("perform-backmerge to multiple branches", () => {
     it("abort when merging into the same branch and it's disallowed", async () => {
         const mockedGit = mock(Git);
         const mockedLogger = mock(NullLogger);
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
         await performBackmerge(instance(mockedGit), {branches: ['master', 'develop'], allowSameBranchMerge: false}, context);
         verify(mockedLogger.error('Process aborted due to an error while backmerging a branch.')).once();
         verify(mockedLogger.error(anyString())).once();
@@ -456,8 +457,12 @@ describe("perform-backmerge to multiple branches", () => {
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
-        performBackmerge(instance(mockedGit), {branches: [{from: 'main', to: 'next'}, 'master'], allowSameBranchMerge: true}, context)
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
+        performBackmerge(
+            instance(mockedGit),
+            {branches: [{from: 'main', to: 'next'}, 'master'], allowSameBranchMerge: true},
+            context
+        )
             .then(() => {
                 verify(mockedLogger.log('Branch "next" was skipped as release did not originate from branch "main".')).once();
                 verify(mockedLogger.log('Performing back-merge into develop branch "next".')).never();
@@ -465,7 +470,7 @@ describe("perform-backmerge to multiple branches", () => {
 
                 verify(mockedLogger.log('Performing back-merge into develop branch "master".')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+                verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.rebase('master')).never();
                 verify(mockedGit.push('my-repo', 'master', false)).once();
@@ -484,14 +489,18 @@ describe("perform-backmerge to multiple branches", () => {
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
-        performBackmerge(instance(mockedGit), {branches: [JSON.parse('{"foo": "bar"}'), 'master'], allowSameBranchMerge: true}, context)
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
+        performBackmerge(
+            instance(mockedGit),
+            {branches: [JSON.parse('{"foo": "bar"}'), 'master'], allowSameBranchMerge: true},
+            context
+        )
             .then(() => {
                 verify(mockedLogger.error('Invalid branch configuration found and ignored.')).once();
 
                 verify(mockedLogger.log('Performing back-merge into develop branch "master".')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+                verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.rebase('master')).never();
                 verify(mockedGit.push('my-repo', 'master', false)).once();
@@ -510,12 +519,16 @@ describe("perform-backmerge to multiple branches", () => {
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
-        performBackmerge(instance(mockedGit), {branches: [{from: 'master', to: '${branch.name}'}], allowSameBranchMerge: true}, context)
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
+        performBackmerge(
+            instance(mockedGit),
+            {branches: [{from: 'master', to: '${branch.name}'}], allowSameBranchMerge: true},
+            context
+        )
             .then(() => {
                 verify(mockedLogger.log('Performing back-merge into develop branch "master".')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+                verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.rebase('master')).never();
                 verify(mockedGit.push('my-repo', 'master', false)).once();
@@ -528,7 +541,7 @@ describe("perform-backmerge to multiple branches", () => {
 describe("perform-backmerge with error", () => {
     it("rebase with unstaged changes", (done) => {
         class MockError extends Error {
-            stderr: string
+            stderr= ''
         }
         const mockedGit = mock(Git);
         const mockedLogger = mock(NullLogger);
@@ -539,14 +552,14 @@ describe("perform-backmerge with error", () => {
         when(mockedGit.getModifiedFiles()).thenReturn(new Promise<string[]>(resolve => resolve(['M testfile'])));
         when(mockedLogger.error(anyString())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
         performBackmerge(instance(mockedGit), {branches: ['develop']}, context)
             .then(() => {
                 verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
                 verify(mockedLogger.error('Invalid branch configuration found and ignored.')).never();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+                verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
                 verify(mockedGit.checkout('develop')).once();
                 verify(mockedGit.rebase('master')).once();
                 verify(mockedGit.getModifiedFiles()).once();
@@ -561,7 +574,7 @@ describe("perform-backmerge with error", () => {
 
     it("rebase with other error", (done) => {
         class MockError extends Error {
-            stderr: string
+            stderr = ''
         }
         const mockedGit = mock(Git);
         const mockedLogger = mock(NullLogger);
@@ -572,14 +585,14 @@ describe("perform-backmerge with error", () => {
         when(mockedGit.rebase(anyString())).thenThrow({message:'',name:'',stderr:'any other error'} as MockError);
         when(mockedGit.getModifiedFiles()).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
         performBackmerge(instance(mockedGit), {branches: ['develop']}, context)
             .then(() => {
                 verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
                 verify(mockedLogger.error('Invalid branch configuration found and ignored.')).never();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+                verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
                 verify(mockedGit.checkout('develop')).once();
                 verify(mockedGit.rebase('master')).once();
                 verify(mockedGit.getModifiedFiles()).never();
@@ -595,7 +608,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
     it("trigger deprecation notice", async() => {
         const mockedGit = mock(Git);
         const mockedLogger = mock(NullLogger);
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context;
         await performBackmerge(instance(mockedGit), {branchName: 'master', allowSameBranchMerge: false}, context);
         verify(mockedLogger.log('The property "branchName" is deprecated. Please use "branches" instead: `branches: ["master"]`')).once();
         verify(mockedLogger.error(anyString())).once();
@@ -611,13 +624,13 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context;
         performBackmerge(instance(mockedGit), {branchName: 'develop'}, context)
             .then(() => {
                 verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+                verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
                 verify(mockedGit.checkout('develop')).once();
                 verify(mockedGit.rebase('master')).once();
                 verify(mockedGit.push('my-repo', 'develop', false)).once();
@@ -636,12 +649,12 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
         performBackmerge(instance(mockedGit), {branchName: 'master', allowSameBranchMerge: true}, context)
             .then(() => {
                 verify(mockedLogger.log('Performing back-merge into develop branch "master".')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+                verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.rebase('master')).never();
                 verify(mockedGit.push('my-repo', 'master', false)).once();
@@ -653,7 +666,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
     it("disallow merging into the same branch", async () => {
         const mockedGit = mock(Git);
         const mockedLogger = mock(NullLogger);
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
         await performBackmerge(instance(mockedGit), {branchName: 'master', allowSameBranchMerge: false}, context);
         verify(mockedLogger.error(anyString())).once();
     });
@@ -668,12 +681,12 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context;
         performBackmerge(instance(mockedGit), {branchName: '${branch.name}', allowSameBranchMerge: true}, context)
             .then(() => {
                 verify(mockedLogger.log('Performing back-merge into develop branch "master".')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+                verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.rebase('master')).never();
                 verify(mockedGit.push('my-repo', 'master', false)).once();
@@ -692,13 +705,13 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
         performBackmerge(instance(mockedGit), {branchName: 'develop'}, context)
             .then(() => {
                 verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+                verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
                 verify(mockedGit.checkout('develop')).once();
                 verify(mockedGit.rebase('master')).once();
                 verify(mockedGit.push('my-repo', 'develop', false)).once();
@@ -717,13 +730,13 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context;
         performBackmerge(instance(mockedGit), {branchName: 'develop', forcePush: true}, context)
             .then(() => {
                 verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
                 verify(mockedGit.checkout('master')).once();
                 verify(mockedGit.configFetchAllRemotes()).once();
-                verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+                verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
                 verify(mockedGit.checkout('develop')).once();
                 verify(mockedGit.rebase('master')).once();
                 verify(mockedGit.push('my-repo', 'develop', true)).once();
@@ -744,7 +757,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
 
         await performBackmerge(
             instance(mockedGit),
@@ -757,7 +770,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
         verify(mockedGit.checkout('master')).once();
         verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+        verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
         verify(mockedGit.checkout('develop')).once();
         verify(mockedGit.rebase('master')).once();
         verify(mockedGit.commit('my-commit-message')).once();
@@ -776,7 +789,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         when(mockedGit.rebase(anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
 
         await performBackmerge(
             instance(mockedGit),
@@ -790,7 +803,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
         verify(mockedGit.checkout('master')).once();
         verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+        verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
 
         const checkoutDevelopAction = mockedGit.checkout('develop');
         verify(mockedGit.stash()).calledBefore(checkoutDevelopAction);
@@ -814,7 +827,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         when(mockedGit.merge(anyString(), anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
 
         await performBackmerge(
             instance(mockedGit),
@@ -827,7 +840,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
         verify(mockedGit.checkout('master')).once();
         verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+        verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
 
         verify(mockedGit.checkout('develop')).once();
         verify(mockedGit.merge('master', 'none')).once();
@@ -847,7 +860,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         when(mockedGit.merge(anyString(), anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context;
 
         await performBackmerge(
             instance(mockedGit),
@@ -861,7 +874,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
         verify(mockedGit.checkout('master')).once();
         verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+        verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
 
         verify(mockedGit.checkout('develop')).once();
         verify(mockedGit.merge('master', 'ours')).once();
@@ -881,7 +894,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         when(mockedGit.merge(anyString(), anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
 
         await performBackmerge(
             instance(mockedGit),
@@ -895,7 +908,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
         verify(mockedGit.checkout('master')).once();
         verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+        verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
 
         verify(mockedGit.checkout('develop')).once();
         verify(mockedGit.merge('master', 'theirs')).once();
@@ -915,7 +928,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         when(mockedGit.merge(anyString(), anyString())).thenResolve();
         when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
 
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
 
         await performBackmerge(
             instance(mockedGit),
@@ -929,7 +942,7 @@ describe("perform-backmerge with deprecated branchName setting", () => {
         verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
         verify(mockedGit.checkout('master')).once();
         verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch(context.options.repositoryUrl)).once();
+        verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
 
         verify(mockedGit.checkout('develop')).once();
         verify(mockedGit.merge('master', 'ours')).once();

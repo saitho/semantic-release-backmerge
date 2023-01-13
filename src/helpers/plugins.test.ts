@@ -1,15 +1,16 @@
-import {loadPlugins} from "../../src/helpers/plugins";
+import {loadPlugins} from "./plugins";
 import {instance, mock, verify, match} from "ts-mockito";
+import {Context} from "semantic-release";
 
 class NullLogger {
-    log(message) {}
-    error(message) {}
+    log(_message: string) {}
+    error(_message: string) {}
 }
 
 describe("plugins", () => {
     it("call success function on plugins", async () => {
         const mockedLogger = mock(NullLogger);
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: []} as unknown as Context;
 
         let success1Called = false;
         let success2Called = false;
@@ -24,7 +25,7 @@ describe("plugins", () => {
         });
         jest.mock('typescript', () => {
             return {
-                success: function (pluginConfig) {
+                success: function (pluginConfig: { someConfig: boolean; }) {
                     success2Called = pluginConfig.someConfig;
                 }
             }
@@ -46,7 +47,7 @@ describe("plugins", () => {
 
     it("log message if plugin configuration is invalid", () => {
         const mockedLogger = mock(NullLogger);
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: []} as unknown as Context
 
         loadPlugins({plugins: [ {foo: 'bar'} ]}, context);
         verify(mockedLogger.log(match('Invalid plugin provided. Expected string or array'))).once();
@@ -54,7 +55,7 @@ describe("plugins", () => {
 
     it("log message if plugin has no 'success' function", () => {
         const mockedLogger = mock(NullLogger);
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: []} as unknown as Context
 
         jest.mock('cz-conventional-changelog', () => {
             return {};
@@ -65,7 +66,7 @@ describe("plugins", () => {
 
     it("log message if plugin has 'success' property but its not a function", () => {
         const mockedLogger = mock(NullLogger);
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}};
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: []} as unknown as Context
 
         jest.mock('commitizen', () => {
             return {

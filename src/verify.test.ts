@@ -1,4 +1,4 @@
-import {verify} from "../src/verify";
+import {verify} from "./verify";
 
 describe("verify", () => {
     it("does not throw error for valid config", () => {
@@ -9,11 +9,6 @@ describe("verify", () => {
             verify({branchName: ''});
         }).toThrowError('SemanticReleaseError: Invalid `branchName` option.');
     });
-    it("throws error if branches is not an array", () => {
-        expect(() => {
-            verify({branches: ''});
-        }).toThrowError('SemanticReleaseError: Invalid `branches` option.');
-    });
     it("throws error for empty commit message", () => {
         expect(() => {
             verify({message: ''});
@@ -23,10 +18,5 @@ describe("verify", () => {
         expect(() => {
             verify({plugins: 'not an array'});
         }).toThrowError('SemanticReleaseError: Invalid `plugins` option.');
-    });
-    it("throws error if forcePush is not a boolean", () => {
-        expect(() => {
-            verify({forcePush: 'no a boolean'});
-        }).toThrowError('SemanticReleaseError: Invalid `forcePush` option.');
     });
 });

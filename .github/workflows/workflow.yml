@@ -6,12 +6,12 @@ on:
   pull_request:
     branches: [ master ]
 jobs:
-  build:
+  lint:
     name: Lint Code Base
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Lint Code Base
@@ -23,21 +23,42 @@ jobs:
           VALIDATE_JSCPD: false # Can not exclude specific file: https://github.com/kucherenko/jscpd/issues/215
           VALIDATE_TYPESCRIPT_STANDARD: false
           VALIDATE_MARKDOWN: false
+  build:
+    name: Build
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v2.2.4
+        with:
+          version: 7.24.3
+          run_install: true
+      - name: Build
+        run: pnpm run build
+      - name: Upload build
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: dist
   tests:
     name: Unit Tests
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: pnpm/action-setup@v2.0.1
+      - uses: pnpm/action-setup@v2.2.4
         with:
-          version: 6.0.2
-          run_install: true
+          version: 7.24.3
+          run_install: |
+            - recursive: false
       - name: Run Unit Tests
         run: pnpm test
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: unittest-coverage
           path: coverage/lcov.info
@@ -45,12 +66,13 @@ jobs:
     name: SonarCloud
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
-    needs: tests
+    needs:
+      - tests
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: unittest-coverage
           path: coverage
@@ -63,16 +85,24 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
-    needs: sonarcloud
+    needs:
+      - build
+      - sonarcloud
+      - tests
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: pnpm/action-setup@v2.0.1
+      - uses: pnpm/action-setup@v2.2.4
         with:
-          version: 6.0.2
-          run_install: true
-      - run: pnpm run build
+          version: 7.24.3
+          run_install: |
+            - recursive: false
+      - name: Download build
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: dist
       - run: mkdir -p docs
       - run: pnpx semantic-release
         env:

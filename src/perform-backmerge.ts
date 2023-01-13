@@ -4,6 +4,8 @@ import {template} from 'lodash';
 import {loadPlugins} from "./helpers/plugins";
 import {Config} from "./definitions/config";
 
+import getGitAuthUrl from 'semantic-release/lib/get-git-auth-url.js';
+
 async function performBackmergeIntoBranch(git: Git, pluginConfig: Partial<Config>, context, options: Config, developBranchName: string) {
     const {
         branch,
@@ -71,7 +73,6 @@ async function performBackmergeIntoBranch(git: Git, pluginConfig: Partial<Config
     }
 
     context.logger.log(`Pushing backmerge to develop branch ${developBranchName}`);
-    const getGitAuthUrl = require('semantic-release/lib/get-git-auth-url');
     const authedRepositoryUrl = await getGitAuthUrl({...context, branch: {name: developBranchName}});
     await git.push(authedRepositoryUrl, developBranchName, options.forcePush);
 }

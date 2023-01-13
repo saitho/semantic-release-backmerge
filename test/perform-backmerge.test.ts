@@ -3,6 +3,11 @@ import Git from "../src/helpers/git";
 import {instance, mock, verify, when, anyString, anything} from "ts-mockito";
 import {resolveConfig} from "../src/helpers/resolve-config";
 
+jest.mock('semantic-release/lib/get-git-auth-url.js', () => ({
+    __esModule: true,
+    default: jest.fn((c) => c.options.repositoryUrl),
+}));
+
 class NullLogger {
     log(message) {}
     error(message) {}
@@ -13,8 +18,6 @@ process.exit = jest.fn(() => "" as never);
 afterAll(() => { process.exit = realProcessExit; });
 
 describe("perform-backmerge", () => {
-    jest.mock('semantic-release/lib/get-git-auth-url', () => jest.fn((c) => c.options.repositoryUrl));
-
     it("works with correct configuration", (done) => {
         const mockedGit = mock(Git);
         const mockedLogger = mock(NullLogger);
@@ -380,8 +383,6 @@ describe("perform-backmerge", () => {
 });
 
 describe("perform-backmerge to multiple branches", () => {
-    jest.mock('semantic-release/lib/get-git-auth-url', () => jest.fn((c) => c.options.repositoryUrl));
-
     it("works with correct configuration", (done) => {
         const mockedGit = mock(Git);
         const mockedLogger = mock(NullLogger);
@@ -525,7 +526,6 @@ describe("perform-backmerge to multiple branches", () => {
 });
 
 describe("perform-backmerge with error", () => {
-    jest.mock('semantic-release/lib/get-git-auth-url', () => jest.fn((c) => c.options.repositoryUrl));
     it("rebase with unstaged changes", (done) => {
         class MockError extends Error {
             stderr: string
@@ -592,8 +592,6 @@ describe("perform-backmerge with error", () => {
 
 // todo: remove with next major release when `branchName` is removed
 describe("perform-backmerge with deprecated branchName setting", () => {
-    jest.mock('semantic-release/lib/get-git-auth-url', () => jest.fn((c) => c.options.repositoryUrl));
-
     it("trigger deprecation notice", async() => {
         const mockedGit = mock(Git);
         const mockedLogger = mock(NullLogger);

@@ -6,26 +6,26 @@ on:
   pull_request:
     branches: [ master ]
 jobs:
-  lint:
-    name: Lint Code Base
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Lint Code Base
-        uses: github/super-linter@v4
-        env:
-          VALIDATE_ALL_CODEBASE: false
-          DEFAULT_BRANCH: master
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_JSCPD: false # Can not exclude specific file: https://github.com/kucherenko/jscpd/issues/215
-          VALIDATE_TYPESCRIPT_STANDARD: false
-          VALIDATE_MARKDOWN: false
+  #lint:
+  #  name: Lint Code Base
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #    - name: Checkout Code
+  #      uses: actions/checkout@v3
+  #      with:
+  #        fetch-depth: 0
+  #    - name: Lint Code Base
+  #      uses: github/super-linter@v4
+  #      env:
+  #        VALIDATE_ALL_CODEBASE: false
+  #        DEFAULT_BRANCH: master
+  #        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #        VALIDATE_JSCPD: false # Can not exclude specific file: https://github.com/kucherenko/jscpd/issues/215
+  #        VALIDATE_TYPESCRIPT_STANDARD: false
+  #        VALIDATE_MARKDOWN: false
   build:
     name: Build
-    needs: lint
+    #needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code

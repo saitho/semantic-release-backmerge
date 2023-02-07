@@ -1,0 +1,30 @@
+{
+  "name": "@saithodev/semantic-release-backmerge-example",
+  "private": true,
+  "main": "index.js",
+  "release": {
+    "ci": false,
+    "branches": ["refs/pull/*/merge"],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      ["@saithodev/semantic-release-backmerge", {"message": "Testmessage"}]
+    ]
+  },
+  "scripts": {
+    "semantic-release": "semantic-release",
+    "commit": "git-cz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "."
+  },
+  "dependencies": {
+    "@saithodev/semantic-release-backmerge": "file:../../",
+    "semantic-release": "^20.0.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

@@ -9,8 +9,8 @@ const isNonEmptyString = (value: string) => isString(value) && value.trim();
 
 export function verify(pluginConfig: Partial<Config>) {
     const VALIDATORS: any = {
-        branchName: isNonEmptyString,
-        branches: isArray,
+        //branchName: isNonEmptyString,
+        //branches: isArray,
         message: isNonEmptyString,
         plugins: isArray,
         forcePush: isBoolean,
@@ -25,6 +25,10 @@ export function verify(pluginConfig: Partial<Config>) {
         },
         []
     );
+
+    if (!isNonEmptyString(pluginConfig.branchName || '') && !isArray(pluginConfig.branches)) {
+        reducedErrors.push('Please specify a valid "branches" setting.')
+    }
 
     if (reducedErrors.length > 0) {
         throw new AggregateError(reducedErrors);

@@ -92,12 +92,6 @@ export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, 
         context.logger.log('The property "branches" will be renamed to "backmergeBranches" with the next major release.')
     }
 
-    // fallback to `branchName` if `branches` are empty. todo: remove with next major release as this is deprecated
-    if (options.branchName != null && options.branchName.length) {
-        options.backmergeBranches = [options.branchName]
-        context.logger.log('The property "branchName" is deprecated. Please use "branches" instead: `branches: ["' + options.branchName + '"]`')
-    }
-
     // Make sure all remotes are fetched
     context.logger.log(`Fetching all remotes.`);
     await git.configFetchAllRemotes();

@@ -2,13 +2,6 @@ const linkify = (file: string) => `https://github.com/saitho/semantic-release-ba
 
 export const ERROR_DEFINITIONS = {
     // @ts-ignore
-    EINVALIDBRANCHNAME: ({branchName}) => ({
-        message: 'Invalid `branchName` option.',
-        details: `The [branchName option](${linkify(
-            'README.md#branchName'
-        )}) option must be a \`String\`. Your configuration for the \`branchName\` option is \`${branchName}\`.`,
-    }),
-    // @ts-ignore
     EINVALIDBACKMERGEBRANCHES: ({backmergeBranches}) => ({
         message: 'Invalid `backmergeBranches` option.',
         details: `The [backmergeBranches option](${linkify(

@@ -12,10 +12,10 @@ In such cases the release workflow will fail, causing a red pipeline!
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-| Step               | Description                                                                                                                        |
-|--------------------|------------------------------------------------------------------------------------------------------------------------------------|
-| `verifyConditions` | Verify the access to the remote Git repository, the ['branchName'](#branchName) option configuration. |
-| `done`             | Create a back-merge into the configured branch if the release is successful.                                                                       |
+| Step               | Description                                                                                       |
+|--------------------|---------------------------------------------------------------------------------------------------|
+| `verifyConditions` | Verify the access to the remote Git repository, the ['branches'](#branches) option configuration. |
+| `done`             | Create a back-merge into the configured branch if the release is successful.                      |
 
 ## Install
 
@@ -96,22 +96,6 @@ The personal access token in `GITHUB_TOKEN` needs access to the `repo` scope.
 | `clearWorkspace` | Whether to stash the current workspace before backmerge. See [clearWorkspace](#clearWorkspace).   | false |
 | `restoreWorkspace` | Restore the stashed workspace after backmerge completed. See [restoreWorkspace](#restoreWorkspace).   | false |
 | `mergeMode` | Mode for merging (when `backmergeStrategy=merge`). See [mergeMode](#mergeMode).   | none |
-
-#### `branchName` (deprecated)
-
-**Deprecated:** Use [`backmergeBranches`](#backmergeBranches) instead (e.g. `backmergeBranches: ["develop"]`)
-
-Branch name of the branch that should receive the back-merge. If none is given, the default value is used.
-You may use [Lodash template](https://lodash.com/docs#template) variables here. The following variables are available:
-
-| Parameter           | Description                                                                                                                            |
-|---------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| `branch`            | The branch from which the release is done.                                                                                             |
-| `branch.name`       | The branch name.                                                                                                                       |
-| `branch.type`       | The [type of branch](https://github.com/semantic-release/semantic-release/blob/beta/docs/usage/workflow-configuration.md#branch-types). |
-| `branch.channel`    | The distribution channel on which to publish releases from this branch.                                                                |
-| `branch.range`      | The range of [semantic versions](https://semver.org) to support on this branch.                                                        |
-| `branch.prerelease` | The prerelease detonation to append to [semantic versions](https://semver.org) released from this branch.                              |
 
 #### `backmergeBranches`
 

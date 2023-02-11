@@ -3,13 +3,11 @@ const {isNil} = lodash;
 import {Config} from "../definitions/config.js";
 
 export function resolveConfig(config: Partial<Config>): Config {
-    let {branchName, branches, backmergeBranches, backmergeStrategy, plugins, message, forcePush, allowSameBranchMerge, clearWorkspace, restoreWorkspace, mergeMode} = config
+    let {branches, backmergeBranches, backmergeStrategy, plugins, message, forcePush, allowSameBranchMerge, clearWorkspace, restoreWorkspace, mergeMode} = config
     if (isNil(branches)) {
         backmergeBranches = isNil(backmergeBranches) ? ['develop'] : backmergeBranches;
     }
     return {
-        // @deprecated branchName – todo: remove with next major release
-        branchName: isNil(branchName) ? '' : branchName,
         branches: branches,
         backmergeBranches: backmergeBranches,
         backmergeStrategy: isNil(backmergeStrategy) ? 'rebase' : backmergeStrategy,

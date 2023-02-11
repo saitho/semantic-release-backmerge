@@ -9,7 +9,6 @@ const isNonEmptyString = (value: string) => isString(value) && value.trim();
 
 export function verify(pluginConfig: Partial<Config>) {
     const VALIDATORS: any = {
-        branchName: isNonEmptyString,
         backmergeBranches: isArray,
         message: isNonEmptyString,
         plugins: isArray,

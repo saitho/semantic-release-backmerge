@@ -2,12 +2,15 @@ import {verify} from "./verify";
 
 describe("verify", () => {
     it("does not throw error for valid config", () => {
-        verify({branchName: 'develop', message: 'my message', plugins: ['my-plugin'], forcePush: true});
+        verify({branches: ['develop'], message: 'my message', plugins: ['my-plugin'], forcePush: true});
     });
-    it("throws error for empty branch name", () => {
+    it("does not throw error for default config", () => {
+        verify({});
+    });
+    it("throws error for wrongly typed branches setting", () => {
         expect(() => {
-            verify({branchName: ''});
-        }).toThrowError('SemanticReleaseError: Invalid `branchName` option.');
+            verify({branches: 'wrongType', message: 'my message'} as any);
+        }).toThrowError('SemanticReleaseError: Invalid `branches` option.');
     });
     it("throws error if branches is not an array", () => {
         expect(() => {

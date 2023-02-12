@@ -64,9 +64,7 @@ async function performBackmergeIntoBranch(git: Git, pluginConfig: Partial<Config
         }
         const message = options.message;
         await git.commit(
-            message
-                ? template(message)({branch: branch, lastRelease, nextRelease})
-                : `chore(release): Preparations for next release [skip ci]`
+            template(message)({branch: branch, lastRelease, nextRelease})
         );
     }
 

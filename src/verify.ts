@@ -8,7 +8,7 @@ const isNonEmptyString = (value) => isString(value) && value.trim();
 export function verify(pluginConfig) {
     const VALIDATORS = {
         branchName: isNonEmptyString,
-        branches: isArray,
+        backmergeBranches: isArray,
         message: isNonEmptyString,
         plugins: isArray,
         forcePush: isBoolean,

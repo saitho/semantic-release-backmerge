@@ -78,9 +78,15 @@ export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, 
     const branch = context.branch;
     const options = resolveConfig(pluginConfig);
 
+    // fallback to `branches` if `backmergeBranches` are empty. todo: remove with next major release as this is deprecated
+    if (options.branches != null && options.branches.length && (options.backmergeBranches == null || !options.backmergeBranches.length)) {
+        options.backmergeBranches = options.branches
+        context.logger.log('The property "branches" will be renamed to "backmergeBranches" with the next major release.')
+    }
+
     // fallback to `branchName` if `branches` are empty. todo: remove with next major release as this is deprecated
     if (options.branchName != null && options.branchName.length) {
-        options.branches = [options.branchName]
+        options.backmergeBranches = [options.branchName]
         context.logger.log('The property "branchName" is deprecated. Please use "branches" instead: `branches: ["' + options.branchName + '"]`')
     }
 
@@ -97,7 +103,7 @@ export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, 
         await git.stash();
     }
 
-    for(const developBranch of options.branches) {
+    for(const developBranch of options.backmergeBranches) {
         let developBranchName: string;
         if (typeof(developBranch) === 'object') {
             if (!developBranch.hasOwnProperty('from') || !developBranch.hasOwnProperty('to')) {

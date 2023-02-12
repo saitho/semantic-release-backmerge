@@ -99,7 +99,7 @@ The personal access token in `GITHUB_TOKEN` needs access to the `repo` scope.
 
 #### `branchName` (deprecated)
 
-**Deprecated:** Use [`branches`](#branches) instead (e.g. `branches: ["develop"]`)
+**Deprecated:** Use [`backmergeBranches`](#backmergeBranches) instead (e.g. `backmergeBranches: ["develop"]`)
 
 Branch name of the branch that should receive the back-merge. If none is given, the default value is used.
 You may use [Lodash template](https://lodash.com/docs#template) variables here. The following variables are available:
@@ -113,7 +113,7 @@ You may use [Lodash template](https://lodash.com/docs#template) variables here. 
 | `branch.range`      | The range of [semantic versions](https://semver.org) to support on this branch.                                                        |
 | `branch.prerelease` | The prerelease detonation to append to [semantic versions](https://semver.org) released from this branch.                              |
 
-#### `branches`
+#### `backmergeBranches`
 
 Branch names that should receive the back-merge. If none is given, the default value is used.
 This argument takes a list of branch name strings or objects. A branch object looks like this:
@@ -124,7 +124,7 @@ i.e. backmerges that only occur when merged from a certain branch.
 Here is an example where all releases will backmerge into `develop` and releases from `next` branch will be backmerged into `staging` as well.
 
 ```json
-branches: ["develop", {from: "next", to: "staging"}]
+backmergeBranches: ["develop", {from: "next", to: "staging"}]
 ```
 
 You may use [Lodash template](https://lodash.com/docs#template) variables in branch name strings. The following variables are available:

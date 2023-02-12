@@ -1,3 +1,23 @@
+# [3.0.0](https://github.com/saitho/semantic-release-backmerge/compare/v2.2.0...v3.0.0) (2023-02-12)
+
+
+### Bug Fixes
+
+* Compatibility with semantic-release v20 ([d8b8332](https://github.com/saitho/semantic-release-backmerge/commit/d8b8332e65556ee7f45411550015f4b8c1c25dcd)), closes [#38](https://github.com/saitho/semantic-release-backmerge/issues/38)
+
+
+### Features
+
+* remove branchName setting ([7a5772d](https://github.com/saitho/semantic-release-backmerge/commit/7a5772df627f3121d0d17a3920f0cc340c3b65f2))
+* rename branches to backmergeBranches ([f84713b](https://github.com/saitho/semantic-release-backmerge/commit/f84713be8d7b2509c8af6b5cf783594b1221c016))
+
+
+### BREAKING CHANGES
+
+* Setting `branches` is renamed into `backmergeBranches` to avoid conflicts with the setting for semantic-release.
+* `branchName` setting is removed. Use `branches` instead.
+* Import semantic-release functions via ESM. Loses compatibility with semantic-release before v20.
+
 # [2.2.0](https://github.com/saitho/semantic-release-backmerge/compare/v2.1.3...v2.2.0) (2023-02-12)
 
 

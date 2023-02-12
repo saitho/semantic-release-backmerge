@@ -1,3 +1,10 @@
+# [3.1.0](https://github.com/saitho/semantic-release-backmerge/compare/v3.0.0...v3.1.0) (2023-02-12)
+
+
+### Features
+
+* retry remote Git operations ([3138c56](https://github.com/saitho/semantic-release-backmerge/commit/3138c563df28577821e80d21974ed4f65508326b)), closes [#41](https://github.com/saitho/semantic-release-backmerge/issues/41)
+
 # [3.0.0](https://github.com/saitho/semantic-release-backmerge/compare/v2.2.0...v3.0.0) (2023-02-12)
 
 

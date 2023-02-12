@@ -5,7 +5,6 @@ export type BranchTypeStruct = {from: string; to: string}
 type BranchType = string|BranchTypeStruct
 
 export interface Config {
-    branches: BranchType[]; // deprecated
     backmergeBranches: BranchType[];
     backmergeStrategy: BackmergeStrategy;
     plugins: any;

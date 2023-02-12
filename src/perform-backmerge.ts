@@ -86,12 +86,6 @@ export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, 
     }
     const options = resolveConfig(pluginConfig);
 
-    // fallback to `branches` if `backmergeBranches` are empty. todo: remove with next major release as this is deprecated
-    if (options.branches != null && options.branches.length && (options.backmergeBranches == null || !options.backmergeBranches.length)) {
-        options.backmergeBranches = options.branches
-        context.logger.log('The property "branches" will be renamed to "backmergeBranches" with the next major release.')
-    }
-
     // Make sure all remotes are fetched
     context.logger.log(`Fetching all remotes.`);
     await git.configFetchAllRemotes();

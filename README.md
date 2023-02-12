@@ -12,10 +12,10 @@ In such cases the release workflow will fail, causing a red pipeline!
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-| Step               | Description                                                                                       |
-|--------------------|---------------------------------------------------------------------------------------------------|
-| `verifyConditions` | Verify the access to the remote Git repository, the ['branches'](#branches) option configuration. |
-| `done`             | Create a back-merge into the configured branch if the release is successful.                      |
+| Step               | Description                                                                                                |
+|--------------------|------------------------------------------------------------------------------------------------------------|
+| `verifyConditions` | Verify the access to the remote Git repository, the ['backmergeBranches'](#backmergeBranches) option configuration. |
+| `done`             | Create a back-merge into the configured branch if the release is successful.                               |
 
 ## Install
 
@@ -38,7 +38,7 @@ If you do, you may set the [clearWorkspace](#clearWorkspace) option to stash the
     [
       "@saithodev/semantic-release-backmerge",
       {
-        "branches": ["dev"],
+        "backmergeBranches": ["dev"],
         "plugins": [
           [
             "@semantic-release/exec",
@@ -88,7 +88,7 @@ The personal access token in `GITHUB_TOKEN` needs access to the `repo` scope.
 
 | Options   | Description                                                                     | Default   |
 |-----------|---------------------------------------------------------------------------------|-----------|
-| `branches` | The branches where the release is merged into. See [branches](#branches).  | ['develop']   |
+| `backmergeBranches` | The branches where the release is merged into. See [backmergeBranches](#backmergeBranches).  | ['develop']   |
 | `backmergeStrategy` | How to perform the backmerge. See [backmergeStrategy](#backmergeStrategy).  | rebase   |
 | `plugins` | Plugins defined here may stage files to be included in a back-merge commit. See [plugins](#plugins).   |  []  |
 | `message` | The message for the back-merge commit (if files were changed by plugins. See [message](#message).   | `chore(release): Preparations for next release [skip ci]`     |
@@ -108,7 +108,18 @@ i.e. backmerges that only occur when merged from a certain branch.
 Here is an example where all releases will backmerge into `develop` and releases from `next` branch will be backmerged into `staging` as well.
 
 ```json
-backmergeBranches: ["develop", {from: "next", to: "staging"}]
+{
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    [
+      "@saithodev/semantic-release-backmerge",
+      {
+        "backmergeBranches": ["develop", {"from": "next", "to": "staging"}]
+      }
+    ]
+  ]
+}
 ```
 
 You may use [Lodash template](https://lodash.com/docs#template) variables in branch name strings. The following variables are available:

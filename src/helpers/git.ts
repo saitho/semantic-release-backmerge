@@ -1,5 +1,5 @@
 import {MergeMode} from "../definitions/config.js";
-import execa from "execa";
+import execa, {ExecaReturnValue} from "execa";
 import debugPkg from "debug";
 const debug = debugPkg('semantic-release:backmerge');
 
@@ -13,16 +13,43 @@ export default class Git {
         this.execaOpts = execaOpts;
     }
 
+    protected runGitCommand(args: string[], isLocal = true, options: object = {}, retry = 0): Promise<ExecaReturnValue> {
+        const maxRetries = isLocal ? 0 : 3; // retry remote Git operations up to 3 times if they fail
+        return new Promise<ExecaReturnValue>(async (resolve, reject) => {
+            try {
+                const result = await execa('git', args, {...this.execaOpts, ...options})
+                resolve(result)
+            } catch (error) {
+                console.log('catch error')
+                console.log(error)
+                console.log(retry, maxRetries)
+
+                if (retry >= maxRetries) {
+                    reject(error)
+                    return
+                }
+                // Retry
+                retry++
+                console.log('Unable to connect to Git. Retrying in 1 second (' + retry + '/' + maxRetries + ').')
+                setTimeout(() => {
+                    this.runGitCommand(args, isLocal, options, retry)
+                        .then(resolve)
+                        .catch(reject)
+                }, 1000)
+            }
+        });
+    }
+
     /**
      * Add a list of file to the Git index. `.gitignore` will be ignored.
      *
      * @param {Array<String>} files Array of files path to add to the index.
      */
     async add(files: string[]) {
-        const shell = await execa(
-            'git',
+        const shell = await this.runGitCommand(
             ['add', '--force', '--ignore-errors', ...files],
-            {...this.execaOpts, reject: false}
+            true,
+            {reject: false}
         );
         debug('add file to git index', shell);
     }
@@ -35,7 +62,7 @@ export default class Git {
      * @throws {Error} if the commit failed.
      */
     async commit(message: string) {
-        await execa('git', ['commit', '-m', message], this.execaOpts);
+        await this.runGitCommand(['commit', '-m', message]);
     }
 
     /**
@@ -44,7 +71,7 @@ export default class Git {
      * @throws {Error} if the commit failed.
      */
     async stash() {
-        await execa('git', ['stash'], this.execaOpts);
+        await this.runGitCommand(['stash']);
     }
 
     /**
@@ -53,7 +80,7 @@ export default class Git {
      * @throws {Error} if the commit failed.
      */
     async unstash() {
-        await execa('git', ['stash', 'pop'], this.execaOpts);
+        await this.runGitCommand(['stash', 'pop']);
     }
 
     /**
@@ -70,7 +97,7 @@ export default class Git {
         if (forcePush) {
             args.push('-f');
         }
-        await execa('git', args, this.execaOpts);
+        await this.runGitCommand(args, false);
     }
 
 
@@ -84,7 +111,7 @@ export default class Git {
         if (url) {
             args.push(url);
         }
-        await execa('git', args, this.execaOpts);
+        await this.runGitCommand(args, false)
     }
 
     /**
@@ -93,11 +120,7 @@ export default class Git {
      * @throws {Error} if the config failed.
      */
     async configFetchAllRemotes() {
-        await execa(
-            'git',
-            ['config', 'remote.origin.fetch', '+refs/heads/*:refs/remotes/origin/*'],
-            this.execaOpts
-        );
+        await this.runGitCommand(['config', 'remote.origin.fetch', '+refs/heads/*:refs/remotes/origin/*'], false)
     }
 
     /**
@@ -108,7 +131,7 @@ export default class Git {
      * @throws {Error} if the checkout failed.
      */
     async checkout(branch: string) {
-        await execa('git', ['checkout', '-B', branch], this.execaOpts);
+        await this.runGitCommand(['checkout', '-B', branch], false);
     }
 
     /**
@@ -117,8 +140,8 @@ export default class Git {
      */
     getModifiedFiles(): Promise<string[]> {
         return new Promise<string[]>(async (resolve, reject) => {
-            execa('git', ['status', '-s', '-uno'], this.execaOpts)
-                .then((result: { stdout: string; }) => {
+            this.runGitCommand(['status', '-s', '-uno'])
+                .then((result: ExecaReturnValue) => {
                     const lines = result.stdout.split('\n');
                     resolve( lines.filter((item: string) => item.length) );
                 })
@@ -134,7 +157,7 @@ export default class Git {
      * @throws {Error} if the rebase failed.
      */
     async rebase(branch: string) {
-        await execa('git', ['rebase', `origin/${branch}`], this.execaOpts);
+        await this.runGitCommand(['rebase', `origin/${branch}`]);
     }
 
     /**
@@ -151,6 +174,6 @@ export default class Git {
             args.push('-X' + mergeMode)
         }
         args.push('origin/' + branch)
-        await execa('git', args, this.execaOpts);
+        await this.runGitCommand(args);
     }
 }

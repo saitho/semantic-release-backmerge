@@ -10,11 +10,11 @@ export const ERROR_DEFINITIONS = {
             'README.md#branchName'
         )}) option must be a \`String\`. Your configuration for the \`branchName\` option is \`${branchName}\`.`,
     }),
-    EINVALIDBRANCHES: ({branches}) => ({
-        message: 'Invalid `branches` option.',
-        details: `The [branches option](${linkify(
-            'README.md#branches'
-        )}) option must be an \`Array\`. Your configuration for the \`branches\` option is \`${branches}\`.`,
+    EINVALIDBACKMERGEBRANCHES: ({backmergeBranches}) => ({
+        message: 'Invalid `backmergeBranches` option.',
+        details: `The [backmergeBranches option](${linkify(
+            'README.md#backmergeBranches'
+        )}) option must be an \`Array\`. Your configuration for the \`backmergeBranches\` option is \`${backmergeBranches}\`.`,
     }),
     EINVALIDMESSAGE: ({message}) => ({
         message: 'Invalid `message` option.',

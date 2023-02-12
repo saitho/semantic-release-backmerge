@@ -11,8 +11,8 @@ describe("verify", () => {
     });
     it("throws error if branches is not an array", () => {
         expect(() => {
-            verify({branches: ''});
-        }).toThrowError('SemanticReleaseError: Invalid `branches` option.');
+            verify({backmergeBranches: ''});
+        }).toThrowError('SemanticReleaseError: Invalid `backmergeBranches` option.');
     });
     it("throws error for empty commit message", () => {
         expect(() => {

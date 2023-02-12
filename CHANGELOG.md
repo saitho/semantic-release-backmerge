@@ -1,3 +1,15 @@
+# [2.2.0](https://github.com/saitho/semantic-release-backmerge/compare/v2.1.3...v2.2.0) (2023-02-12)
+
+
+### Bug Fixes
+
+* message default value ([4ada405](https://github.com/saitho/semantic-release-backmerge/commit/4ada4059c2f98f0a5e40f533f546951eebf18b25))
+
+
+### Features
+
+* rename "branches" to "backmergeBranches" ([3c16d6a](https://github.com/saitho/semantic-release-backmerge/commit/3c16d6aa4c8a44356930bfade80b2d530c0ba0d4))
+
 ## [2.1.3](https://github.com/saitho/semantic-release-backmerge/compare/v2.1.2...v2.1.3) (2023-01-11)
 
 

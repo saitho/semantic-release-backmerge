@@ -127,7 +127,7 @@ Make sure to provide an admin/owner&#39;s access token or credentials (e.g. via 
 <a href="#branchname-deprecated" id="branchname-deprecated" style="color: inherit; text-decoration: none;">
   <h4><code>branchName</code> (deprecated)</h4>
 </a>
-<p><strong>Deprecated:</strong> Use <a href="#branches"><code>branches</code></a> instead (e.g. <code>branches: [&quot;develop&quot;]</code>)</p>
+<p><strong>Deprecated:</strong> Use <a href="#backmergeBranches"><code>backmergeBranches</code></a> instead (e.g. <code>backmergeBranches: [&quot;develop&quot;]</code>)</p>
 <p>Branch name of the branch that should receive the back-merge. If none is given, the default value is used.
 You may use <a href="https://lodash.com/docs#template">Lodash template</a> variables here. The following variables are available:</p>
 <table>
@@ -159,12 +159,12 @@ You may use <a href="https://lodash.com/docs#template">Lodash template</a> varia
 </tr>
 <tr>
 <td><code>branch.prerelease</code></td>
-<td>The pre-release detonation to append to <a href="https://semver.org">semantic versions</a> released from this branch.</td>
+<td>The prerelease detonation to append to <a href="https://semver.org">semantic versions</a> released from this branch.</td>
 </tr>
 </tbody></table>
 
-<a href="#branches" id="branches" style="color: inherit; text-decoration: none;">
-  <h4><code>branches</code></h4>
+<a href="#backmergebranches" id="backmergebranches" style="color: inherit; text-decoration: none;">
+  <h4><code>backmergeBranches</code></h4>
 </a>
 <p>Branch names that should receive the back-merge. If none is given, the default value is used.
 This argument takes a list of branch name strings or objects. A branch object looks like this:
@@ -172,7 +172,7 @@ This argument takes a list of branch name strings or objects. A branch object lo
 In this example, a release from <code>master</code> branch is merged into <code>dev</code> branch. With that you can perform conditional backmerges,
 i.e. backmerges that only occur when merged from a certain branch.</p>
 <p>Here is an example where all releases will backmerge into <code>develop</code> and releases from <code>next</code> branch will be backmerged into <code>staging</code> as well.</p>
-<pre><code class="language-json"><span class="hl-0">branches: [</span><span class="hl-2">&quot;develop&quot;</span><span class="hl-0">, {</span><span class="hl-6">from</span><span class="hl-0">: </span><span class="hl-2">&quot;next&quot;</span><span class="hl-0">, </span><span class="hl-6">to</span><span class="hl-0">: </span><span class="hl-2">&quot;staging&quot;</span><span class="hl-0">}]</span>
+<pre><code class="language-json"><span class="hl-0">backmergeBranches: [</span><span class="hl-2">&quot;develop&quot;</span><span class="hl-0">, {</span><span class="hl-6">from</span><span class="hl-0">: </span><span class="hl-2">&quot;next&quot;</span><span class="hl-0">, </span><span class="hl-6">to</span><span class="hl-0">: </span><span class="hl-2">&quot;staging&quot;</span><span class="hl-0">}]</span>
 </code></pre>
 <p>You may use <a href="https://lodash.com/docs#template">Lodash template</a> variables in branch name strings. The following variables are available:</p>
 <table>
@@ -204,7 +204,7 @@ i.e. backmerges that only occur when merged from a certain branch.</p>
 </tr>
 <tr>
 <td><code>branch.prerelease</code></td>
-<td>The pre-release detonation to append to <a href="https://semver.org">semantic versions</a> released from this branch.</td>
+<td>The prerelease detonation to append to <a href="https://semver.org">semantic versions</a> released from this branch.</td>
 </tr>
 </tbody></table>
 
@@ -248,7 +248,7 @@ It uses the same plugin structure as semantic-release, but only trigger the &quo
 </tr>
 <tr>
 <td><code>branch.prerelease</code></td>
-<td>The pre-release detonation to append to <a href="https://semver.org">semantic versions</a> released from this branch.</td>
+<td>The prerelease detonation to append to <a href="https://semver.org">semantic versions</a> released from this branch.</td>
 </tr>
 <tr>
 <td><code>lastRelease</code></td>

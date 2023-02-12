@@ -104,14 +104,14 @@ The personal access token in `GITHUB_TOKEN` needs access to the `repo` scope.
 Branch name of the branch that should receive the back-merge. If none is given, the default value is used.
 You may use [Lodash template](https://lodash.com/docs#template) variables here. The following variables are available:
 
-| Parameter           | Description                                                                                                                             |
-|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| `branch`            | The branch from which the release is done.                                                                                              |
-| `branch.name`       | The branch name.                                                                                                                        |
+| Parameter           | Description                                                                                                                            |
+|---------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| `branch`            | The branch from which the release is done.                                                                                             |
+| `branch.name`       | The branch name.                                                                                                                       |
 | `branch.type`       | The [type of branch](https://github.com/semantic-release/semantic-release/blob/beta/docs/usage/workflow-configuration.md#branch-types). |
-| `branch.channel`    | The distribution channel on which to publish releases from this branch.                                                                 |
-| `branch.range`      | The range of [semantic versions](https://semver.org) to support on this branch.                                                         |
-| `branch.prerelease` | The pre-release detonation to append to [semantic versions](https://semver.org) released from this branch.                              |
+| `branch.channel`    | The distribution channel on which to publish releases from this branch.                                                                |
+| `branch.range`      | The range of [semantic versions](https://semver.org) to support on this branch.                                                        |
+| `branch.prerelease` | The prerelease detonation to append to [semantic versions](https://semver.org) released from this branch.                              |
 
 #### `branches`
 
@@ -136,7 +136,7 @@ You may use [Lodash template](https://lodash.com/docs#template) variables in bra
 | `branch.type`       | The [type of branch](https://github.com/semantic-release/semantic-release/blob/beta/docs/usage/workflow-configuration.md#branch-types). |
 | `branch.channel`    | The distribution channel on which to publish releases from this branch.                                                                 |
 | `branch.range`      | The range of [semantic versions](https://semver.org) to support on this branch.                                                         |
-| `branch.prerelease` | The pre-release detonation to append to [semantic versions](https://semver.org) released from this branch.                              |
+| `branch.prerelease` | The prerelease detonation to append to [semantic versions](https://semver.org) released from this branch.                              |
 
 #### `plugins`
 
@@ -149,16 +149,16 @@ It uses the same plugin structure as semantic-release, but only trigger the "suc
 
 The message for the back-merge commit is generated with [Lodash template](https://lodash.com/docs#template). The following variables are available:
 
-| Parameter           | Description                                                                                                                             |
-|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| `branch`            | The branch from which the release is done.                                                                                              |
-| `branch.name`       | The branch name.                                                                                                                        |
+| Parameter           | Description                                                                                                                            |
+|---------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| `branch`            | The branch from which the release is done.                                                                                             |
+| `branch.name`       | The branch name.                                                                                                                       |
 | `branch.type`       | The [type of branch](https://github.com/semantic-release/semantic-release/blob/beta/docs/usage/workflow-configuration.md#branch-types). |
-| `branch.channel`    | The distribution channel on which to publish releases from this branch.                                                                 |
-| `branch.range`      | The range of [semantic versions](https://semver.org) to support on this branch.                                                         |
-| `branch.prerelease` | The pre-release detonation to append to [semantic versions](https://semver.org) released from this branch.                              |
-| `lastRelease`       | `Object` with `version`, `gitTag` and `gitHead` of the last release.                                                                    |
-| `nextRelease`       | `Object` with `version`, `gitTag`, `gitHead` and `notes` of the release being done.                                                     |
+| `branch.channel`    | The distribution channel on which to publish releases from this branch.                                                                |
+| `branch.range`      | The range of [semantic versions](https://semver.org) to support on this branch.                                                        |
+| `branch.prerelease` | The prerelease detonation to append to [semantic versions](https://semver.org) released from this branch.                              |
+| `lastRelease`       | `Object` with `version`, `gitTag` and `gitHead` of the last release.                                                                   |
+| `nextRelease`       | `Object` with `version`, `gitTag`, `gitHead` and `notes` of the release being done.                                                    |
 
 #### `allowSameBranchMerge`
 

@@ -9,7 +9,7 @@ export function resolveConfig(config: Partial<Config>): Config {
         branches: isNil(branches) ? ['develop'] : branches,
         backmergeStrategy: isNil(backmergeStrategy) ? 'rebase' : backmergeStrategy,
         plugins: isNil(plugins) ? [] : plugins,
-        message: message,
+        message: isNil(message) ? `chore(release): Preparations for next release [skip ci]` : message,
         forcePush: isNil(forcePush) ? false : forcePush,
         allowSameBranchMerge: isNil(allowSameBranchMerge) ? false : allowSameBranchMerge,
         clearWorkspace: isNil(clearWorkspace) ? false : clearWorkspace,

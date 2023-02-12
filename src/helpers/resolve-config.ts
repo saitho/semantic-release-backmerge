@@ -3,13 +3,9 @@ const {isNil} = lodash;
 import {Config} from "../definitions/config.js";
 
 export function resolveConfig(config: Partial<Config>): Config {
-    let {branches, backmergeBranches, backmergeStrategy, plugins, message, forcePush, allowSameBranchMerge, clearWorkspace, restoreWorkspace, mergeMode} = config
-    if (isNil(branches)) {
-        backmergeBranches = isNil(backmergeBranches) ? ['develop'] : backmergeBranches;
-    }
+    const {backmergeBranches, backmergeStrategy, plugins, message, forcePush, allowSameBranchMerge, clearWorkspace, restoreWorkspace, mergeMode} = config
     return {
-        branches: branches,
-        backmergeBranches: backmergeBranches,
+        backmergeBranches: isNil(backmergeBranches) ? ['develop'] : backmergeBranches,
         backmergeStrategy: isNil(backmergeStrategy) ? 'rebase' : backmergeStrategy,
         plugins: isNil(plugins) ? [] : plugins,
         message: isNil(message) ? `chore(release): Preparations for next release [skip ci]` : message,

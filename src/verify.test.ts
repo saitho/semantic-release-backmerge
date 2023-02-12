@@ -2,19 +2,19 @@ import {verify} from "./verify";
 
 describe("verify", () => {
     it("does not throw error for valid config", () => {
-        verify({branches: ['develop'], message: 'my message', plugins: ['my-plugin'], forcePush: true});
+        verify({backmergeBranches: ['develop'], message: 'my message', plugins: ['my-plugin'], forcePush: true});
     });
     it("does not throw error for default config", () => {
         verify({});
     });
     it("throws error for wrongly typed branches setting", () => {
         expect(() => {
-            verify({branches: 'wrongType', message: 'my message'} as any);
-        }).toThrowError('SemanticReleaseError: Invalid `branches` option.');
+            verify({backmergeBranches: 'wrongType', message: 'my message'} as any);
+        }).toThrowError('SemanticReleaseError: Invalid `backmergeBranches` option.');
     });
     it("throws error if branches is not an array", () => {
         expect(() => {
-            verify({backmergeBranches: ''});
+            verify({backmergeBranches: ''} as any);
         }).toThrowError('SemanticReleaseError: Invalid `backmergeBranches` option.');
     });
     it("throws error for empty commit message", () => {

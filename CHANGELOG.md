@@ -15,7 +15,7 @@
 ### BREAKING CHANGES
 
 * Setting `branches` is renamed into `backmergeBranches` to avoid conflicts with the setting for semantic-release.
-* `branchName` setting is removed. Use `branches` instead.
+* `branchName` setting is removed. Use `backmergeBranches` instead.
 * Import semantic-release functions via ESM. Loses compatibility with semantic-release before v20.
 
 # [2.2.0](https://github.com/saitho/semantic-release-backmerge/compare/v2.1.3...v2.2.0) (2023-02-12)

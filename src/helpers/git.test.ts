@@ -52,8 +52,46 @@ describe("git", () => {
         );
     });
 
+    it("push on second try", async () => {
+        ((execa as unknown) as jest.Mock)
+            .mockRejectedValueOnce({stderr: 'An error occurred'});
+        await subject.push(
+            'http://github.com/saitho/semantic-release-backmerge',
+            'develop',
+            false
+        );
+        expect(execa).toHaveBeenCalledTimes(2)
+        expect(execa).toHaveBeenCalledWith(
+            'git',
+            ['push', 'http://github.com/saitho/semantic-release-backmerge', 'HEAD:develop'],
+            expect.objectContaining(execaOpts)
+        );
+
+        await subject.push(
+            'http://github.com/saitho/semantic-release-backmerge',
+            'develop',
+            true
+        );
+        expect(execa).toHaveBeenCalledWith(
+            'git',
+            ['push', 'http://github.com/saitho/semantic-release-backmerge', 'HEAD:develop', '-f'],
+            expect.objectContaining(execaOpts)
+        );
+    });
+
     it("fetch", async () => {
+        ((execa as unknown) as jest.Mock)
+            .mockRejectedValueOnce({stderr: 'An error occurred'});
         await subject.fetch();
+        expect(execa).toHaveBeenCalledTimes(2)
+        expect(execa).toHaveBeenCalledWith('git', ['fetch'], expect.objectContaining(execaOpts));
+    });
+
+    it("fetch on second try", async () => {
+        ((execa as unknown) as jest.Mock)
+            .mockRejectedValueOnce({stderr: 'An error occurred'});
+        await subject.fetch();
+        expect(execa).toHaveBeenCalledTimes(2)
         expect(execa).toHaveBeenCalledWith('git', ['fetch'], expect.objectContaining(execaOpts));
     });
 
@@ -83,6 +121,18 @@ describe("git", () => {
 
     it("checkout", async () => {
         await subject.checkout('develop');
+        expect(execa).toHaveBeenCalledWith(
+            'git',
+            ['checkout', '-B', 'develop'],
+            expect.objectContaining(execaOpts)
+        );
+    });
+
+    it("checkout on second try", async () => {
+        ((execa as unknown) as jest.Mock)
+            .mockRejectedValueOnce({stderr: 'An error occurred'});
+        await subject.checkout('develop');
+        expect(execa).toHaveBeenCalledTimes(2)
         expect(execa).toHaveBeenCalledWith(
             'git',
             ['checkout', '-B', 'develop'],

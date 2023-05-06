@@ -1,4 +1,4 @@
-import {MergeMode} from "../definitions/config.js";
+import {FastForwardMode, MergeMode} from "../definitions/config.js";
 import execa, {ExecaReturnValue} from "execa";
 import debugPkg from "debug";
 const debug = debugPkg('semantic-release:backmerge');
@@ -161,17 +161,21 @@ export default class Git {
     }
 
     /**
-     * Rebases the currently checked out branch onto another branch.
+     * Merges the currently checked out branch onto another branch.
      *
      * @param {String} branch The branch to rebase onto.
      * @param {MergeMode} mergeMode
+     * @param {FastForwardMode} fastForwardMode
      *
-     * @throws {Error} if the rebase failed.
+     * @throws {Error} if the merge failed.
      */
-    async merge(branch: string, mergeMode: MergeMode = 'none') {
+    async merge(branch: string, mergeMode: MergeMode = 'none', fastForwardMode: FastForwardMode = "none") {
         const args = ['merge']
         if (mergeMode !== 'none') {
             args.push('-X' + mergeMode)
+        }
+        if (fastForwardMode !== 'none') {
+            args.push('--' + fastForwardMode)
         }
         args.push('origin/' + branch)
         await this.runGitCommand(args);

@@ -96,6 +96,7 @@ The personal access token in `GITHUB_TOKEN` needs access to the `repo` scope.
 | `clearWorkspace` | Whether to stash the current workspace before backmerge. See [clearWorkspace](#clearWorkspace).   | false |
 | `restoreWorkspace` | Restore the stashed workspace after backmerge completed. See [restoreWorkspace](#restoreWorkspace).   | false |
 | `mergeMode` | Mode for merging (when `backmergeStrategy=merge`). See [mergeMode](#mergeMode).   | none |
+| `fastForwardMode` | Fast forwarding option for merging (when `backmergeStrategy=merge`). See [fastForwardMode](#fastForwardMode).   | none |
 
 #### `backmergeBranches`
 
@@ -187,5 +188,21 @@ This setting will be used to determine how merge conflicts are resolved when usi
 Allowed values: none (default), ours, theirs
 
 none = no merge conflict resolve (process will abort on merge conflicts!)
+
 ours = apply changes from _develop_ branch
+
 theirs = apply changes from _master_ branch
+
+#### `fastForwardMode`
+
+This setting will be used to determine the fast forwarding strategy when using the `merge` backmerge strategy.
+
+Allowed values: none (default), ff, no-ff, ff-only
+
+none = default setting which is the same as ff.
+
+ff = when possible resolve the merge as a fast-forward (only update the branch pointer to match the merged branch; do not create a merge commit). When not possible (when the merged-in history is not a descendant of the current history), create a merge commit.
+
+no-ff = create a merge commit in all cases, even when the merge could instead be resolved as a fast-forward.
+
+ff-only = resolve the merge as a fast-forward when possible. When not possible, refuse to merge and exit with a non-zero status.

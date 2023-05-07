@@ -275,41 +275,7 @@ describe("perform-backmerge", () => {
         verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
 
         verify(mockedGit.checkout('develop')).once();
-        verify(mockedGit.merge('master', 'none')).once();
-
-        verify(mockedGit.push('my-repo', 'develop', false)).once();
-    });
-
-    it("checkout mode ours", async () => {
-        const mockedGit = mock(Git);
-        const mockedLogger = mock(NullLogger);
-        when(mockedGit.checkout(anyString())).thenResolve();
-        when(mockedGit.configFetchAllRemotes()).thenResolve();
-        when(mockedGit.getModifiedFiles())
-            .thenReturn(new Promise<string[]>(resolve => resolve([])));
-        when(mockedGit.fetch()).thenResolve();
-        when(mockedGit.commit(anyString())).thenResolve();
-        when(mockedGit.merge(anyString(), anyString())).thenResolve();
-        when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
-
-        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context;
-
-        await performBackmerge(
-            instance(mockedGit),
-            {
-                backmergeBranches: ['develop'],
-                backmergeStrategy: 'merge',
-                mergeMode: 'ours'
-            },
-            context
-        );
-        verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
-        verify(mockedGit.checkout('master')).once();
-        verify(mockedGit.configFetchAllRemotes()).once();
-        verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
-
-        verify(mockedGit.checkout('develop')).once();
-        verify(mockedGit.merge('master', 'ours')).once();
+        verify(mockedGit.merge('master', 'none', 'none')).once();
 
         verify(mockedGit.push('my-repo', 'develop', false)).once();
     });
@@ -343,7 +309,112 @@ describe("perform-backmerge", () => {
         verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
 
         verify(mockedGit.checkout('develop')).once();
-        verify(mockedGit.merge('master', 'theirs')).once();
+        verify(mockedGit.merge('master', 'theirs', 'none')).once();
+
+        verify(mockedGit.push('my-repo', 'develop', false)).once();
+    });
+
+    it("merge mode theirs - fast forward default", async () => {
+        const mockedGit = mock(Git);
+        const mockedLogger = mock(NullLogger);
+        when(mockedGit.checkout(anyString())).thenResolve();
+        when(mockedGit.configFetchAllRemotes()).thenResolve();
+        when(mockedGit.getModifiedFiles())
+            .thenReturn(new Promise<string[]>(resolve => resolve([])));
+        when(mockedGit.fetch()).thenResolve();
+        when(mockedGit.commit(anyString())).thenResolve();
+        when(mockedGit.merge(anyString(), anyString())).thenResolve();
+        when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
+
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
+
+        await performBackmerge(
+            instance(mockedGit),
+            {
+                backmergeBranches: ['develop'],
+                backmergeStrategy: 'merge',
+                mergeMode: 'theirs',
+                fastForwardMode: 'ff'
+            },
+            context
+        );
+        verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
+        verify(mockedGit.checkout('master')).once();
+        verify(mockedGit.configFetchAllRemotes()).once();
+        verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
+
+        verify(mockedGit.checkout('develop')).once();
+        verify(mockedGit.merge('master', 'theirs', 'ff')).once();
+
+        verify(mockedGit.push('my-repo', 'develop', false)).once();
+    });
+
+    it("merge mode theirs - no fast forward", async () => {
+        const mockedGit = mock(Git);
+        const mockedLogger = mock(NullLogger);
+        when(mockedGit.checkout(anyString())).thenResolve();
+        when(mockedGit.configFetchAllRemotes()).thenResolve();
+        when(mockedGit.getModifiedFiles())
+            .thenReturn(new Promise<string[]>(resolve => resolve([])));
+        when(mockedGit.fetch()).thenResolve();
+        when(mockedGit.commit(anyString())).thenResolve();
+        when(mockedGit.merge(anyString(), anyString())).thenResolve();
+        when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
+
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
+
+        await performBackmerge(
+            instance(mockedGit),
+            {
+                backmergeBranches: ['develop'],
+                backmergeStrategy: 'merge',
+                mergeMode: 'theirs',
+                fastForwardMode: 'no-ff'
+            },
+            context
+        );
+        verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
+        verify(mockedGit.checkout('master')).once();
+        verify(mockedGit.configFetchAllRemotes()).once();
+        verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
+
+        verify(mockedGit.checkout('develop')).once();
+        verify(mockedGit.merge('master', 'theirs', 'no-ff')).once();
+
+        verify(mockedGit.push('my-repo', 'develop', false)).once();
+    });
+
+    it("merge mode theirs - fast forward only", async () => {
+        const mockedGit = mock(Git);
+        const mockedLogger = mock(NullLogger);
+        when(mockedGit.checkout(anyString())).thenResolve();
+        when(mockedGit.configFetchAllRemotes()).thenResolve();
+        when(mockedGit.getModifiedFiles())
+            .thenReturn(new Promise<string[]>(resolve => resolve([])));
+        when(mockedGit.fetch()).thenResolve();
+        when(mockedGit.commit(anyString())).thenResolve();
+        when(mockedGit.merge(anyString(), anyString())).thenResolve();
+        when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
+
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
+
+        await performBackmerge(
+            instance(mockedGit),
+            {
+                backmergeBranches: ['develop'],
+                backmergeStrategy: 'merge',
+                mergeMode: 'theirs',
+                fastForwardMode: 'ff-only'
+            },
+            context
+        );
+        verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
+        verify(mockedGit.checkout('master')).once();
+        verify(mockedGit.configFetchAllRemotes()).once();
+        verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
+
+        verify(mockedGit.checkout('develop')).once();
+        verify(mockedGit.merge('master', 'theirs', 'ff-only')).once();
 
         verify(mockedGit.push('my-repo', 'develop', false)).once();
     });
@@ -377,11 +448,117 @@ describe("perform-backmerge", () => {
         verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
 
         verify(mockedGit.checkout('develop')).once();
-        verify(mockedGit.merge('master', 'ours')).once();
+        verify(mockedGit.merge('master', 'ours', 'none')).once();
+
+        verify(mockedGit.push('my-repo', 'develop', false)).once();
+    });
+
+    it("merge mode ours - fast forward default", async () => {
+        const mockedGit = mock(Git);
+        const mockedLogger = mock(NullLogger);
+        when(mockedGit.checkout(anyString())).thenResolve();
+        when(mockedGit.configFetchAllRemotes()).thenResolve();
+        when(mockedGit.getModifiedFiles())
+            .thenReturn(new Promise<string[]>(resolve => resolve([])));
+        when(mockedGit.fetch()).thenResolve();
+        when(mockedGit.commit(anyString())).thenResolve();
+        when(mockedGit.merge(anyString(), anyString())).thenResolve();
+        when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
+
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
+
+        await performBackmerge(
+            instance(mockedGit),
+            {
+                backmergeBranches: ['develop'],
+                backmergeStrategy: 'merge',
+                mergeMode: 'ours',
+                fastForwardMode: 'ff'
+            },
+            context
+        );
+        verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
+        verify(mockedGit.checkout('master')).once();
+        verify(mockedGit.configFetchAllRemotes()).once();
+        verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
+
+        verify(mockedGit.checkout('develop')).once();
+        verify(mockedGit.merge('master', 'ours', 'ff')).once();
+
+        verify(mockedGit.push('my-repo', 'develop', false)).once();
+    });
+
+    it("merge mode ours - no fast forward", async () => {
+        const mockedGit = mock(Git);
+        const mockedLogger = mock(NullLogger);
+        when(mockedGit.checkout(anyString())).thenResolve();
+        when(mockedGit.configFetchAllRemotes()).thenResolve();
+        when(mockedGit.getModifiedFiles())
+            .thenReturn(new Promise<string[]>(resolve => resolve([])));
+        when(mockedGit.fetch()).thenResolve();
+        when(mockedGit.commit(anyString())).thenResolve();
+        when(mockedGit.merge(anyString(), anyString())).thenResolve();
+        when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
+
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
+
+        await performBackmerge(
+            instance(mockedGit),
+            {
+                backmergeBranches: ['develop'],
+                backmergeStrategy: 'merge',
+                mergeMode: 'ours',
+                fastForwardMode: 'no-ff'
+            },
+            context
+        );
+        verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
+        verify(mockedGit.checkout('master')).once();
+        verify(mockedGit.configFetchAllRemotes()).once();
+        verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
+
+        verify(mockedGit.checkout('develop')).once();
+        verify(mockedGit.merge('master', 'ours', 'no-ff')).once();
+
+        verify(mockedGit.push('my-repo', 'develop', false)).once();
+    });
+
+    it("merge mode ours - fast forward only", async () => {
+        const mockedGit = mock(Git);
+        const mockedLogger = mock(NullLogger);
+        when(mockedGit.checkout(anyString())).thenResolve();
+        when(mockedGit.configFetchAllRemotes()).thenResolve();
+        when(mockedGit.getModifiedFiles())
+            .thenReturn(new Promise<string[]>(resolve => resolve([])));
+        when(mockedGit.fetch()).thenResolve();
+        when(mockedGit.commit(anyString())).thenResolve();
+        when(mockedGit.merge(anyString(), anyString())).thenResolve();
+        when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
+
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context
+
+        await performBackmerge(
+            instance(mockedGit),
+            {
+                backmergeBranches: ['develop'],
+                backmergeStrategy: 'merge',
+                mergeMode: 'ours',
+                fastForwardMode: 'ff-only'
+            },
+            context
+        );
+        verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
+        verify(mockedGit.checkout('master')).once();
+        verify(mockedGit.configFetchAllRemotes()).once();
+        verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
+
+        verify(mockedGit.checkout('develop')).once();
+        verify(mockedGit.merge('master', 'ours', 'ff-only')).once();
 
         verify(mockedGit.push('my-repo', 'develop', false)).once();
     });
 });
+
 describe("perform-backmerge to multiple branches", () => {
     it("works with correct configuration", (done) => {
         const mockedGit = mock(Git);

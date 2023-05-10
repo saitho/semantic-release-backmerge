@@ -167,6 +167,33 @@ describe("git", () => {
         );
     });
 
+    it("merge (ours ff)", async () => {
+        await subject.merge('master', "none", 'ff');
+        expect(execa).toHaveBeenCalledWith(
+            'git',
+            ['merge', '--ff', 'origin/master'],
+            expect.objectContaining(execaOpts)
+        );
+    });
+
+    it("merge (ours no-ff)", async () => {
+        await subject.merge('master', "none", 'no-ff');
+        expect(execa).toHaveBeenCalledWith(
+            'git',
+            ['merge', '--no-ff', 'origin/master'],
+            expect.objectContaining(execaOpts)
+        );
+    });
+
+    it("merge (ours ff-only)", async () => {
+        await subject.merge('master', "none", 'ff-only');
+        expect(execa).toHaveBeenCalledWith(
+            'git',
+            ['merge', '--ff-only', 'origin/master'],
+            expect.objectContaining(execaOpts)
+        );
+    });
+
     it("merge (ours)", async () => {
         await subject.merge('master', 'ours');
         expect(execa).toHaveBeenCalledWith(
@@ -176,11 +203,65 @@ describe("git", () => {
         );
     });
 
+    it("merge (ours ff)", async () => {
+        await subject.merge('master', 'ours', 'ff');
+        expect(execa).toHaveBeenCalledWith(
+            'git',
+            ['merge', '-Xours', '--ff', 'origin/master'],
+            expect.objectContaining(execaOpts)
+        );
+    });
+
+    it("merge (ours no-ff)", async () => {
+        await subject.merge('master', 'ours', 'no-ff');
+        expect(execa).toHaveBeenCalledWith(
+            'git',
+            ['merge', '-Xours', '--no-ff', 'origin/master'],
+            expect.objectContaining(execaOpts)
+        );
+    });
+
+    it("merge (ours ff-only)", async () => {
+        await subject.merge('master', 'ours', 'ff-only');
+        expect(execa).toHaveBeenCalledWith(
+            'git',
+            ['merge', '-Xours', '--ff-only', 'origin/master'],
+            expect.objectContaining(execaOpts)
+        );
+    });
+
     it("merge (theirs)", async () => {
         await subject.merge('master', 'theirs');
         expect(execa).toHaveBeenCalledWith(
             'git',
             ['merge', '-Xtheirs', 'origin/master'],
+            expect.objectContaining(execaOpts)
+        );
+    });
+
+    it("merge (theirs ff)", async () => {
+        await subject.merge('master', 'theirs', 'ff');
+        expect(execa).toHaveBeenCalledWith(
+            'git',
+            ['merge', '-Xtheirs', '--ff', 'origin/master'],
+            expect.objectContaining(execaOpts)
+        );
+    });
+
+    it("merge (theirs no-ff)", async () => {
+        await subject.merge('master', 'theirs', 'no-ff');
+        expect(execa).toHaveBeenCalledWith(
+            'git',
+            ['merge', '-Xtheirs', '--no-ff', 'origin/master'],
+            expect.objectContaining(execaOpts)
+        );
+    });
+
+    it("merge (theirs ff-only)", async () => {
+        await subject.merge('master', 'theirs', 'ff-only');
+        expect(execa).toHaveBeenCalledWith(
+            'git',
+            ['merge', '-Xtheirs', '--ff-only', 'origin/master'],
             expect.objectContaining(execaOpts)
         );
     });

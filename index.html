@@ -136,6 +136,11 @@ Make sure to provide an admin/owner&#39;s access token or credentials (e.g. via 
 <td>Mode for merging (when <code>backmergeStrategy=merge</code>). See <a href="#mergeMode">mergeMode</a>.</td>
 <td>none</td>
 </tr>
+<tr>
+<td><code>fastForwardMode</code></td>
+<td>Fast forwarding option for merging (when <code>backmergeStrategy=merge</code>). See <a href="#fastForwardMode">fastForwardMode</a>.</td>
+<td>none</td>
+</tr>
 </tbody></table>
 
 <a href="#backmergebranches" id="backmergebranches" style="color: inherit; text-decoration: none;">
@@ -268,9 +273,19 @@ Allowed values: rebase (default), merge</p>
 </a>
 <p>This setting will be used to determine how merge conflicts are resolved when using the <code>merge</code> backmerge strategy.</p>
 <p>Allowed values: none (default), ours, theirs</p>
-<p>none = no merge conflict resolve (process will abort on merge conflicts!)
-ours = apply changes from <em>develop</em> branch
-theirs = apply changes from <em>master</em> branch</p>
+<p>none = no merge conflict resolve (process will abort on merge conflicts!)</p>
+<p>ours = apply changes from <em>develop</em> branch</p>
+<p>theirs = apply changes from <em>master</em> branch</p>
+
+<a href="#fastforwardmode" id="fastforwardmode" style="color: inherit; text-decoration: none;">
+  <h4><code>fastForwardMode</code></h4>
+</a>
+<p>This setting will be used to determine the fast forwarding strategy when using the <code>merge</code> backmerge strategy.</p>
+<p>Allowed values: none (default), ff, no-ff, ff-only</p>
+<p>none = default setting which is the same as ff.</p>
+<p>ff = when possible resolve the merge as a fast-forward (only update the branch pointer to match the merged branch; do not create a merge commit). When not possible (when the merged-in history is not a descendant of the current history), create a merge commit.</p>
+<p>no-ff = create a merge commit in all cases, even when the merge could instead be resolved as a fast-forward.</p>
+<p>ff-only = resolve the merge as a fast-forward when possible. When not possible, refuse to merge and exit with a non-zero status.</p>
 </div></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">

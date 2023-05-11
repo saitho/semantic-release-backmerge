@@ -1,3 +1,10 @@
+# [3.2.0](https://github.com/saitho/semantic-release-backmerge/compare/v3.1.0...v3.2.0) (2023-05-11)
+
+
+### Features
+
+* add option for fast forwarding during commit ([c7d5bf4](https://github.com/saitho/semantic-release-backmerge/commit/c7d5bf4101081cf5454af3235056f48d26e572db)), closes [#49](https://github.com/saitho/semantic-release-backmerge/issues/49)
+
 # [3.1.0](https://github.com/saitho/semantic-release-backmerge/compare/v3.0.0...v3.1.0) (2023-02-12)
 
 

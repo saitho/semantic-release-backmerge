@@ -34,7 +34,7 @@ jobs:
           fetch-depth: 0
       - uses: pnpm/action-setup@v2
         with:
-          version: 7.24.3
+          version: latest
           run_install: true
       - name: Build
         run: pnpm run build
@@ -53,7 +53,7 @@ jobs:
           fetch-depth: 0
       - uses: pnpm/action-setup@v2
         with:
-          version: 7.24.3
+          version: latest
           run_install: |
             - recursive: false
       - name: Run Unit Tests
@@ -97,7 +97,7 @@ jobs:
           node-version: 18
       - uses: pnpm/action-setup@v2
         with:
-          version: 7.24.3
+          version: latest
           run_install: |
             - recursive: false
       - name: Download build

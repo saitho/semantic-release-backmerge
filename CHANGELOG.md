@@ -1,3 +1,10 @@
+## [3.2.1](https://github.com/saitho/semantic-release-backmerge/compare/v3.2.0...v3.2.1) (2023-09-21)
+
+
+### Bug Fixes
+
+* Do not allow semantic-release v22 ([758caaa](https://github.com/saitho/semantic-release-backmerge/commit/758caaa1c5e0329b0edee918818be5d62f1711ba))
+
 # [3.2.0](https://github.com/saitho/semantic-release-backmerge/compare/v3.1.0...v3.2.0) (2023-05-11)
 
 

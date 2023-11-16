@@ -2,9 +2,9 @@ import lodash from 'lodash';
 const {defaultTo, castArray, isArray} = lodash;
 import {verify} from "./verify.js";
 import {performBackmerge} from "./perform-backmerge.js";
-import {Context} from "semantic-release";
 import Git from "./helpers/git.js";
 import {Config} from "./definitions/config.js";
+import {Context} from 'semantic-release';
 
 let verified = false;
 

@@ -31,7 +31,7 @@ describe("plugins", () => {
             }
         });
 
-        const pluginList = loadPlugins(
+        const pluginList = await loadPlugins(
             {plugins: ['typedoc', ['typescript', { someConfig: true }]]},
             context
         );
@@ -45,26 +45,26 @@ describe("plugins", () => {
         expect(success2Called).toBe(true);
     });
 
-    it("log message if plugin configuration is invalid", () => {
+    it("log message if plugin configuration is invalid", async () => {
         const mockedLogger = mock(NullLogger);
         const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: []} as unknown as Context
 
-        loadPlugins({plugins: [ {foo: 'bar'} ]}, context);
+        await loadPlugins({plugins: [ {foo: 'bar'} ]}, context);
         verify(mockedLogger.log(match('Invalid plugin provided. Expected string or array'))).once();
     });
 
-    it("log message if plugin has no 'success' function", () => {
+    it("log message if plugin has no 'success' function", async () => {
         const mockedLogger = mock(NullLogger);
         const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: []} as unknown as Context
 
         jest.mock('cz-conventional-changelog', () => {
             return {};
         });
-        loadPlugins({plugins: ['cz-conventional-changelog']}, context);
+        await loadPlugins({plugins: ['cz-conventional-changelog']}, context);
         verify(mockedLogger.log(match('Method "success" not found in package cz-conventional-changelog'))).once();
     });
 
-    it("log message if plugin has 'success' property but its not a function", () => {
+    it("log message if plugin has 'success' property but its not a function", async () => {
         const mockedLogger = mock(NullLogger);
         const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: []} as unknown as Context
 
@@ -73,7 +73,7 @@ describe("plugins", () => {
                 success: 'not a function'
             };
         });
-        loadPlugins({plugins: ['commitizen']}, context);
+        await loadPlugins({plugins: ['commitizen']}, context);
         verify(mockedLogger.log(match('Method "success" not found in package commitizen'))).once();
     });
 });

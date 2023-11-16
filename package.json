@@ -25,7 +25,7 @@
     "commit": "git-cz"
   },
   "dependencies": {
-    "semantic-release": ">=20.0.0 <22.0.0",
+    "semantic-release": ">=20.0.0 <22.0.0 || >=22.0.3",
     "@semantic-release/error": "^3.0.0",
     "aggregate-error": "^3.1.0",
     "debug": "^4.3.4",

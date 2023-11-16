@@ -25,12 +25,12 @@
     "commit": "git-cz"
   },
   "dependencies": {
-    "semantic-release": ">=20.0.0 <22.0.0",
     "@semantic-release/error": "^3.0.0",
     "aggregate-error": "^3.1.0",
     "debug": "^4.3.4",
     "execa": "^5.1.1",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "semantic-release": "^22.0.7"
   },
   "devDependencies": {
     "@saithodev/semantic-release-sharedconf-npm": "^2.1.2",
@@ -38,7 +38,7 @@
     "@types/jest": "^29.4.0",
     "@types/lodash": "^4.14.191",
     "@types/node": "^14.18.36",
-    "@types/semantic-release": "^20.0.1",
+    "@types/semantic-release": "^20.0.5",
     "@types/semantic-release__error": "^3.0.0",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",

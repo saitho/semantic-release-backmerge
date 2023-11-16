@@ -31,7 +31,7 @@ export class PluginGroup {
     }
 }
 
-export function loadPlugins(parentPluginConfig: any, context: Context): PluginGroup {
+export async function loadPlugins(parentPluginConfig: any, context:  Context ): Promise<PluginGroup> {
     const plugins = [];
     for (const plugin of parentPluginConfig.plugins) {
         const packageData = getPackageData(plugin);
@@ -41,7 +41,9 @@ export function loadPlugins(parentPluginConfig: any, context: Context): PluginGr
         }
         const {packageName, pluginConfig} = packageData;
 
-        const pluginPackage = require(packageName);
+        const pluginModule = await import(packageName);
+        const pluginPackage = pluginModule.default || pluginModule;
+
         if (!pluginPackage.hasOwnProperty('success') || typeof pluginPackage.success !== 'function') {
             context.logger.log('Method "success" not found in package ' + packageName + '.');
             continue;

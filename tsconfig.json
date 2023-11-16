@@ -3,7 +3,7 @@
     "src/**/*"
   ],
   "compilerOptions": {
-    "target": "es2018",
+    "target": "ESNext",
     "lib": [
       "es2018",
       "esnext.asynciterable"
@@ -17,6 +17,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "dist",
+    "skipLibCheck": true,
     "noEmitOnError": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
@@ -28,8 +29,15 @@
     "emitDecoratorMetadata": true,
     "noErrorTruncation": true,
     "moduleResolution": "Node",
+    "module": "ESNext",
     "resolveJsonModule": false,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "semantic-release": [
+        "./node_modules/@types/semantic-release",
+        "./node_modules/semantic-release"
+      ]
+    }
   }
 }

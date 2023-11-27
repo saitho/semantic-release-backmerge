@@ -1,3 +1,15 @@
+# [4.0.0](https://github.com/saitho/semantic-release-backmerge/compare/v3.2.1...v4.0.0) (2023-11-27)
+
+
+### Features
+
+* upgrade to semantic-release 22 and use esm ([e618c08](https://github.com/saitho/semantic-release-backmerge/commit/e618c08b2739633455b49f8611b2755b822e8cec))
+
+
+### BREAKING CHANGES
+
+* Removed support for semantic-release v20 and v21. Requires v22.0.7 or later.
+
 ## [3.2.1](https://github.com/saitho/semantic-release-backmerge/compare/v3.2.0...v3.2.1) (2023-09-21)
 
 

@@ -1,3 +1,10 @@
+## [4.0.1](https://github.com/saitho/semantic-release-backmerge/compare/v4.0.0...v4.0.1) (2023-11-27)
+
+
+### Bug Fixes
+
+* ignore empty stash ([d8e9734](https://github.com/saitho/semantic-release-backmerge/commit/d8e9734fa4d2039cf4f6e03a4006f8cfdc8439bd)), closes [#55](https://github.com/saitho/semantic-release-backmerge/issues/55)
+
 # [4.0.0](https://github.com/saitho/semantic-release-backmerge/compare/v3.2.1...v4.0.0) (2023-11-27)
 
 

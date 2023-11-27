@@ -247,6 +247,49 @@ describe("perform-backmerge", () => {
         verify(mockedGit.unstash()).calledAfter(pushAction);
     });
 
+    it("stash and unstash with empty stash", async () => {
+        const mockedGit = mock(Git);
+        const mockedLogger = mock(NullLogger);
+        when(mockedGit.checkout(anyString())).thenResolve();
+        when(mockedGit.configFetchAllRemotes()).thenResolve();
+        when(mockedGit.getModifiedFiles())
+            .thenReturn(new Promise<string[]>(resolve => resolve([])));
+        when(mockedGit.fetch()).thenResolve();
+        when(mockedGit.commit(anyString())).thenResolve();
+        when(mockedGit.rebase(anyString())).thenResolve();
+        const makeError = require('execa/lib/error')
+        when(mockedGit.unstash()).thenThrow(makeError({
+            stderr: 'No stash entries found.',
+            parsed: {options:{timeout: 0}}
+        }));
+        when(mockedGit.push(anyString(), anyString(), anything())).thenResolve();
+
+        const context = {logger: instance(mockedLogger), branch: {name: 'master'}, options: {repositoryUrl: 'my-repo'}} as Context;
+
+        await performBackmerge(
+            instance(mockedGit),
+            {
+                backmergeBranches: ['develop'],
+                clearWorkspace: true,
+                restoreWorkspace: true
+            },
+            context
+        );
+        verify(mockedLogger.log('Performing back-merge into develop branch "develop".')).once();
+        verify(mockedGit.checkout('master')).once();
+        verify(mockedGit.configFetchAllRemotes()).once();
+        verify(mockedGit.fetch(context.options!.repositoryUrl)).once();
+
+        const checkoutDevelopAction = mockedGit.checkout('develop');
+        verify(mockedGit.stash()).calledBefore(checkoutDevelopAction);
+        verify(checkoutDevelopAction).once();
+        verify(mockedGit.rebase('master')).once();
+
+        const pushAction = mockedGit.push('my-repo', 'develop', false)
+        verify(pushAction).once();
+        verify(mockedGit.unstash()).calledAfter(pushAction);
+    });
+
     it("merge as backmerge strategy", async () => {
         const mockedGit = mock(Git);
         const mockedLogger = mock(NullLogger);

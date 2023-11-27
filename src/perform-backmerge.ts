@@ -130,7 +130,13 @@ export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, 
 
     if (options.restoreWorkspace) {
         context.logger.log('Restoring stashed files to Git workspace.');
-        await git.unstash();
+        try {
+            await git.unstash();
+        } catch (error: any) {
+            if (error?.stderr !== 'No stash entries found.') {
+                throw error;
+            }
+        }
     }
 }
 

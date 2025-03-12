@@ -92,10 +92,13 @@ export default class Git {
      *
      * @throws {Error} if the push failed.
      */
-    async push(origin: string, branch: string, forcePush: boolean = false) {
+    async push(origin: string, branch: string, forcePush: boolean = false, skipPipeline: boolean = false) {
         const args = ['push', origin, `HEAD:${branch}`];
         if (forcePush) {
             args.push('-f');
+        }
+        if (skipPipeline) {
+            args.push('-o ci.skip');
         }
         await this.runGitCommand(args, false);
     }

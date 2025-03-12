@@ -74,7 +74,7 @@ async function performBackmergeIntoBranch(git: Git, _pluginConfig: Partial<Confi
 
     context.logger.log(`Pushing backmerge to develop branch ${developBranchName}`);
     const authedRepositoryUrl = await getGitAuthUrl({...context, branch: {name: developBranchName}});
-    await git.push(authedRepositoryUrl, developBranchName, options.forcePush);
+    await git.push(authedRepositoryUrl, developBranchName, options.forcePush, options.skipPipeline);
 }
 
 export async function performBackmerge(git: Git, pluginConfig: Partial<Config>, context: Context) {

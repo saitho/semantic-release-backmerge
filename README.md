@@ -93,6 +93,7 @@ The personal access token in `GITHUB_TOKEN` needs access to the `repo` scope.
 | `plugins` | Plugins defined here may stage files to be included in a back-merge commit. See [plugins](#plugins).   |  []  |
 | `message` | The message for the back-merge commit (if files were changed by plugins. See [message](#message).   | `chore(release): Preparations for next release [skip ci]`     |
 | `forcePush` | If set the back-merge will be force-pushed. See [forcePush](#forcePush).   | false |
+| `skipPipeline` | If set the back-merge will run with the `-o ci.skip` flag to skip the CI/CD pipeline See [skipPipeline](#skipPipeline).   | false |
 | `clearWorkspace` | Whether to stash the current workspace before backmerge. See [clearWorkspace](#clearWorkspace).   | false |
 | `restoreWorkspace` | Restore the stashed workspace after backmerge completed. See [restoreWorkspace](#restoreWorkspace).   | false |
 | `mergeMode` | Mode for merging (when `backmergeStrategy=merge`). See [mergeMode](#mergeMode).   | none |
@@ -167,6 +168,10 @@ If you want to be able to back-merge into the same branch as the branch that was
 Setting this option will force-push the commits from back-merge onto the develop branch.
 
 **Warning:** This will override commits that are not in the develop branch, so make sure that really is what you want!
+
+#### `skipPipeline`
+
+Setting this option will skip the CI/CD pipeline on the target branch of the back-merge.
 
 #### `clearWorkspace`
 

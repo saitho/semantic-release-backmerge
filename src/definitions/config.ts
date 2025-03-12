@@ -10,6 +10,7 @@ export interface Config {
     backmergeStrategy: BackmergeStrategy;
     plugins: any;
     forcePush: boolean;
+    skipPipeline: boolean;
     message: string;
     allowSameBranchMerge: boolean;
     clearWorkspace: boolean;

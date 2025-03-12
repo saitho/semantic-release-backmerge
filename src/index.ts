@@ -36,6 +36,7 @@ export async function verifyConditions(pluginConfig: Config, context: Context) {
         pluginConfig.backmergeStrategy = defaultTo(realPluginConfig.backmergeStrategy, preparePlugin.backmergeStrategy);
         pluginConfig.plugins = defaultTo(realPluginConfig.plugins, preparePlugin.plugins);
         pluginConfig.forcePush = defaultTo(realPluginConfig.forcePush, preparePlugin.forcePush);
+        pluginConfig.skipPipeline = defaultTo(realPluginConfig.skipPipeline, preparePlugin.skipPipeline);
         pluginConfig.message = defaultTo(realPluginConfig.message, preparePlugin.message);
         pluginConfig.clearWorkspace = defaultTo(realPluginConfig.clearWorkspace, preparePlugin.clearWorkspace);
         pluginConfig.restoreWorkspace = defaultTo(realPluginConfig.restoreWorkspace, preparePlugin.restoreWorkspace);
